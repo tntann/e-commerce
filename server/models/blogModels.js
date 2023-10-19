@@ -31,7 +31,7 @@ var blogSchema = new mongoose.Schema(
         ref: "User",
       },
     ],
-    images: {
+    image: {
       type: String,
       default:
         "https://png.pngtree.com/thumb_back/fh260/background/20201010/pngtree-black-friday-sell-background-design-image_408821.jpg",

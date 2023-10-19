@@ -31,11 +31,14 @@ var userSchema = new mongoose.Schema(
       type: String,
       default: "user",
     },
-    cart: {
-      type: Array,
-      default: [],
-    },
-    address: [{ type: mongoose.Types.ObjectId, ref: "Address" }],
+    cart: [
+      {
+        product: { type: mongoose.Types.ObjectId, ref: "Product" },
+        quantity: Number,
+        color: String,
+      },
+    ],
+    address: String,
     wishlist: [{ type: mongoose.Types.ObjectId, ref: "Product" }],
     isBlocked: {
       type: Boolean,
@@ -80,7 +83,7 @@ userSchema.methods = {
       .createHash("sha256")
       .update(resetToken)
       .digest("hex");
-    this.passwordResetExpires = Date.now() + 15 * 60 * 1000;
+    this.passwordResetExpires = Date.now() + 5 * 60 * 1000;
     return resetToken;
   },
 };
