@@ -13,6 +13,10 @@ var productCategorySchema = new mongoose.Schema(
       type: Array,
       required: true,
     },
+    icon: {
+      type: String,
+      required: true,
+    },
   },
   {
     timestamps: true,
