@@ -47,3 +47,9 @@ button.slick-prev::before {
   height: 50px;
   font-size: 12px;
 }
+
+/* input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+} */

@@ -5,13 +5,14 @@ import Trend from "../../assets/Trending.png";
 import { formatMoney, renderStartFromNumber } from "../../utils/helper";
 import { SelectOption } from "../";
 import icons from "../../utils/icons";
+import { Link } from "react-router-dom";
 
-const { AiOutlineEye, AiOutlineMenu, AiOutlineShoppingCart } = icons;
+const { FiHeart, AiOutlineMenu, AiOutlineShoppingCart } = icons;
 
-const Product = ({ productData, isNew }) => {
+const Product = ({ productData, isNew, normal }) => {
   const [isShowOption, setIsShowOption] = useState(false);
   return (
-    <div className="w-full text-base px-[10px] cursor-pointer ">
+    <div className="w-full text-base px-[10px] ">
       <div
         className="w-full border p-[15px] flex flex-col items-center shadow-md rounded-lg"
         onMouseEnter={(e) => {
@@ -23,11 +24,16 @@ const Product = ({ productData, isNew }) => {
           setIsShowOption(false);
         }}
       >
-        <div className="w-full relative ">
+        <Link
+          to={`/${productData?.category?.toLowerCase()}/${productData?._id}/${
+            productData?.title
+          }`}
+          className="w-full relative "
+        >
           {isShowOption && (
-            <div className=" absolute bottom-[-10px] left-0 right-0 flex justify-center gap-5 animate-slide-top">
+            <div className="absolute bottom-[-10px] left-0 right-0 flex justify-center gap-5 animate-slide-top">
               <SelectOption icon={<AiOutlineMenu />} />
-              <SelectOption icon={<AiOutlineEye />} />
+              <SelectOption icon={<FiHeart />} />
               <SelectOption icon={<AiOutlineShoppingCart />} />
             </div>
           )}
@@ -36,16 +42,23 @@ const Product = ({ productData, isNew }) => {
             alt="product"
             className="w-[243px] h-[243px] object-cover"
           />
-          <img
-            src={isNew ? labelnew : Trend}
-            alt=""
-            className=" absolute top-0 right-0 w-[75px] h-[25px] object-contain"
-          />
-        </div>
+          {!normal && (
+            <img
+              src={isNew ? labelnew : Trend}
+              alt=""
+              className=" absolute top-0 right-0 w-[75px] h-[25px] object-contain"
+            />
+          )}
+        </Link>
         <div className="flex flex-col gap-1 mt-[15px] items-start w-full">
-          <span className=" line-clamp-1 font-normal">
+          <Link
+            to={`/${productData?.category?.toLowerCase()}/${productData?._id}/${
+              productData?.title
+            }`}
+            className=" line-clamp-1 font-normal"
+          >
             {productData?.title}
-          </span>
+          </Link>
           <span className="text-main">{`${formatMoney(
             productData?.price
           )} đ`}</span>

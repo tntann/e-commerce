@@ -32,3 +32,49 @@ export function secondsToHms(d) {
   const s = Math.floor((d % 3600) % 60);
   return { h, m, s };
 }
+
+// validate form
+export const validate = (payload, setInvalidFields) => {
+  let invalids = 0;
+  const formatPayload = Object.entries(payload);
+  for (let arr of formatPayload) {
+    if (arr[1].trim() === "") {
+      invalids++;
+      setInvalidFields((prev) => [
+        ...(Array.isArray(prev) ? prev : []), // Ensure prev is an array
+        { name: arr[0], mess: "Please fill out this field." },
+      ]);
+    }
+  }
+  for (let arr of formatPayload) {
+    switch (arr[0]) {
+      case "email":
+        // eslint-disable-next-line no-useless-escape
+        const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+        if (!arr[1].match(regex)) {
+          invalids++;
+          setInvalidFields((prev) => [
+            ...(Array.isArray(prev) ? prev : []), // Ensure prev is an array
+            { name: arr[0], mess: "Invalid email." },
+          ]);
+        }
+        break;
+      case "password":
+        if (arr[1].length < 8) {
+          invalids++;
+          setInvalidFields((prev) => [
+            ...(Array.isArray(prev) ? prev : []), // Ensure prev is an array
+            { name: arr[0], mess: "Must have a minimum of 8 characters." },
+          ]);
+        }
+        break;
+      default:
+        break;
+    }
+  }
+
+  return invalids;
+};
+
+// format price
+export const formatPrice = (number) => Math.round(number / 1000) * 1000;

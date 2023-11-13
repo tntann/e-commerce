@@ -8,7 +8,13 @@ const instance = axios.create({
 instance.interceptors.request.use(
   function (config) {
     // Do something before request is sent
-    return config;
+    let localStorageData = window.localStorage.getItem("persist:shop/user");
+    if (localStorageData && typeof localStorageData === "string") {
+      localStorageData = JSON.parse(localStorageData);
+      const accessToken = JSON.parse(localStorageData?.token);
+      config.headers = { authorization: `Bearer ${accessToken}` };
+      return config;
+    } else return config;
   },
   function (error) {
     // Do something with request error
@@ -26,7 +32,7 @@ instance.interceptors.response.use(
   function (error) {
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
-    return error.data;
+    return error.response.data;
   }
 );
 

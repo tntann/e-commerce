@@ -23,7 +23,7 @@ const DealDaily = () => {
   const fetchDealDaily = async () => {
     const response = await apiGetProducts({
       limit: 1,
-      page: 6, // Math.round(Math.random() * 10)
+      page: 10, // Math.round(Math.random() * 10)
       totalRatings: 5,
     });
     if (response.success) {
@@ -32,7 +32,7 @@ const DealDaily = () => {
       const today = `${moment().format("MM/DD/YYYY")} 7:00:00`;
       const seconds =
         new Date(today).getTime() - new Date().getTime() + 24 * 3600 * 1000;
-      console.log(seconds);
+      // console.log(seconds);
       const number = secondsToHms(seconds);
       setHour(number.h);
       setMinute(number.m);

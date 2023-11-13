@@ -5,12 +5,18 @@ import {
   BestSeller,
   DealDaily,
   FeatureProducts,
+  NewProducts,
+  FeatureCategories,
+  TechnologyNews,
 } from "../../components";
+import { useSelector } from "react-redux";
 
 const Home = () => {
+  const { isLoggedIn, current } = useSelector((state) => state.user);
+  console.log({ isLoggedIn, current });
   return (
     <>
-      <div className="w-main flex ">
+      <div className="w-main flex relative mt-6">
         <div className="flex flex-col gap-5 w-[25%] flex-auto">
           <Sidebar />
           <DealDaily />
@@ -22,11 +28,25 @@ const Home = () => {
         </div>
       </div>
 
-      {/* FeatureProducts */}
+      {/* Feature Products, YOU'LL PROBABLY LIKE */}
       <div className="my-8">
         <FeatureProducts />
       </div>
-      <div className="w-full h-[500px]"> </div>
+
+      {/* New Products */}
+      <div className="my-8 ">
+        <NewProducts />
+      </div>
+
+      {/* FEATURED CATEGORIES */}
+      <div className="my-8 ">
+        <FeatureCategories />
+      </div>
+
+      {/* TECHNOLOGY NEWS */}
+      <div className="my-8">
+        <TechnologyNews />
+      </div>
     </>
   );
 };

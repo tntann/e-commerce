@@ -14,9 +14,9 @@ const FeatureProducts = () => {
     fetchProducts();
   }, []);
   return (
-    <div className="w-full">
+    <div className="w-main">
       <h3 className="text-[20px] font-semibold py-[15px] border-b-2 border-main">
-        FEATURED PRODUCTS
+        YOU&#39;LL PROBABLY LIKE
       </h3>
       <div className="flex flex-wrap mt-5 mx-[-10px]">
         {products?.map((el) => (
@@ -31,7 +31,7 @@ const FeatureProducts = () => {
       </div>
 
       {/* banner bottom home */}
-      <div className="flex">
+      <div className="flex cursor-pointer">
         <img
           src="https://res.cloudinary.com/dxicjtlt4/image/upload/v1698505662/ecommerce/banner-flip4-s22-ultra_de6pnt.png"
           alt="banner"
