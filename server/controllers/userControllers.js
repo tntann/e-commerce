@@ -7,28 +7,102 @@ const {
 const jwt = require("jsonwebtoken");
 const sendMail = require("../utils/sendMail");
 const crypto = require("crypto");
+const makeToken = require("uniqid");
+
+// logic dang ky
+// const register = asyncHandler(async (req, res) => {
+//   const { email, password, firstname, lastname } = req.body;
+//   if (!email || !password || !firstname || !lastname)
+//     return res.status(400).json({
+//       success: false,
+//       mess: "Missing inputs",
+//     });
+
+//   const user = await User.findOne({ email: email });
+//   if (user) {
+//     throw new Error("User has existed!");
+//   } else {
+//     const newUser = await User.create(req.body);
+//     return res.status(200).json({
+//       success: newUser ? true : false,
+//       mess: newUser
+//         ? "Register is successfully!. Please login"
+//         : "Something went wrong",
+//     });
+//   }
+// });
 
 // logic dang ky
 const register = asyncHandler(async (req, res) => {
-  const { email, password, firstname, lastname } = req.body;
-  if (!email || !password || !firstname || !lastname)
+  const { email, password, firstname, lastname, mobile } = req.body;
+  if (!email || !password || !firstname || !lastname || !mobile)
     return res.status(400).json({
-      sucess: false,
+      success: false,
       mess: "Missing inputs",
     });
-
   const user = await User.findOne({ email: email });
   if (user) {
-    throw new Error("User đã tồn tại!");
+    throw new Error("User has existed!");
   } else {
-    const newUser = await User.create(req.body);
-    return res.status(200).json({
-      sucess: newUser ? true : false,
+    const token = makeToken();
+    const emailedited = btoa(email) + "@" + token;
+    const newUser = await User.create({
+      email: emailedited,
+      password,
+      firstname,
+      lastname,
+      mobile,
+    });
+    if (newUser) {
+      const html = `<h4>REGISTER CODE:</h4><br /><span>${token}</span>`;
+      await sendMail({
+        email,
+        html,
+        subject: "[He-Mobile] Completed registration He Mobile",
+      });
+    }
+    setTimeout(async () => {
+      await User.deleteOne({ email: emailedited });
+    }, [3000000]);
+    return res.json({
+      success: newUser ? true : false,
       mess: newUser
-        ? "Register is successfully!. Please login"
-        : "Something went wrong",
+        ? "Please check your email for registration"
+        : "Something went wrong, please try again",
     });
   }
+});
+
+// dang ky tai khoan qua email va luu tam vao db
+const finalRegister = asyncHandler(async (req, res) => {
+  // const cookie = req.cookies;
+  const { token } = req.params;
+  const notActivedEmail = await User.findOne({
+    email: new RegExp(`${token}$`),
+  });
+  if (notActivedEmail) {
+    notActivedEmail.email = atob(notActivedEmail?.email?.split("@")[0]);
+    notActivedEmail.save();
+  }
+
+  return res.json({
+    success: notActivedEmail ? true : false,
+    mess: notActivedEmail
+      ? "Registration is successful. Please login"
+      : "Something went wrong, please try again",
+  });
+
+  //   const newUser = await User.create({
+  //     email: cookie?.dataRegister?.email,
+  //     password: cookie?.dataRegister?.password,
+  //     firstname: cookie?.dataRegister?.firstname,
+  //     lastname: cookie?.dataRegister?.lastname,
+  //     mobile: cookie?.dataRegister?.mobile,
+  //   });
+  //   res.clearCookie("dataRegister");
+  //   if (newUser)
+  //     return res.redirect(`${process.env.CLIENT_URL}/finalregister/success`);
+  //   else return res.redirect(`${process.env.CLIENT_URL}/finalregister/failed`);
 });
 
 // logic dang nhap
@@ -36,7 +110,7 @@ const login = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password)
     return res.status(400).json({
-      sucess: false,
+      success: false,
       mess: "Missing inputs",
     });
 
@@ -60,7 +134,7 @@ const login = asyncHandler(async (req, res) => {
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
     return res.status(200).json({
-      sucess: true,
+      success: true,
       accessToken,
       userData,
     });
@@ -74,7 +148,7 @@ const getCurrent = asyncHandler(async (req, res) => {
   const { _id } = req.user;
   const user = await User.findById(_id).select("-refreshToken -password -role");
   return res.status(200).json({
-    sucess: user ? true : false,
+    success: user ? true : false,
     result: user ? user : "User not found",
   });
 });
@@ -129,24 +203,27 @@ const logout = asyncHandler(async (req, res) => {
 // Change password
 
 const forgotPassword = asyncHandler(async (req, res) => {
-  const { email } = req.query;
+  const { email } = req.body;
   if (!email) throw new Error("Missing email");
   const user = await User.findOne({ email });
   if (!user) throw new Error("User not found");
   const resetToken = user.createPasswordChangeToken();
   await user.save();
 
-  const html = `Vui lòng nhấn vào link dưới đây để thay đổi mật khẩu của bạn. Link này sẽ hết hạn sau 5p. 
-  <a href=${process.env.URL_SERVER}/api/user/reset-password/${resetToken}>Click Here</a>`;
+  const html = `Please click on the link below to change your password. This link will expire after 5 minutes. 
+  <a href=${process.env.CLIENT_URL}/reset-password/${resetToken}>Click Here</a>`;
 
   const data = {
     email,
     html,
+    subject: "[He-Mobile] Reset your password",
   };
   const result = await sendMail(data);
   return res.status(200).json({
-    success: true,
-    result,
+    success: result.response?.includes("OK") ? true : false,
+    mess: result.response?.includes("OK")
+      ? "Please check your email"
+      : "Something went wrong. Please try again",
   });
 });
 
@@ -298,4 +375,5 @@ module.exports = {
   updateUserByAdmin,
   updateUserAddress,
   updateCart,
+  finalRegister,
 };

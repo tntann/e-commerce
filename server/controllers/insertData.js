@@ -34,6 +34,7 @@ const fn2 = async (cate) => {
     title: cate?.cate,
     brand: cate?.brand,
     icon: cate?.icon,
+    image: cate?.image,
   });
 };
 
