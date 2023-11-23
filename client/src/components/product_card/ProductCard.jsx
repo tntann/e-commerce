@@ -4,7 +4,7 @@ import { formatMoney, renderStartFromNumber } from "../../utils/helper";
 const ProductCard = ({ image, title, totalRatings, price }) => {
   return (
     <div className="w-1/3 flex-auto px-[10px] mb-[20px]">
-      <div className="flex border w-full rounded-lg shadow-md cursor-pointer">
+      <div className="flex border w-full rounded-lg shadow-sm cursor-pointer">
         <img
           src={image}
           alt="product"

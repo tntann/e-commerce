@@ -54,6 +54,7 @@ const Login = () => {
 
   useEffect(() => {
     resetPayLoad();
+    window.scrollTo(0, 0);
   }, [isRegister]);
 
   // SUBMIT
@@ -106,7 +107,7 @@ const Login = () => {
     <div className="w-main relative bg-white mt-6">
       {/* modal register code */}
       {isVerifiedEmail && (
-        <div className="w-full absolute top-0 left-0 right-0 bottom-6 bg-overlay z-20 flex flex-col justify-center items-center">
+        <div className="w-full absolute top-0 left-0 right-0 bottom-6 bg-white z-20 flex flex-col justify-center items-center">
           <div className="bg-white w-[500px] rounded-md p-8 ">
             <div className="justify-center items-center flex flex-col gap-4">
               <h4 className=" text-gray-800">
@@ -135,7 +136,7 @@ const Login = () => {
       {/* modal forgot password */}
       {isForgotPass && (
         <div className="absolute animate-slide-right top-0 left-0 right-0 bottom-0 bg-white flex flex-col items-center py-8 z-10">
-          <div className="mb-6 flex justify-center items-center">
+          <div className="mb-6 flex justify-center items-center mt-10">
             <img
               src="https://res.cloudinary.com/dxicjtlt4/image/upload/v1698999176/ecommerce/changepass_hoyfgs.png"
               alt=""
@@ -156,7 +157,7 @@ const Login = () => {
               type="email"
               name="email"
               id="email"
-              className="w-[650px] p-4 my-3 placeholder:italic border placeholder:text-sm rounded-md border-gray-300 focus:border-main focus:outline-none"
+              className="w-[650px] p-3 my-3 placeholder:italic border placeholder:text-sm rounded-md border-gray-300 focus:border-main focus:outline-none"
               placeholder="name@example.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -167,7 +168,7 @@ const Login = () => {
             <Button
               name="CANCEL"
               handleOnClick={() => setIsForgotPass(false)}
-              style="p-4 my-3 rounded-md text-white bg-gray-400 font-semibold w-full hover:bg-gray-500 focus:outline-none focus:bg-gray-500 "
+              style="p-3 my-3 rounded-md text-white bg-gray-400 font-semibold w-full hover:bg-gray-500 focus:outline-none focus:bg-gray-500 "
             />
           </div>
         </div>

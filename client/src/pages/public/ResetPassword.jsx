@@ -36,7 +36,7 @@ const ResetPassword = () => {
             type="password"
             name="password"
             id="password"
-            className="w-[650px] p-4 my-3 placeholder:italic border placeholder:text-sm rounded-md border-gray-300 focus:border-main focus:outline-none"
+            className="w-[650px] p-3 my-3 placeholder:italic border placeholder:text-sm rounded-md border-gray-300 focus:border-main focus:outline-none"
             placeholder="Enter your new password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}

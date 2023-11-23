@@ -16,6 +16,7 @@ import {
   renderStartFromNumber,
 } from "../../utils/helper";
 import { productExtrainfo } from "../../utils/contains";
+// import ImageGallery from "react-image-gallery";
 
 const settings = {
   dots: false,
@@ -28,12 +29,17 @@ const settings = {
 const ProductDetail = () => {
   const { pid, title, category } = useParams();
   const [product, setProduct] = useState([]);
+  const [currentImage, setCurrentImage] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [relatedProducts, setRelatedProducts] = useState(null);
+  const [update, setUpdate] = useState(false);
 
   const fetchProductData = async () => {
     const response = await apiGetProduct(pid);
-    if (response.success) setProduct(response.productData);
+    if (response.success) {
+      setProduct(response.productData);
+      setCurrentImage(response.productData?.thumb);
+    }
   };
 
   const fetchProducts = async () => {
@@ -46,7 +52,16 @@ const ProductDetail = () => {
       fetchProductData();
       fetchProducts();
     }
+    window.scrollTo(0, 0);
   }, [pid]);
+
+  useEffect(() => {
+    if (pid) fetchProductData();
+  }, [update]);
+
+  const rerender = useCallback(() => {
+    setUpdate(!update);
+  }, [update]);
 
   const handleQuantity = useCallback(
     (number) => {
@@ -67,6 +82,11 @@ const ProductDetail = () => {
     },
     [quantity]
   );
+
+  const handleClickImage = (e, el) => {
+    e.stopPropagation();
+    setCurrentImage(el);
+  };
   return (
     <div className="w-full">
       {/* breadcrumbs */}
@@ -83,19 +103,20 @@ const ProductDetail = () => {
         <div className="w-2/5 flex flex-col gap-[30px]">
           <div className="w-[458px]">
             <img
-              src={product?.thumb}
+              src={currentImage}
               alt="product"
-              className="w-[458px] h-[458px] border object-cover rounded-lg"
+              className="w-[458px] h-[458px] border border-gray-300 object-contain rounded-lg"
             />
           </div>
           <div className="w-[458px]">
             <Slider {...settings}>
               {product?.images?.map((el, index) => (
-                <div key={index}>
+                <div key={index} className="border-none outline-none">
                   <img
+                    onClick={(e) => handleClickImage(e, el)}
                     src={el}
                     alt="sub-product"
-                    className="w-[143px] h-[143px] cursor-pointer border object-contain rounded-lg"
+                    className="w-[143px] h-[143px] cursor-pointer border border-gray-300 hover:border-main object-contain rounded-lg"
                   />
                 </div>
               ))}
@@ -156,17 +177,23 @@ const ProductDetail = () => {
 
       {/* ProductInfoTab */}
       <div className="w-main m-auto mt-8">
-        <ProductInfoTab />
+        <ProductInfoTab
+          totalRatings={product?.totalRatings}
+          ratings={product?.ratings}
+          nameProduct={product?.title}
+          pid={product?._id}
+          rerender={rerender}
+        />
       </div>
       <div className="w-main m-auto mt-8">
         <h3 className="text-[20px] font-semibold py-[15px] border-b-2 border-main">
           OTHER CUSTOMERS ALSO BUY
         </h3>
-        <div className="mt-12 mx-[-10px]">
+        <div className="mt-12 mx-[-10px] mb-12">
           <CustomSlider2 normal={true} products={relatedProducts} />
         </div>
       </div>
-      <div className="w-full h-[100px]"></div>
+      {/* <div className="w-full h-[100px]"></div> */}
     </div>
   );
 };

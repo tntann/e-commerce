@@ -35,7 +35,7 @@ const FeatureProducts = () => {
         <img
           src="https://res.cloudinary.com/dxicjtlt4/image/upload/v1698505662/ecommerce/banner-flip4-s22-ultra_de6pnt.png"
           alt="banner"
-          className="object-cover w-full shadow-lg rounded-3xl"
+          className="object-cover w-full rounded-3xl"
         />
 
         {/* <div className="flex flex-col justify-between gap-4 w-[24%]">

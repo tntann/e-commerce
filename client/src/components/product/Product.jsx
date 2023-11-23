@@ -2,7 +2,11 @@ import React, { useState } from "react";
 import noProduct from "../../assets/no-products-found.png";
 import labelnew from "../../assets/new.png";
 import Trend from "../../assets/Trending.png";
-import { formatMoney, renderStartFromNumber } from "../../utils/helper";
+import {
+  formatMoney,
+  renderStartFromNumber,
+  formatPrice,
+} from "../../utils/helper";
 import { SelectOption } from "../";
 import icons from "../../utils/icons";
 import { Link } from "react-router-dom";
@@ -14,7 +18,7 @@ const Product = ({ productData, isNew, normal }) => {
   return (
     <div className="w-full text-base px-[10px] ">
       <div
-        className="w-full border p-[15px] flex flex-col items-center shadow-md rounded-lg"
+        className="w-full border p-[15px] flex flex-col items-center shadow-sm rounded-lg"
         onMouseEnter={(e) => {
           e.stopPropagation();
           setIsShowOption(true);
@@ -37,11 +41,13 @@ const Product = ({ productData, isNew, normal }) => {
               <SelectOption icon={<AiOutlineShoppingCart />} />
             </div>
           )}
-          <img
-            src={productData?.thumb || noProduct}
-            alt="product"
-            className="w-[243px] h-[243px] object-cover"
-          />
+          <div className="border-none outline-none">
+            <img
+              src={productData?.thumb || noProduct}
+              alt="product"
+              className="w-[243px] h-[243px] object-cover"
+            />
+          </div>
           {!normal && (
             <img
               src={isNew ? labelnew : Trend}
@@ -59,16 +65,16 @@ const Product = ({ productData, isNew, normal }) => {
           >
             {productData?.title}
           </Link>
-          <span className="text-main">{`${formatMoney(
-            productData?.price
-          )} đ`}</span>
+          <span className="text-main">
+            {" "}
+            {`${formatMoney(formatPrice(productData?.price))} VND`}
+          </span>
           <span className="flex h-4">
             {/* {renderStartFromNumber(productData?.totalRatings)} */}
-            {renderStartFromNumber(productData?.totalRatings).map(
-              (star, index) => (
-                <span key={index}>{star}</span>
-              )
-            )}
+            {productData?.totalRatings &&
+              renderStartFromNumber(productData?.totalRatings).map(
+                (star, index) => <span key={index}>{star}</span>
+              )}
           </span>
         </div>
       </div>

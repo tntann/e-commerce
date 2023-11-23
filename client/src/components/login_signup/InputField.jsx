@@ -21,7 +21,7 @@ const InputField = ({
       )}
       <input
         type={type || "text"}
-        className=" placeholder:text-sm placeholder:italic p-4 mt-2 w-full rounded-md border border-gray-300 focus:border-main focus:outline-none"
+        className=" placeholder:text-sm placeholder:italic p-3 mt-2 w-full rounded-md border border-gray-300 focus:border-main focus:outline-none"
         placeholder={nameKey?.slice(0, 1).toUpperCase() + nameKey?.slice(1)}
         value={value}
         onChange={(e) =>

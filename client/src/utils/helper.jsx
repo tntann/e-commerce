@@ -18,6 +18,7 @@ export const formatMoney = (number) =>
 export const renderStartFromNumber = (number, size) => {
   if (!Number(number)) return;
   const stars = [];
+  number = Math.round(number);
   for (let i = 0; i < +number; i++)
     stars.push(<AiFillStar color="#ffce3d" size={size || 16} />);
   for (let i = 5; i > +number; i--)
@@ -78,3 +79,8 @@ export const validate = (payload, setInvalidFields) => {
 
 // format price
 export const formatPrice = (number) => Math.round(number / 1000) * 1000;
+
+export const generateRange = (start, end) => {
+  const length = end + 1 - start;
+  return Array.from({ length }, (_, index) => start + index);
+};

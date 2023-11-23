@@ -8,6 +8,7 @@ export const userSlice = createSlice({
     current: null,
     token: null,
     isLoading: false,
+    mess: "",
   },
   reducers: {
     login: (state, action) => {
@@ -17,6 +18,9 @@ export const userSlice = createSlice({
     logout: (state) => {
       state.isLoggedIn = false;
       state.token = null;
+    },
+    clearMessage: (state) => {
+      state.mess = "";
     },
   },
   // Code logic xử lý async action
@@ -33,6 +37,7 @@ export const userSlice = createSlice({
       // Tắt trạng thái loading, lưu thông tin
       state.isLoading = false;
       state.current = action.payload;
+      state.isLoggedIn = true;
     });
 
     // Khi thực hiện action thất bại (Promise rejected)
@@ -41,10 +46,13 @@ export const userSlice = createSlice({
       state.isLoading = false;
       state.current = null;
       state.errorMessage = action.payload.message;
+      state.isLoggedIn = false;
+      state.token = null;
+      state.mess = "The login session has expired. Please login again!";
     });
   },
 });
 
-export const { login, logout } = userSlice.actions;
+export const { login, logout, clearMessage } = userSlice.actions;
 
 export default userSlice.reducer;

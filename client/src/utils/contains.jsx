@@ -76,14 +76,7 @@ export const productInfoTabs = [
     Chipset: Snapdragon 820
     CPU: Quad-core
     Internal: 32GB/64GB/128GB
-    Camera: 16 MP, f/2.0 - 4 MP, f/2.0
-    It's been a while since we met the last of the Mi kind. Even though the Xiaomi Mi 4 went on sale back in the summer of 2014, it succeeded in staying relevant for over 20 months and surpassed the lifespan of many competitors. Xiaomi surely took the time to make the Mi 5 worthy of the flagship series name.
-    
-    The Mi 5 was the first Xiaomi phone to be unveiled under the massive spotlight of the world's biggest mobile expo - the MWC in Barcelona. And with its stunning looks and capable performance, the Mi 5 deserved nothing less.
-    
-    The Xiaomi Mi 5 is instantly likeable - the new flagship comes with unbelievably thin bezels, a sharp profile, a curved back and a lightweight body - all adding to one of the most impressive exteriors a modern smartphones can hope for.
-    
-    Then you learn that inside there is the latest Snapdragon 820 chipset, a new 16MP camera with 4-axis optical stabilization and yet no camera hump, generous storage options, rich connectivity options, and a beefy battery. How about that?`,
+    Camera: 16 MP, f/2.0 - 4 MP, f/2.0`,
   },
   {
     id: 2,
@@ -116,8 +109,78 @@ export const productInfoTabs = [
     Shopify Shop requires that all products are properly inspected BEFORE you take it home to insure there are no surprises. Our team is happy to open all packages and will assist in the inspection process. We will then reseal packages for safe transport. We encourage all customers to bring furniture pads or blankets to protect the items during transport as well as rope or tie downs. Shopify Shop will not be responsible for damage that occurs after leaving the store or during transit. It is the purchaser’s responsibility to make sure the correct items are picked up and in good condition.
     Delivery`,
   },
+];
+
+export const colors = [
+  "black",
+  "white",
+  "gray",
+  "blue",
+  "purple",
+  "brown",
+  "pink",
+  "yellow",
+  "green",
+  "red",
+];
+
+export const sorts = [
   {
-    id: 5,
-    name: "CUSTOMER REVIEWS",
+    id: "1",
+    value: "-sold",
+    text: "Best selling",
+  },
+  {
+    id: "2",
+    value: "title",
+    text: "Alphabetically, A-Z",
+  },
+  {
+    id: "3",
+    value: "-title",
+    text: "Alphabetically, Z-A",
+  },
+  {
+    id: "4",
+    value: "price",
+    text: "Price, low to high",
+  },
+  {
+    id: "5",
+    value: "-price",
+    text: "Price, high to low",
+  },
+  {
+    id: "6",
+    value: "createdAt",
+    text: "Date, old to new",
+  },
+  {
+    id: "7",
+    value: "-createdAt",
+    text: "Date, new to old",
+  },
+];
+
+export const voteOptions = [
+  {
+    id: "1",
+    text: "Terible",
+  },
+  {
+    id: "2",
+    text: "Bad",
+  },
+  {
+    id: "3",
+    text: "Normal",
+  },
+  {
+    id: "4",
+    text: "Good",
+  },
+  {
+    id: "5",
+    text: "Great",
   },
 ];

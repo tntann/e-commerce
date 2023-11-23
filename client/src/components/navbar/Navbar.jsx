@@ -7,7 +7,7 @@ const { FiSearch } = icons;
 
 const Navbar = () => {
   return (
-    <div className="w-main h-12 py-2 border-y text-sm flex items-center justify-between sticky top-0 z-50 bg-white">
+    <div className="w-main h-12 py-2 border-y text-sm flex items-center justify-between sticky top-0 z-40 bg-white">
       <div className="">
         {navbar.map((el) => (
           <NavLink

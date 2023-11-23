@@ -22,9 +22,9 @@ const Footer = () => {
               type="email"
               name="email"
               placeholder="Enter your email address"
-              className="p-4 pr-0 rounded-l-full w-full bg-[#f04646] outline-none text-[#faeeee] placeholder:text-sm placeholder:text-gray-200 placeholder:opacity-70"
+              className="p-4 h-[50px] pr-0 rounded-l-full w-full bg-[#f04646] outline-none text-[#faeeee] placeholder:text-sm placeholder:text-gray-200 placeholder:opacity-70"
             />
-            <div className="w-[56px] h-[56px] bg-[#f04646] rounded-r-full flex justify-center items-center text-white">
+            <div className="w-[65px] h-[50px] bg-[#f04646] rounded-r-full flex justify-center items-center text-white">
               <MdMailOutline size={20} />
             </div>
           </div>

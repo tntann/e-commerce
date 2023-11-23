@@ -19,6 +19,7 @@ import {
   AiOutlinePlus,
   AiOutlineMinus,
   AiFillGift,
+  AiOutlineDown,
 } from "react-icons/ai";
 import { FiSmartphone, FiMapPin, FiHeart, FiSearch } from "react-icons/fi";
 import { BiLogoGmail, BiArrowBack } from "react-icons/bi";
@@ -51,6 +52,7 @@ const icons = {
   AiFillGift,
   FaReply,
   FaTty,
+  AiOutlineDown,
 };
 
 export default icons;
