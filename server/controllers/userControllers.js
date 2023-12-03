@@ -8,6 +8,7 @@ const jwt = require("jsonwebtoken");
 const sendMail = require("../utils/sendMail");
 const crypto = require("crypto");
 const makeToken = require("uniqid");
+const { users } = require("../utils/contains");
 
 // logic dang ky
 // const register = asyncHandler(async (req, res) => {
@@ -252,11 +253,58 @@ const resetPassword = asyncHandler(async (req, res) => {
 
 // lay thoong tin tat ca nguoi dung
 const getUsers = asyncHandler(async (req, res) => {
-  const response = await User.find().select("-refreshToken -password -role");
-  return res.status(200).json({
-    success: response ? true : false,
-    users: response,
-  });
+  const queries = { ...req.query };
+  // Tách các trường đặc biệt ra khỏi query
+  const excludeFields = ["limit", "sort", "page", "fields"];
+  excludeFields.forEach((el) => delete queries[el]);
+
+  // Format lại các operators cho đúng cú pháp mongoose
+  let queryString = JSON.stringify(queries);
+  queryString = queryString.replace(
+    /\b(gte|gt|lt|lte)\b/g,
+    (matchedEl) => `$${matchedEl}`
+  );
+  const formatedQueries = JSON.parse(queryString);
+
+  // Filtering
+  if (queries?.name)
+    formatedQueries.name = { $regex: queries.name, $options: "i" };
+  let queryCommand = User.find(formatedQueries);
+
+  // Sorting
+  if (req.query.sort) {
+    const sortBy = req.query.sort.split(",").join(" "); // abc,efg => [abc, efg] => abc efg
+    queryCommand = queryCommand.sort(sortBy);
+  }
+
+  // Fields limiting
+  if (req.query.fields) {
+    const fields = req.query.fields.split(",").join(" ");
+    queryCommand = queryCommand.select(fields);
+  }
+
+  // Pagination
+  const page = +req.query.page || 1;
+  const limit = +req.query.limit || process.env.LIMIT_PRODUCTS;
+  const skip = (page - 1) * limit;
+  queryCommand.skip(skip).limit(limit);
+
+  // Execute query
+  try {
+    const response = await queryCommand.exec();
+
+    const counts = await User.find(formatedQueries).countDocuments();
+
+    return res.status(200).json({
+      success: response ? true : false,
+      counts,
+      users: response ? response : "Cannot get users",
+    });
+  } catch (error) {
+    // Handle errors here
+    console.error(error);
+    res.status(500).json({ success: false, error: "Internal Server Error" });
+  }
 });
 
 // Xoa User
@@ -296,6 +344,14 @@ const updateUserByAdmin = asyncHandler(async (req, res) => {
   return res.status(200).json({
     success: response ? true : false,
     updateUser: response ? response : "Something went wrong",
+  });
+});
+
+const createUsers = asyncHandler(async (req, res) => {
+  const response = await User.create(users);
+  return res.status(200).json({
+    success: response ? true : false,
+    users: response ? response : "Some thing went wrong",
   });
 });
 
@@ -376,4 +432,5 @@ module.exports = {
   updateUserAddress,
   updateCart,
   finalRegister,
+  createUsers,
 };
