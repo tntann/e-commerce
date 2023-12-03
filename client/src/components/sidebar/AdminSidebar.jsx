@@ -6,7 +6,7 @@ import clsx from "clsx";
 import { AiOutlineDown, AiOutlineRight } from "react-icons/ai";
 
 const activedStyle =
-  "px-4 py-2 flex items-center gap-2 bg-blue-500 text-gray-100";
+  "px-4 py-2 flex items-center gap-2 bg-[#4e73df] text-gray-100";
 const notActivedStyle = "px-4 py-2 flex items-center gap-2 hover:bg-blue-100";
 
 const AdminSidebar = () => {

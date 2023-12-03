@@ -66,3 +66,7 @@ input[type="number"]::-webkit-outer-spin-button {
 .my-masonry-grid_column > div {
   margin-bottom: 20px;
 }
+
+.w350 {
+  width: 350px;
+}

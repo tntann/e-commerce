@@ -1,4 +1,5 @@
 import React from "react";
+import clsx from "clsx";
 
 const InputField = ({
   value,
@@ -7,11 +8,15 @@ const InputField = ({
   type,
   invalidFields,
   setInvalidFields,
+  style,
+  fullWidth,
+  placeholder,
+  isHideLabel,
 }) => {
   const isInvalidFieldsArray = Array.isArray(invalidFields);
   return (
-    <div className="w-full relative mb-2">
-      {value?.trim() !== "" && (
+    <div className={clsx("relative mb-2", fullWidth && "w-full")}>
+      {!isHideLabel && value?.trim() !== "" && (
         <label
           className="text-[13px] absolute animate-slide-top-sm top-0 left-[12px] block bg-white px-1"
           htmlFor={nameKey}
@@ -21,13 +26,18 @@ const InputField = ({
       )}
       <input
         type={type || "text"}
-        className=" placeholder:text-sm placeholder:italic p-3 mt-2 w-full rounded-md border border-gray-300 focus:border-main focus:outline-none"
-        placeholder={nameKey?.slice(0, 1).toUpperCase() + nameKey?.slice(1)}
+        className={clsx(
+          "placeholder:text-sm placeholder:italic p-3 mt-2 w-full rounded-md border border-gray-300 focus:border-main focus:outline-none",
+          style
+        )}
+        placeholder={
+          placeholder || nameKey?.slice(0, 1).toUpperCase() + nameKey?.slice(1)
+        }
         value={value}
         onChange={(e) =>
           setValue((prev) => ({ ...prev, [nameKey]: e.target.value }))
         }
-        onFocus={() => setInvalidFields([])}
+        onFocus={() => setInvalidFields && setInvalidFields([])}
       />
       {isInvalidFieldsArray &&
         invalidFields.some((el) => el.name === nameKey) && (
