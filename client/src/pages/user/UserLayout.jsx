@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 
 const UserLayout = () => {
   const { isLoggedIn, current } = useSelector((state) => state.user);
+  // console.log({ isLoggedIn, current });
   if (!isLoggedIn || !current)
     return <Navigate to={`/${path.LOGIN}`} replace={true} />;
 

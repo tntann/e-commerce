@@ -24,7 +24,7 @@ const AdminSidebar = () => {
         className="flex flex-col justify-center items-center p-4 gap-2"
       >
         <img src={logo} alt="logo" className="w-[200px] object-contain" />
-        <small>HE - ADMIN</small>
+        <small className=" text-[#374151]">HEPHONE - ADMIN</small>
       </Link>
 
       <div>
@@ -61,7 +61,7 @@ const AdminSidebar = () => {
                   <div className="flex flex-col">
                     {el.submenu.map((item) => (
                       <NavLink
-                        key={el.text}
+                        key={item.text}
                         to={item.path}
                         onClick={(e) => e.stopPropagation()}
                         className={({ isActive }) =>

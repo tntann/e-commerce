@@ -9,7 +9,7 @@ const AdminLayout = () => {
   if (!isLoggedIn || !current || +current.role !== 1)
     return <Navigate to={`/${path.LOGIN}`} replace={true} />;
   return (
-    <div className="flex w-full bg-gray-100 min-h-screen relative text-gray-900">
+    <div className="flex w-full bg-[#f9fafb] min-h-screen relative text-gray-900">
       <div className="w-[16rem] top-0 bottom-0 flex-none fixed">
         <AdminSidebar />
       </div>
