@@ -5,7 +5,7 @@ import icons from "../../utils/icons";
 
 const { IoIosArrowForward } = icons;
 
-const BreadCrumbs = ({ title, category }) => {
+const BreadCrumb = ({ title, category }) => {
   const routes = [
     { path: "/:category", breadcrumb: category },
     { path: "/", breadcrumb: "Home" },
@@ -30,4 +30,4 @@ const BreadCrumbs = ({ title, category }) => {
   );
 };
 
-export default BreadCrumbs;
+export default BreadCrumb;

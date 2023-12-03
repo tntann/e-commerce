@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { apiGetProduct, apiGetProducts } from "../../apis";
 import {
-  BreadCrumbs,
+  BreadCrumb,
   Button,
   SelectQuantity,
   ProductExtrainfo,
@@ -93,7 +93,7 @@ const ProductDetail = () => {
       <div className="h-[81px] flex justify-center items-center bg-[#f7f7f7]">
         <div className="w-main mt-[10px] mb-[10px]">
           <h3 className="mb-[10px] font-semibold">{title}</h3>
-          <BreadCrumbs title={title} category={category} />
+          <BreadCrumb title={title} category={category} />
         </div>
       </div>
       {/*end breadcrumbs */}

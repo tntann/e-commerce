@@ -6,7 +6,7 @@ import {
   createSearchParams,
 } from "react-router-dom";
 import {
-  BreadCrumbs,
+  BreadCrumb,
   Product,
   SearchItem,
   InputSelect,
@@ -91,7 +91,7 @@ const Products = () => {
       <div className="h-[81px] flex justify-center items-center bg-[#f7f7f7]">
         <div className="w-main mt-[10px] mb-[10px]">
           <h3 className="mb-[10px] font-semibold uppercase">{category}</h3>
-          <BreadCrumbs category={category} />
+          <BreadCrumb category={category} />
         </div>
       </div>
       {/*end breadcrumbs */}

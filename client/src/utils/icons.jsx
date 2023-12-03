@@ -1,5 +1,7 @@
 import { PiPhoneCallBold } from "react-icons/pi";
-import { MdMailOutline } from "react-icons/md";
+import { MdMailOutline, MdOutlineDashboard, MdGroups } from "react-icons/md";
+import { TbBrandProducthunt } from "react-icons/tb";
+import { LuUsers } from "react-icons/lu";
 import {
   FaShoppingCart,
   FaRegUserCircle,
@@ -7,7 +9,7 @@ import {
   FaTty,
 } from "react-icons/fa";
 import { IoIosArrowForward } from "react-icons/io";
-import { RiLogoutCircleRLine } from "react-icons/ri";
+import { RiLogoutCircleRLine, RiBillLine } from "react-icons/ri";
 
 import {
   AiOutlineHome,
@@ -21,7 +23,13 @@ import {
   AiFillGift,
   AiOutlineDown,
 } from "react-icons/ai";
-import { FiSmartphone, FiMapPin, FiHeart, FiSearch } from "react-icons/fi";
+import {
+  FiSmartphone,
+  FiMapPin,
+  FiHeart,
+  FiSearch,
+  FiShoppingBag,
+} from "react-icons/fi";
 import { BiLogoGmail, BiArrowBack } from "react-icons/bi";
 import { BsShieldShaded } from "react-icons/bs";
 import { ImTruck } from "react-icons/im";
@@ -53,6 +61,12 @@ const icons = {
   FaReply,
   FaTty,
   AiOutlineDown,
+  MdOutlineDashboard,
+  MdGroups,
+  TbBrandProducthunt,
+  RiBillLine,
+  LuUsers,
+  FiShoppingBag,
 };
 
 export default icons;

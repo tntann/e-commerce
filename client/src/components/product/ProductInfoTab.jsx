@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { productInfoTabs } from "../../utils/contains";
-import { Votebar, Button, VoteOption, Comment } from "../";
+import { Votebar, Button, VoteOption, Comment } from "..";
 import { renderStartFromNumber } from "../../utils/helper";
 import { apiRatings } from "../../apis";
 import { useDispatch, useSelector } from "react-redux";
@@ -55,12 +55,12 @@ const ProductInfoTab = ({
       dispatch(
         showModal({
           isShowModal: true,
-          modalChildren: (
+          modalChildren: 
             <VoteOption
               handleSubmitVoteOption={handleSubmitVoteOption}
               nameProduct={nameProduct}
             ></VoteOption>
-          ),
+          ,
         })
       );
     }

@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React from "react";
 import Slider from "react-slick";
 import { Product } from "../";
 
@@ -31,4 +31,4 @@ const CustomSlider = ({ products, activedTab }) => {
   );
 };
 
-export default memo(CustomSlider);
+export default CustomSlider;

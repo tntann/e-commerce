@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from "react";
 import logo from "../../assets/hephonelogo.png";
 import { voteOptions } from "../../utils/contains";
 import icons from "../../utils/icons";
-import Button from "../login_signup/Button";
+import Button from "../button/Button";
 
 const { AiFillStar } = icons;
 

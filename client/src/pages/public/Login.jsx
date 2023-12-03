@@ -11,6 +11,7 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import path from "../../utils/path";
 import { login } from "../../app/user/userSlice";
+// import { showModal } from "../../app/appSlice";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { validate } from "../../utils/helper";
@@ -19,7 +20,7 @@ const { BiArrowBack } = icons;
 
 const Login = () => {
   const navigate = useNavigate();
-  const dispath = useDispatch();
+  const dispatch = useDispatch();
   const [payload, setPayLoad] = useState({
     firstname: "",
     lastname: "",
@@ -67,7 +68,9 @@ const Login = () => {
       : validate(data, setInvalidFields);
     if (invalids === 0) {
       if (isRegister) {
+        // dispatch(showModal({ isShowModal: true, modalChildren: <Loading /> }));
         const response = await apiRegister(payload);
+        // dispatch(showModal({ isShowModal: false, modalChildren: null }));
         if (response.success) {
           setIsVerifiedEmail(true);
           // Swal.fire("Congratulation", response.mess, "success").then(() => {
@@ -78,7 +81,7 @@ const Login = () => {
       } else {
         const result = await apiLogin(data);
         if (result.success) {
-          dispath(
+          dispatch(
             login({
               isLoggedIn: true,
               token: result.accessToken,

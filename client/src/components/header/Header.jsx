@@ -3,6 +3,7 @@ import logo from "../../assets/hephonelogo.png";
 import icons from "../../utils/icons";
 import { Link } from "react-router-dom";
 import path from "../../utils/path";
+import { useSelector } from "react-redux";
 
 const {
   PiPhoneCallBold,
@@ -11,6 +12,7 @@ const {
   FaRegUserCircle,
 } = icons;
 const Header = () => {
+  const { current } = useSelector((state) => state.user);
   return (
     <div className="w-main flex justify-between h-[110px] py-[35px]">
       <Link to={`/${path.HOME}`}>
@@ -39,10 +41,18 @@ const Header = () => {
           <AiOutlineShoppingCart color="#ee3131" size={24} />
           <span>0 item(s)</span>
         </div>
-        <div className="flex items-center justify-center gap-2 px-6 cursor-pointer">
+
+        <Link
+          to={
+            +current?.role === 1
+              ? `/${path.ADMIN}/${path.DASHBOARD}`
+              : `/${path.USER}/${path.PERSONAL}`
+          }
+          className="flex items-center justify-center gap-2 px-6 cursor-pointer"
+        >
           <FaRegUserCircle color="#ee3131" size={24} />
           <span>Profile</span>
-        </div>
+        </Link>
       </div>
     </div>
   );

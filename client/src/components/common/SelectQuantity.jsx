@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React from "react";
 import icons from "../../utils/icons";
 
 const { AiOutlinePlus, AiOutlineMinus } = icons;
@@ -30,4 +30,4 @@ const SelectQuantity = ({ quantity, handleQuantity, handleChangeQuantity }) => {
   );
 };
 
-export default memo(SelectQuantity);
+export default SelectQuantity;

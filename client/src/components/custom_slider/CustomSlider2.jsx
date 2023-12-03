@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React from "react";
 import Slider from "react-slick";
 import { Product } from "../";
 
@@ -32,4 +32,4 @@ const CustomSlider2 = ({ products, activedTab, normal }) => {
   );
 };
 
-export default memo(CustomSlider2);
+export default CustomSlider2;

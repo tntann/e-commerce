@@ -12,6 +12,15 @@ import {
   FinalRegister,
   ResetPassword,
 } from "./pages/public";
+import {
+  AdminLayout,
+  ManageOrder,
+  ManageProducts,
+  ManageUser,
+  CreateProducts,
+  Dashboard,
+} from "./pages/admin";
+import { UserLayout, Personal } from "./pages/user";
 import path from "./utils/path";
 import { getCategories } from "./app/asyncActions";
 import { useDispatch, useSelector } from "react-redux";
@@ -28,7 +37,7 @@ function App() {
     dispatch(getCategories());
   }, []);
   return (
-    <div className=" relative">
+    <div className="relative">
       {isShowModal && <Modal>{modalChildren}</Modal>}
       <Routes>
         <Route path={path.PUBLIC} element={<Public />}>
@@ -45,6 +54,21 @@ function App() {
 
           <Route path={path.NEWS} element={<News />} />
           <Route path={path.FAQS} element={<FAQs />} />
+          <Route path={path.ALL} element={<Home />} />
+        </Route>
+
+        {/* Admin */}
+        <Route path={path.ADMIN} element={<AdminLayout />}>
+          <Route path={path.DASHBOARD} element={<Dashboard />} />
+          <Route path={path.MANAGE_ORDER} element={<ManageOrder />} />
+          <Route path={path.MANAGE_PRODUCTS} element={<ManageProducts />} />
+          <Route path={path.MANAGE_USER} element={<ManageUser />} />
+          <Route path={path.CREATE_PRODUCTS} element={<CreateProducts />} />
+        </Route>
+
+        {/* User */}
+        <Route path={path.USER} element={<UserLayout />}>
+          <Route path={path.PERSONAL} element={<Personal />} />
         </Route>
       </Routes>
       <ToastContainer />
