@@ -5,12 +5,12 @@ import { useSearchParams } from "react-router-dom";
 
 const Pagination = ({ totalCount }) => {
   const [params] = useSearchParams();
-  const pagination = usePagination(totalCount, params.get("page") || 1);
+  const pagination = usePagination(totalCount, +params.get("page") || 1);
 
   const range = () => {
     const currentPage = +params.get("page");
     const pageSize = +import.meta.env.VITE_APP_LIMIT || 12;
-    const start = (currentPage - 1) * pageSize + 1;
+    const start = Math.min((currentPage - 1) * pageSize + 1, totalCount);
     const end = Math.min(currentPage * pageSize, totalCount);
 
     return `${start} - ${end}`;

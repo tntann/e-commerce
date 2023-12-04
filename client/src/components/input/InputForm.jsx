@@ -12,9 +12,10 @@ const InputForm = ({
   placeholder,
   fullWidth,
   defaultValue,
+  style,
 }) => {
   return (
-    <div className="flex flex-col h-[78px] gap-2">
+    <div className={clsx("flex flex-col h-[78px] gap-2", style)}>
       {label && <label htmlFor={id}>{label}</label>}
       <input
         type={type}
@@ -24,7 +25,8 @@ const InputForm = ({
         placeholder={placeholder}
         className={clsx(
           "border border-gray-400 p-2 my-auto rounded focus:border-main focus:outline-none",
-          fullWidth && "w-full"
+          fullWidth && "w-full",
+          style
         )}
         defaultValue={defaultValue}
       />

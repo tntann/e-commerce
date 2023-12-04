@@ -18,7 +18,7 @@ const Select = ({
       <select
         defaultValue={defaultValue}
         className={clsx(
-          "border border-gray-400 p-2 rounded focus:border-main focus:outline-none",
+          "border max-h-[42px] border-gray-400 p-2 rounded focus:border-main focus:outline-none",
           fullWidth && "w-full",
           style
         )}

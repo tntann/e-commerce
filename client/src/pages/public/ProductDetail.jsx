@@ -17,6 +17,7 @@ import {
 } from "../../utils/helper";
 import { productExtrainfo } from "../../utils/contains";
 // import ImageGallery from "react-image-gallery";
+import DOMPurify from "dompurify";
 
 const settings = {
   dots: false,
@@ -126,7 +127,7 @@ const ProductDetail = () => {
         {/* End Images */}
 
         {/* Depcriptions */}
-        <div className="w-2/5 flex flex-col gap-4">
+        <div className="w-2/5 pr-[24px] flex flex-col gap-4">
           <div className="flex items-center justify-between">
             <h2 className="text-[30px] text-[#333] leading-[35px] font-semibold">
               {`${formatMoney(formatPrice(product?.price))} VND`}
@@ -139,12 +140,21 @@ const ProductDetail = () => {
             ))}
             {/* <span className="text-sm text-main italic">{`Sold:${product?.sold}`}</span> */}
           </div>
-          <ul className="list-square text-sm text-[#505050] pl-[18px] ml">
-            {product?.description?.map((el, index) => (
-              <li className=" mb-[5px]" key={index}>
-                {el}
-              </li>
-            ))}
+          <ul className="list-square text-sm text-[#505050] pl-[18px]">
+            {product?.description?.length > 1 &&
+              product?.description?.map((el) => (
+                <li className="mb-[5px] leading-6" key={el}>
+                  {el}
+                </li>
+              ))}
+            {product?.description?.length === 1 && (
+              <div
+                className="text-sm"
+                dangerouslySetInnerHTML={{
+                  __html: DOMPurify.sanitize(product?.description[0]),
+                }}
+              ></div>
+            )}
           </ul>
 
           <div className="w-[422px] flex flex-col gap-5">

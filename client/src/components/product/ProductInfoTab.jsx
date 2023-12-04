@@ -55,12 +55,12 @@ const ProductInfoTab = ({
       dispatch(
         showModal({
           isShowModal: true,
-          modalChildren: 
+          modalChildren: (
             <VoteOption
               handleSubmitVoteOption={handleSubmitVoteOption}
               nameProduct={nameProduct}
             ></VoteOption>
-          ,
+          ),
         })
       );
     }
