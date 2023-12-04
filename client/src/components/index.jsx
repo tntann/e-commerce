@@ -35,3 +35,4 @@ export { default as PaginationItem } from "./pagination/PaginationItem";
 export { default as Loading } from "./common/Loading";
 export { default as InputForm } from "./input/InputForm";
 export { default as Select } from "./input/Select";
+export { default as MarkdownEditor } from "./input/MarkdownEditor";
