@@ -70,3 +70,7 @@ input[type="number"]::-webkit-outer-spin-button {
 .w350 {
   width: 350px;
 }
+
+code {
+  white-space: initial;
+}
