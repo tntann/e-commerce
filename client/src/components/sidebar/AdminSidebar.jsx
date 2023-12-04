@@ -18,7 +18,7 @@ const AdminSidebar = () => {
   };
 
   return (
-    <div className="bg-white h-full py-4">
+    <div className="bg-white h-full py-4 shadow-sm">
       <Link
         to={"/"}
         className="flex flex-col justify-center items-center p-4 gap-2"

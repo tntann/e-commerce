@@ -189,7 +189,7 @@ const Login = () => {
               Welcome to He Mobile ^_^
             </span>
             {isRegister && (
-              <div className="flex items-center w-[500px] gap-4">
+              <div className="flex items-center w-full justify-between gap-4">
                 <InputField
                   value={payload.firstname}
                   setValue={setPayLoad}
@@ -197,6 +197,7 @@ const Login = () => {
                   type="text"
                   invalidFields={invalidFields}
                   setInvalidFields={setInvalidFields}
+                  fullWidth
                 />
                 <InputField
                   value={payload.lastname}
@@ -205,6 +206,7 @@ const Login = () => {
                   type="text"
                   invalidFields={invalidFields}
                   setInvalidFields={setInvalidFields}
+                  fullWidth
                 />
               </div>
             )}
@@ -216,6 +218,7 @@ const Login = () => {
                 type=""
                 invalidFields={invalidFields}
                 setInvalidFields={setInvalidFields}
+                fullWidth
               />
             )}
             <InputField
@@ -225,6 +228,7 @@ const Login = () => {
               type="email"
               invalidFields={invalidFields}
               setInvalidFields={setInvalidFields}
+              fullWidth
             />
             <InputField
               value={payload.password}
@@ -233,6 +237,7 @@ const Login = () => {
               type="password"
               invalidFields={invalidFields}
               setInvalidFields={setInvalidFields}
+              fullWidth
             />
 
             <Button

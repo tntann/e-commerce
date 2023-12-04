@@ -17,13 +17,17 @@ const Pagination = ({ totalCount }) => {
   };
   return (
     <div className="flex w-full justify-between items-center">
-      {!+params.get("page") && (
+      {!+params.get("page") ? (
         <span className="text-sm italic">{`Show products 1 - ${
           Math.min(+import.meta.env.VITE_APP_LIMIT, totalCount) || 12
         } of ${totalCount}`}</span>
+      ) : (
+        ""
       )}
-      {+params.get("page") && (
+      {+params.get("page") ? (
         <span className="text-sm italic">{`Show products ${range()} of ${totalCount}`}</span>
+      ) : (
+        ""
       )}
       <div className="flex items-center">
         {pagination?.map((el) => (

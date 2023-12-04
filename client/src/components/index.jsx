@@ -33,3 +33,5 @@ export { default as Modal } from "./modals/Modal";
 export { default as Pagination } from "./pagination/Pagination";
 export { default as PaginationItem } from "./pagination/PaginationItem";
 export { default as Loading } from "./common/Loading";
+export { default as InputForm } from "./input/InputForm";
+export { default as Select } from "./input/Select";
