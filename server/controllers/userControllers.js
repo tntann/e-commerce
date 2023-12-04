@@ -318,12 +318,11 @@ const getUsers = asyncHandler(async (req, res) => {
 
 // Xoa User
 const deleteUser = asyncHandler(async (req, res) => {
-  const { _id } = req.query;
-  if (!_id) throw new Error("Missing inputs");
-  const response = await User.findByIdAndDelete(_id);
+  const { userid } = req.params;
+  const response = await User.findByIdAndDelete(userid);
   return res.status(200).json({
     success: response ? true : false,
-    deleteUser: response
+    mess: response
       ? `User with email ${response.email} deleted`
       : "No user delete",
   });
@@ -352,7 +351,7 @@ const updateUserByAdmin = asyncHandler(async (req, res) => {
   }).select("-password -role -refreshToken");
   return res.status(200).json({
     success: response ? true : false,
-    updateUser: response ? response : "Something went wrong",
+    mess: response ? "Update successful" : "Something went wrong",
   });
 });
 
