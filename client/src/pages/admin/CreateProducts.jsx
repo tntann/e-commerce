@@ -9,6 +9,7 @@ import { apiCreateProduct } from "../../apis";
 const CreateProducts = () => {
   const { categories } = useSelector((state) => state.appReducer);
   // console.log(categories);
+  // const dispatch = useDispatch()
   const {
     register,
     formState: { errors },
@@ -34,7 +35,7 @@ const CreateProducts = () => {
     [payload]
   );
 
-  const [hoverElm, setHoverElm] = useState(null);
+  // const [hoverElm, setHoverElm] = useState(null);
   const handlePreviewThumb = async (file) => {
     const base64Thumb = await getBase64(file);
     setPreview((prev) => ({ ...prev, thumb: base64Thumb }));
@@ -67,15 +68,25 @@ const CreateProducts = () => {
           (el) => el._id === data.category
         )?.title;
       const finalPayload = { ...data, ...payload };
-      console.log(finalPayload);
+      // console.log(finalPayload);
       const formData = new FormData();
       for (let i of Object.entries(finalPayload)) formData.append(i[0], i[1]);
       if (finalPayload.thumb) formData.append("thumb", finalPayload.thumb[0]);
       if (finalPayload.images) {
         for (let image of finalPayload.images) formData.append("images", image);
       }
+
+      // dispatch(showModal({ isShowModal: true, modalChildren: <Loading /> }))
       const response = await apiCreateProduct(formData);
-      console.log(response);
+      // dispatch(showModal({ isShowModal: false, modalChildren: null }))
+      if (response.success) {
+        toast.success(response.mess);
+        reset();
+        setPayload({
+          thumb: "",
+          image: [],
+        });
+      } else toast.error(response.mess);
     }
   };
   return (
@@ -215,10 +226,10 @@ const CreateProducts = () => {
             <div className="my-4 flex w-full gap-3 flex-wrap">
               {preview.images?.map((el, idx) => (
                 <div
-                  onMouseEnter={() => setHoverElm(el.name)}
+                  // onMouseEnter={() => setHoverElm(el.name)}
                   key={idx}
                   className="w-fit relative"
-                  onMouseLeave={() => setHoverElm(null)}
+                  // onMouseLeave={() => setHoverElm(null)}
                 >
                   <img
                     src={el.path}
