@@ -106,7 +106,7 @@ const ProductDetail = () => {
             <img
               src={currentImage}
               alt="product"
-              className="w-[458px] h-[458px] border border-gray-300 object-contain rounded-lg"
+              className="w-[458px] h-[458px] border border-gray-300 flex object-contain rounded-lg"
             />
           </div>
           <div className="w-[458px]">
