@@ -16,7 +16,7 @@ const createProduct = asyncHandler(async (req, res) => {
   const newProduct = await Product.create(req.body);
   return res.status(200).json({
     success: newProduct ? true : false,
-    createdProduct: newProduct ? newProduct : "Cannot create new product",
+    mess: newProduct ? "Created successfully" : "Failed.",
   });
 });
 
@@ -65,8 +65,21 @@ const getProducts = asyncHandler(async (req, res) => {
     }));
     colorQueryObject = { $or: colorQuery };
   }
-  const query = { ...colorQueryObject, ...formatedQueries };
-  let queryCommand = Product.find(query);
+  let queryObject = {};
+  if (queries?.q) {
+    delete formatedQueries.q;
+    queryObject = {
+      $or: [
+        { color: { $regex: queries.q, $options: "i" } },
+        { title: { $regex: queries.q, $options: "i" } },
+        { category: { $regex: queries.q, $options: "i" } },
+        { brand: { $regex: queries.q, $options: "i" } },
+        // { description: { $regex: queries.q, $options: 'i' } },
+      ],
+    };
+  }
+  const qr = { ...colorQueryObject, ...formatedQueries, ...queryObject };
+  let queryCommand = Product.find(qr);
 
   // Sorting
   if (req.query.sort) {
@@ -91,7 +104,7 @@ const getProducts = asyncHandler(async (req, res) => {
   try {
     const response = await queryCommand.exec();
 
-    const counts = await Product.find(query).countDocuments();
+    const counts = await Product.find(qr).countDocuments();
 
     return res.status(200).json({
       success: response ? true : false,
