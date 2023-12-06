@@ -6,12 +6,14 @@ import {
   useNavigate,
   useLocation,
 } from "react-router-dom";
-import { apiGetProducts } from "../../apis/product";
+import { apiDeleteProduct, apiGetProducts } from "../../apis/product";
 import useDebounce from "../../hook/useDebounce";
 import { useForm } from "react-hook-form";
 import moment from "moment";
 import { formatMoney, formatPrice } from "../../utils/helper";
 import UpdateProduct from "./UpdateProduct";
+import Swal from "sweetalert2";
+import { toast } from "react-toastify";
 
 const ManageProducts = () => {
   const navigate = useNavigate();
@@ -63,22 +65,37 @@ const ManageProducts = () => {
     window.scrollTo(0, 0);
   }, [params, update]);
 
-  // relative
-  // absolute
-  // fixed
-  // diem tua
+  const handleDeleteProduct = (pid) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Are you sure remove this product",
+      icon: "warning",
+      showCancelButton: true,
+    }).then(async (rs) => {
+      if (rs.isConfirmed) {
+        const response = await apiDeleteProduct(pid);
+        if (response.success) toast.success(response.mess);
+        else toast.error(response.mess);
+        render();
+      }
+    });
+  };
 
   return (
     <div className="w-full flex flex-col gap-4 relative">
       {editProduct && (
         <div className="absolute inset-0 min-h-screen bg-gray-100 z-50">
-          <UpdateProduct editProduct={editProduct} render={render} />
+          <UpdateProduct
+            editProduct={editProduct}
+            render={render}
+            setEditProduct={setEditProduct}
+          />
         </div>
       )}
       <div className="h-[69px] w-full"></div>
       <div className="bg-white w-full shadow-sm fixed top-0">
         <h1 className="h-[75px] flex justify-between items-center text-xl text-[#374151] font-semibold px-8">
-          <span>Manage Products</span>
+          Manage Products
         </h1>
       </div>
       <div className="flex justify-end items-center px-8">
@@ -149,7 +166,10 @@ const ManageProducts = () => {
                   >
                     Edit
                   </button>
-                  <button className="p-2 w-[59px] text-white cursor-pointer border border-[#d52a1a] bg-[#e74a3b] hover:bg-[#e02d1b] rounded-md flex items-center justify-center text-sm">
+                  <button
+                    onClick={() => handleDeleteProduct(el._id)}
+                    className="p-2 w-[59px] text-white cursor-pointer border border-[#d52a1a] bg-[#e74a3b] hover:bg-[#e02d1b] rounded-md flex items-center justify-center text-sm"
+                  >
                     Delete
                   </button>
                 </div>

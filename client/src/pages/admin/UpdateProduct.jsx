@@ -4,10 +4,10 @@ import { toast } from "react-toastify";
 import { getBase64, validate } from "../../utils/helper";
 import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
-import { apiCreateProduct } from "../../apis";
+import { apiUpdateProduct } from "../../apis";
 
-const UpdateProduct = ({ editProduct, render }) => {
-  console.log(editProduct);
+const UpdateProduct = ({ editProduct, render, setEditProduct }) => {
+  // console.log(editProduct);
   const { categories } = useSelector((state) => state.appReducer);
   // const dispatch = useDispatch()
   const {
@@ -46,7 +46,7 @@ const UpdateProduct = ({ editProduct, render }) => {
     });
   }, [editProduct]);
 
-  console.log(preview);
+  // console.log(preview);
   const [invalidFields, setInvalidFields] = useState([]);
   const changeValue = useCallback(
     (e) => {
@@ -66,43 +66,45 @@ const UpdateProduct = ({ editProduct, render }) => {
         return;
       }
       const base64 = await getBase64(file);
-      imagesPreview.push({ name: file.name, path: base64 });
+      imagesPreview.push(base64);
     }
     setPreview((prev) => ({ ...prev, images: imagesPreview }));
   };
+
   useEffect(() => {
-    if (watch("thumb")) handlePreviewThumb(watch("thumb")[0]);
+    if (watch("thumb") instanceof FileList && watch("thumb").length > 0)
+      handlePreviewThumb(watch("thumb")[0]);
   }, [watch("thumb")]);
   useEffect(() => {
-    if (watch("images")) handlePreviewImages(watch("images"));
+    if (watch("images") instanceof FileList && watch("images").length > 0)
+      handlePreviewImages(watch("images"));
   }, [watch("images")]);
 
   console.log(editProduct);
-  const handleCreateProduct = async (data) => {
+  const handleUpdateProduct = async (data) => {
     const invalids = validate(payload, setInvalidFields);
     if (invalids === 0) {
       if (data.category)
         data.category = categories?.find(
-          (el) => el._id === data.category
+          (el) => el.title === data.category
         )?.title;
       const finalPayload = { ...data, ...payload };
+      finalPayload.thumb =
+        data?.thumb?.length === 0 ? preview.thumb : data.thumb[0];
       const formData = new FormData();
+
       for (let i of Object.entries(finalPayload)) formData.append(i[0], i[1]);
-      if (finalPayload.thumb) formData.append("thumb", finalPayload.thumb[0]);
-      if (finalPayload.images) {
-        for (let image of finalPayload.images) formData.append("images", image);
-      }
+      finalPayload.images =
+        data.images?.length === 0 ? preview.images : data.images;
+      for (let image of finalPayload.images) formData.append("images", image);
       // dispatch(showModal({ isShowModal: true, modalChildren: <Loading /> }))
-      const response = await apiCreateProduct(formData);
+      const response = await apiUpdateProduct(formData, editProduct._id);
       // dispatch(showModal({ isShowModal: false, modalChildren: null }))
       if (response.success) {
-        toast.success(response.mes);
-        reset();
-        setPayload({
-          thumb: "",
-          image: [],
-        });
-      } else toast.error(response.mes);
+        toast.success(response.mess);
+        render();
+        setEditProduct(null);
+      } else toast.error(response.mess);
     }
   };
   return (
@@ -114,7 +116,13 @@ const UpdateProduct = ({ editProduct, render }) => {
         </h1>
       </div>
       <div className="p-8">
-        <form onSubmit={handleSubmit(handleCreateProduct)}>
+        <button
+          className="p-2 mb-8 w-[75px] text-white cursor-pointer border border-blue-600 bg-blue-600 hover:bg-blue-500 rounded-md flex items-center justify-center text-sm"
+          onClick={() => setEditProduct(null)}
+        >
+          BACK
+        </button>
+        <form onSubmit={handleSubmit(handleUpdateProduct)}>
           <InputForm
             label="Name product"
             register={register}
@@ -201,11 +209,7 @@ const UpdateProduct = ({ editProduct, render }) => {
             <label className="font-semibold" htmlFor="thumb">
               Upload thumb
             </label>
-            <input
-              type="file"
-              id="thumb"
-              {...register("thumb", { required: "Need fill" })}
-            />
+            <input type="file" id="thumb" {...register("thumb")} />
             {errors["thumb"] && (
               <small className="text-xs text-main">
                 {errors["thumb"]?.message}
@@ -227,12 +231,7 @@ const UpdateProduct = ({ editProduct, render }) => {
             <label className="font-semibold" htmlFor="products">
               Upload images of product
             </label>
-            <input
-              type="file"
-              id="products"
-              multiple
-              {...register("images", { required: "Need fill" })}
-            />
+            <input type="file" id="products" multiple {...register("images")} />
             {errors["images"] && (
               <small className="text-xs text-main">
                 {errors["images"]?.message}

@@ -48,7 +48,9 @@ const MarkdownEditor = ({
         onChange={(e) =>
           changeValue((prev) => ({ ...prev, [name]: e.target.getContent() }))
         }
-        onFocus={() => setInvalidFields && setInvalidFields([])}
+        onFocus={() => {
+          setInvalidFields && setInvalidFields([]);
+        }}
       />
       {invalidFields?.some((el) => el.name === name) && (
         <small className="text-main text-sm">
