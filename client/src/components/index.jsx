@@ -37,3 +37,4 @@ export { default as Loading } from "./common/Loading";
 export { default as InputForm } from "./input/InputForm";
 export { default as Select } from "./input/Select";
 export { default as MarkdownEditor } from "./input/MarkdownEditor";
+export { default as UserSidebar } from "./sidebar/UserSidebar";

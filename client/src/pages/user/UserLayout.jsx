@@ -2,6 +2,7 @@ import React from "react";
 import { Outlet, Navigate } from "react-router-dom";
 import path from "../../utils/path";
 import { useSelector } from "react-redux";
+import { Footer, UserSidebar } from "../../components";
 
 const UserLayout = () => {
   const { isLoggedIn, current } = useSelector((state) => state.user);
@@ -10,9 +11,14 @@ const UserLayout = () => {
     return <Navigate to={`/${path.LOGIN}`} replace={true} />;
 
   return (
-    <div>
-      UserLayout
-      <Outlet />
+    <div className="w-full">
+      <div className="flex">
+        <UserSidebar />
+        <div className="flex-auto bg-gray-100 min-h-screen">
+          <Outlet />
+        </div>
+      </div>
+      <Footer></Footer>
     </div>
   );
 };

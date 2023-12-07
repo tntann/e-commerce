@@ -20,7 +20,7 @@ import {
   CreateProducts,
   Dashboard,
 } from "./pages/admin";
-import { UserLayout, Personal } from "./pages/user";
+import { UserLayout, Personal, Wishlist, History, MyCart } from "./pages/user";
 import path from "./utils/path";
 import { getCategories } from "./app/asyncActions";
 import { useDispatch, useSelector } from "react-redux";
@@ -69,6 +69,9 @@ function App() {
         {/* User */}
         <Route path={path.USER} element={<UserLayout />}>
           <Route path={path.PERSONAL} element={<Personal />} />
+          <Route path={path.MY_CART} element={<MyCart />} />
+          <Route path={path.WISHLIST} element={<Wishlist />} />
+          <Route path={path.HISTORY} element={<History />} />
         </Route>
       </Routes>
       <ToastContainer />

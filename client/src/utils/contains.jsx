@@ -1,5 +1,6 @@
 import path from "./path";
 import icons from "./icons";
+import { FiHeart } from "react-icons/fi";
 
 export const navbar = [
   {
@@ -242,5 +243,36 @@ export const blockStatus = [
   {
     code: false,
     value: "Active",
+  },
+];
+
+export const userSidebar = [
+  {
+    id: 1,
+    type: "SINGLE",
+    text: "Personal",
+    path: `/${path.USER}/${path.PERSONAL}`,
+    icon: <MdOutlineDashboard size={20} />,
+  },
+  {
+    id: 2,
+    type: "SINGLE",
+    text: "My cart",
+    path: `/${path.USER}/${path.MY_CART}`,
+    icon: <FiShoppingBag size={20} />,
+  },
+  {
+    id: 3,
+    type: "SINGLE",
+    text: "Buy histories",
+    path: `/${path.USER}/${path.HISTORY}`,
+    icon: <RiBillLine size={20} />,
+  },
+  {
+    id: 4,
+    type: "SINGLE",
+    text: "Wislist",
+    path: `/${path.USER}/${path.WISHLIST}`,
+    icon: <FiHeart size={20} />,
   },
 ];
