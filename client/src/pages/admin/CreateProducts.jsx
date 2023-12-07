@@ -35,7 +35,6 @@ const CreateProducts = () => {
     [payload]
   );
 
-  // const [hoverElm, setHoverElm] = useState(null);
   const handlePreviewThumb = async (file) => {
     const base64Thumb = await getBase64(file);
     setPreview((prev) => ({ ...prev, thumb: base64Thumb }));
@@ -225,25 +224,12 @@ const CreateProducts = () => {
           {preview.images.length > 0 && (
             <div className="my-4 flex w-full gap-3 flex-wrap">
               {preview.images?.map((el, idx) => (
-                <div
-                  // onMouseEnter={() => setHoverElm(el.name)}
-                  key={idx}
-                  className="w-fit relative"
-                  // onMouseLeave={() => setHoverElm(null)}
-                >
+                <div key={idx} className="w-fit relative">
                   <img
                     src={el.path}
                     alt="product"
                     className="w-[200px] object-contain"
                   />
-                  {/* {hoverElm === el.name && (
-                    <div
-                      className="absolute cursor-pointer inset-0 bg-overlay flex items-center justify-center"
-                      onClick={() => handleRemoveImage(el.name)}
-                    >
-                      <RiDeleteBin2Fill size={24} color="white" />
-                    </div>
-                  )} */}
                 </div>
               ))}
             </div>

@@ -24,6 +24,7 @@ export { default as BreadCrumb } from "./breadcrumb/BreadCrumb";
 export { default as SelectQuantity } from "./common/SelectQuantity";
 export { default as ProductExtrainfo } from "./product/ProductExtrainfo";
 export { default as ProductInfoTab } from "./product/ProductInfoTab";
+export { default as CustomizeVarriants } from "./product/CustomizeVarriants";
 export { default as SearchItem } from "./search/SearchItem";
 export { default as Votebar } from "./reviews/Votebar";
 export { default as Ratings } from "./reviews/Ratings";

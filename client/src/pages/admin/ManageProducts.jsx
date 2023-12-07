@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { InputForm, Pagination } from "../../components";
+import { InputForm, Pagination, CustomizeVarriants } from "../../components";
 import {
   useSearchParams,
   createSearchParams,
@@ -14,6 +14,8 @@ import { formatMoney, formatPrice } from "../../utils/helper";
 import UpdateProduct from "./UpdateProduct";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
+import { BiEdit, BiCustomize } from "react-icons/bi";
+import { RiDeleteBin6Line } from "react-icons/ri";
 
 const ManageProducts = () => {
   const navigate = useNavigate();
@@ -30,6 +32,7 @@ const ManageProducts = () => {
 
   const [editProduct, setEditProduct] = useState(null);
   const [update, setUpdate] = useState(false);
+  const [customizeVarriant, setCustomizeVarriant] = useState(null);
 
   const render = useCallback(() => {
     setUpdate(!update);
@@ -92,6 +95,15 @@ const ManageProducts = () => {
           />
         </div>
       )}
+      {customizeVarriant && (
+        <div className="absolute inset-0 min-h-screen bg-gray-100 z-50">
+          <CustomizeVarriants
+            customizeVarriant={customizeVarriant}
+            render={render}
+            setCustomizeVarriant={setCustomizeVarriant}
+          />
+        </div>
+      )}
       <div className="h-[69px] w-full"></div>
       <div className="bg-white w-full shadow-sm fixed top-0">
         <h1 className="h-[75px] flex justify-between items-center text-xl text-[#374151] font-semibold px-8">
@@ -125,6 +137,7 @@ const ManageProducts = () => {
             <th className="text-center py-2">Sold</th>
             <th className="text-center py-2">Color</th>
             <th className="text-center py-2">Ratings</th>
+            <th className="text-center py-2">Varriants</th>
             <th className="text-center py-2">UpdatedAt</th>
             <th className="text-center py-2">Actions</th>
           </tr>
@@ -155,24 +168,29 @@ const ManageProducts = () => {
               <td className="text-center py-2">{el?.sold}</td>
               <td className="text-center py-2">{el?.color}</td>
               <td className="text-center py-2">{el?.totalRatings}</td>
+              <td className="text-center py-2">{el?.varriants?.length || 0}</td>
               <td className="text-center py-2">
                 {moment(el.createdAt).format("DD/MM/YYYY")}
               </td>
               <td className="text-center py-2">
-                <div className="flex gap-2 items-center justify-center">
-                  <button
-                    onClick={() => setEditProduct(el)}
-                    className="p-2 w-[59px] text-white cursor-pointer border border-[#f4b30d] bg-[#f6c23e] hover:bg-[#f4b619] rounded-md flex items-center justify-center text-sm"
-                  >
-                    Edit
-                  </button>
-                  <button
-                    onClick={() => handleDeleteProduct(el._id)}
-                    className="p-2 w-[59px] text-white cursor-pointer border border-[#d52a1a] bg-[#e74a3b] hover:bg-[#e02d1b] rounded-md flex items-center justify-center text-sm"
-                  >
-                    Delete
-                  </button>
-                </div>
+                <span
+                  onClick={() => setEditProduct(el)}
+                  className="text-[#f6c23e] hover:text-[#f4b619] inline-block hover:underline cursor-pointer px-1"
+                >
+                  <BiEdit size={20} />
+                </span>
+                <span
+                  onClick={() => handleDeleteProduct(el._id)}
+                  className="text-[#e74a3b] hover:text-[#e02d1b] inline-block hover:underline cursor-pointer px-1"
+                >
+                  <RiDeleteBin6Line size={20} />
+                </span>
+                <span
+                  onClick={() => setCustomizeVarriant(el)}
+                  className="text-blue-400 hover:text-blue-600 inline-block hover:underline cursor-pointer px-1"
+                >
+                  <BiCustomize size={20} />
+                </span>
               </td>
             </tr>
           ))}
