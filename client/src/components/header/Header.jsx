@@ -20,10 +20,7 @@ const Header = () => {
     const handleClickoutOptions = (e) => {
       const profile = document.getElementById("profile");
 
-      // Check if the profile element exists before accessing its properties
-      if (profile && !profile.contains(e.target)) {
-        setIsShowOption(false);
-      }
+      if (!profile?.contains(e.target)) setIsShowOption(false);
     };
 
     document.addEventListener("click", handleClickoutOptions);

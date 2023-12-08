@@ -1,7 +1,9 @@
+import withBaseComponent from "../../hocs/withBaseComponent";
 import React from "react";
 
-const MyCart = () => {
-  return <div>MyCart</div>;
+const MyCart = (props) => {
+  console.log(props);
+  return <div onClick={() => props.navigate("/")}>MyCart</div>;
 };
 
-export default MyCart;
+export default withBaseComponent(MyCart);

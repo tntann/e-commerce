@@ -4,6 +4,7 @@ import { CustomSlider } from "../";
 import bannermac from "../../assets/macbook-air.png";
 import bannersam from "../../assets/thumbsamsun.png";
 import bannerasus from "../../assets/thumbasus.png";
+import clsx from "clsx";
 
 import { getNewProducts } from "../../app/products/asyncActions";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,17 +14,6 @@ const tabs = [
   { id: 2, name: "New Arrivals" },
 ];
 
-// const settings = {
-//   dots: false,
-//   infinite: true,
-//   speed: 500,
-//   slidesToShow: 3,
-//   slidesToScroll: 1,
-//   autoplay: true,
-//   autoplaySpeed: 3000,
-//   pauseOnHover: true,
-// };
-
 const BestSeller = () => {
   const [products, setProducts] = useState([]);
   const [bestSeller, setBestSeller] = useState([]);
@@ -31,6 +21,7 @@ const BestSeller = () => {
   const [activedTab, setActivedTab] = useState(1);
   const dispatch = useDispatch();
   const { newProducts } = useSelector((state) => state.products);
+  const { isShowModal } = useSelector((state) => state.appReducer);
   // console.log(newProducts);
 
   const fetchProducts = async () => {
@@ -53,7 +44,7 @@ const BestSeller = () => {
     if (activedTab === 2) setProducts(newProducts);
   }, [activedTab]);
   return (
-    <div>
+    <div className={clsx(isShowModal ? "hidden" : "")}>
       <div className="flex text-xl gap-8 pb-[15px] mb-5 border-b-2 border-main">
         {tabs.map((el) => (
           <span
@@ -69,15 +60,6 @@ const BestSeller = () => {
       </div>
 
       <div className="mt-4 mx-[-10px]">
-        {/* <Slider {...settings}>
-          {products?.map((el) => (
-            <Product
-              key={el._id}
-              productData={el}
-              isNew={activedTab === 1 ? false : true}
-            ></Product>
-          ))}
-        </Slider> */}
         <CustomSlider products={products} activedTab={activedTab} />
       </div>
       {/* banner */}

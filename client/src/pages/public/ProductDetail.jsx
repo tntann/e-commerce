@@ -27,15 +27,16 @@ const settings = {
   slidesToScroll: 1,
 };
 
-const ProductDetail = () => {
-  const { pid, category } = useParams();
+const ProductDetail = ({ isQuickView, data }) => {
+  const params = useParams();
   const [product, setProduct] = useState([]);
   const [currentImage, setCurrentImage] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [relatedProducts, setRelatedProducts] = useState(null);
   const [update, setUpdate] = useState(false);
-
   const [varriant, setVarriant] = useState(null);
+  const [pid, setPid] = useState(null);
+  const [category, setCategory] = useState(null);
   const [currentProduct, setCurrentProduct] = useState({
     title: "",
     thumb: "",
@@ -43,6 +44,16 @@ const ProductDetail = () => {
     price: "",
     color: "",
   });
+
+  useEffect(() => {
+    if (data) {
+      setPid(data.pid);
+      setCategory(data.category);
+    } else if (params && params.pid) {
+      setPid(params.pid);
+      setCategory(params.category);
+    }
+  }, [data, params]);
 
   const fetchProductData = async () => {
     const response = await apiGetProduct(pid);
@@ -110,24 +121,39 @@ const ProductDetail = () => {
     setCurrentImage(el);
   };
   return (
-    <div className="w-full">
+    <div className={clsx("w-full")}>
       {/* breadcrumbs */}
-      <div className="h-[81px] flex justify-center items-center bg-[#f7f7f7]">
-        <div className="w-main mt-[10px] mb-[10px]">
-          <h3 className="mb-[10px] font-semibold">
-            {currentProduct?.title || product?.title}
-          </h3>
-          <BreadCrumb
-            title={currentProduct?.title || product?.title}
-            category={category}
-          />
+      {!isQuickView && (
+        <div className="h-[81px] flex justify-center items-center bg-[#f7f7f7]">
+          <div className="w-main mt-[10px] mb-[10px]">
+            <h3 className="mb-[10px] font-semibold">
+              {currentProduct?.title || product?.title}
+            </h3>
+            <BreadCrumb
+              title={currentProduct?.title || product?.title}
+              category={category}
+            />
+          </div>
         </div>
-      </div>
+      )}
       {/*end breadcrumbs */}
 
-      <div className="w-main m-auto mt-5 flex">
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className={clsx(
+          "bg-white w-main m-auto mt-5 flex",
+          isQuickView
+            ? "max-w-[1040px] gap-16 p-8 max-h-[80vh] overflow-y-auto rounded-lg"
+            : "w-main"
+        )}
+      >
         {/* Images */}
-        <div className="w-2/5 flex flex-col gap-[30px]">
+        <div
+          className={clsx(
+            "w-2/5 flex flex-col gap-[30px]",
+            isQuickView && "w-1/2"
+          )}
+        >
           <div className="w-[458px]">
             <img
               src={currentProduct.thumb || currentImage}
@@ -166,7 +192,12 @@ const ProductDetail = () => {
         {/* End Images */}
 
         {/* Depcriptions */}
-        <div className="w-2/5 pr-[24px] flex flex-col gap-4">
+        <div
+          className={clsx(
+            "w-2/5 pr-[24px] flex flex-col gap-4",
+            isQuickView && "w-1/2"
+          )}
+        >
           <div className="flex items-center justify-between">
             <h2 className="text-[30px] text-[#333] leading-[35px] font-semibold">
               {`${formatMoney(
@@ -260,38 +291,46 @@ const ProductDetail = () => {
         {/*End Depcriptions */}
 
         {/* ProductExtrainfo */}
-        <div className="w-1/5">
-          {productExtrainfo.map((item) => (
-            <ProductExtrainfo
-              key={item.id}
-              icons={item.icons}
-              title={item.title}
-              sub={item.sub}
-            />
-          ))}
-        </div>
+        {!isQuickView && (
+          <div className="w-1/5">
+            {productExtrainfo.map((item) => (
+              <ProductExtrainfo
+                key={item.id}
+                icons={item.icons}
+                title={item.title}
+                sub={item.sub}
+              />
+            ))}
+          </div>
+        )}
         {/*End ProductExtrainfo */}
       </div>
 
       {/* ProductInfoTab */}
-      <div className="w-main m-auto mt-8">
-        <ProductInfoTab
-          totalRatings={product?.totalRatings}
-          ratings={product?.ratings}
-          nameProduct={product?.title}
-          pid={product?._id}
-          rerender={rerender}
-        />
-      </div>
-      <div className="w-main m-auto mt-8">
-        <h3 className="text-[20px] font-semibold py-[15px] border-b-2 border-main">
-          OTHER CUSTOMERS ALSO BUY
-        </h3>
-        <div className="mt-12 mx-[-10px] mb-12">
-          <CustomSlider2 normal={true} products={relatedProducts} />
+      {!isQuickView && (
+        <div className="w-main m-auto mt-8">
+          <ProductInfoTab
+            totalRatings={product?.totalRatings}
+            ratings={product?.ratings}
+            nameProduct={product?.title}
+            pid={product?._id}
+            rerender={rerender}
+          />
         </div>
-      </div>
-      {/* <div className="w-full h-[100px]"></div> */}
+      )}
+      {!isQuickView && (
+        <>
+          <div className="w-main m-auto mt-8">
+            <h3 className="text-[20px] font-semibold py-[15px] border-b-2 border-main">
+              OTHER CUSTOMERS ALSO BUY
+            </h3>
+            <div className="mt-12 mx-[-10px] mb-12">
+              <CustomSlider2 normal={true} products={relatedProducts} />
+            </div>
+          </div>
+          <div className="w-full h-[100px]"></div>
+        </>
+      )}
     </div>
   );
 };

@@ -37,7 +37,7 @@ function App() {
     dispatch(getCategories());
   }, []);
   return (
-    <div className="relative">
+    <div className="relative h-screen">
       {isShowModal && <Modal>{modalChildren}</Modal>}
       <Routes>
         <Route path={path.PUBLIC} element={<Public />}>
@@ -69,7 +69,7 @@ function App() {
         {/* User */}
         <Route path={path.USER} element={<UserLayout />}>
           <Route path={path.PERSONAL} element={<Personal />} />
-          <Route path={path.MY_CART} element={<MyCart />} />
+          <Route path={path.MY_CART} element={<MyCart id="cart" />} />
           <Route path={path.WISHLIST} element={<Wishlist />} />
           <Route path={path.HISTORY} element={<History />} />
         </Route>

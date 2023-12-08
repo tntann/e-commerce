@@ -10,15 +10,50 @@ import {
 import { SelectOption } from "../";
 import icons from "../../utils/icons";
 import { Link } from "react-router-dom";
+import withBaseComponent from "../../hocs/withBaseComponent";
+import { showModal } from "../../app/appSlice";
+import { ProductDetail } from "../../pages/public";
 
-const { FiHeart, AiOutlineMenu, AiOutlineShoppingCart } = icons;
+const { FiHeart, AiOutlineMenu, AiOutlineEye } = icons;
 
-const Product = ({ productData, isNew, normal }) => {
+const Product = ({ productData, isNew, normal, navigate, dispatch }) => {
   const [isShowOption, setIsShowOption] = useState(false);
+
+  const handleClickOptions = (e, flag) => {
+    e.stopPropagation();
+    if (flag === "MENU")
+      navigate(
+        `/${productData?.category?.toLowerCase()}/${productData?._id}/${
+          productData?.title
+        }`
+      );
+    if (flag === "WISHLIST") console.log("WISHLIST");
+    if (flag === "QUICK_VIEW") {
+      dispatch(
+        showModal({
+          isShowModal: true,
+          modalChildren: (
+            <ProductDetail
+              data={{ pid: productData?._id, category: productData?.category }}
+              isQuickView
+            />
+          ),
+        })
+      );
+    }
+  };
+
   return (
     <div className="w-full text-base px-[10px] ">
       <div
         className="w-full border p-[15px] flex flex-col items-center shadow-sm rounded-lg"
+        onClick={() =>
+          navigate(
+            `/${productData?.category?.toLowerCase()}/${productData?._id}/${
+              productData?.title
+            }`
+          )
+        }
         onMouseEnter={(e) => {
           e.stopPropagation();
           setIsShowOption(true);
@@ -28,24 +63,25 @@ const Product = ({ productData, isNew, normal }) => {
           setIsShowOption(false);
         }}
       >
-        <Link
-          to={`/${productData?.category?.toLowerCase()}/${productData?._id}/${
-            productData?.title
-          }`}
-          className="w-full relative "
-        >
+        <div className="w-full relative ">
           {isShowOption && (
             <div className="absolute bottom-[-10px] left-0 right-0 flex justify-center gap-5 animate-slide-top">
-              <SelectOption icon={<AiOutlineMenu />} />
-              <SelectOption icon={<FiHeart />} />
-              <SelectOption icon={<AiOutlineShoppingCart />} />
+              <span onClick={(e) => handleClickOptions(e, "QUICK_VIEW")}>
+                <SelectOption icon={<AiOutlineEye />} />
+              </span>
+              <span onClick={(e) => handleClickOptions(e, "MENU")}>
+                <SelectOption icon={<AiOutlineMenu />} />
+              </span>
+              <span onClick={(e) => handleClickOptions(e, "WISHLIST")}>
+                <SelectOption icon={<FiHeart />} />
+              </span>
             </div>
           )}
           <div className="border-none outline-none">
             <img
               src={productData?.thumb || noProduct}
               alt="product"
-              className="w-[243px] h-[243px] object-cover"
+              className="w-[243px] h-[243px] object-cover cursor-pointer"
             />
           </div>
           {!normal && (
@@ -55,7 +91,7 @@ const Product = ({ productData, isNew, normal }) => {
               className=" absolute top-0 right-0 w-[75px] h-[25px] object-contain"
             />
           )}
-        </Link>
+        </div>
         <div className="flex flex-col gap-1 mt-[15px] items-start w-full">
           <Link
             to={`/${productData?.category?.toLowerCase()}/${productData?._id}/${
@@ -82,4 +118,4 @@ const Product = ({ productData, isNew, normal }) => {
   );
 };
 
-export default Product;
+export default withBaseComponent(Product);
