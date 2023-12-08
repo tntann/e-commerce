@@ -37,7 +37,7 @@ function App() {
     dispatch(getCategories());
   }, []);
   return (
-    <div className="relative h-screen">
+    <div className="">
       {isShowModal && <Modal>{modalChildren}</Modal>}
       <Routes>
         <Route path={path.PUBLIC} element={<Public />}>

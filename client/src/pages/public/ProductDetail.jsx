@@ -141,20 +141,20 @@ const ProductDetail = ({ isQuickView, data }) => {
       <div
         onClick={(e) => e.stopPropagation()}
         className={clsx(
-          "bg-white w-main m-auto mt-5 flex",
+          "bg-white m-auto mt-5 flex",
           isQuickView
-            ? "max-w-[1040px] gap-16 p-8 max-h-[80vh] overflow-y-auto rounded-lg"
+            ? "w-fit gap-24 p-8 max-h-[80vh] overflow-y-auto rounded-lg"
             : "w-main"
         )}
       >
-        {/* Images */}
+        {/* Image */}
         <div
           className={clsx(
-            "w-2/5 flex flex-col gap-[30px]",
+            "flex flex-col gap-[30px] w-2/5",
             isQuickView && "w-1/2"
           )}
         >
-          <div className="w-[458px]">
+          <div className="w-[458px] ">
             <img
               src={currentProduct.thumb || currentImage}
               alt="product"
@@ -230,7 +230,7 @@ const ProductDetail = ({ isQuickView, data }) => {
           </ul>
 
           <div className="my-4 flex gap-4">
-            <span className=" font-semibold">Color:</span>
+            <span className="text-sm font-semibold">Color</span>
             <div className="flex flex-wrap gap-4 items-center w-full">
               <div
                 onClick={() => setVarriant(null)}
