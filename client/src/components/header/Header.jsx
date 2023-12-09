@@ -63,7 +63,9 @@ const Header = ({ dispatch }) => {
               className="cursor-pointer flex items-center justify-center gap-2 px-6 border-r"
             >
               <AiOutlineShoppingCart color="#ee3131" size={24} />
-              <span>{`${current?.cart?.length || 0} item(s)`}</span>
+              <span className="hover:text-main">{`${
+                current?.cart?.length || 0
+              } item(s)`}</span>
             </div>
 
             <div
@@ -72,21 +74,21 @@ const Header = ({ dispatch }) => {
               id="profile"
             >
               <FaRegUserCircle color="#ee3131" size={24} />
-              <span>Profile</span>
+              <span className=" hover:text-main">Profile</span>
               {isShowOption && (
                 <div
                   onClick={(e) => e.stopPropagation()}
                   className="absolute top-full flex-col flex left-[16px] bg-gray-100 border min-w-[150px] py-2 z-50"
                 >
                   <Link
-                    className="p-2 w-full hover:bg-sky-100"
+                    className="p-2 w-full hover:bg-sky-100 hover:text-main"
                     to={`/${path.USER}/${path.PERSONAL}`}
                   >
-                    Info
+                    Infomation
                   </Link>
                   {+current.role === 1 && (
                     <Link
-                      className="p-2 w-full hover:bg-sky-100"
+                      className="p-2 w-full hover:bg-sky-100 hover:text-main"
                       to={`/${path.ADMIN}/${path.DASHBOARD}`}
                     >
                       Admin
@@ -94,7 +96,7 @@ const Header = ({ dispatch }) => {
                   )}
                   <span
                     onClick={() => dispatch(logout())}
-                    className="p-2 w-full hover:bg-sky-100"
+                    className="p-2 w-full hover:bg-sky-100 hover:text-main"
                   >
                     Logout
                   </span>
