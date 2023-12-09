@@ -26,6 +26,7 @@ export { default as ProductExtrainfo } from "./product/ProductExtrainfo";
 export { default as ProductInfoTab } from "./product/ProductInfoTab";
 export { default as CustomizeVarriants } from "./product/CustomizeVarriants";
 export { default as QuickView } from "./product/QuickView";
+export { default as Cart } from "./product/Cart";
 export { default as SearchItem } from "./search/SearchItem";
 export { default as Votebar } from "./reviews/Votebar";
 export { default as Ratings } from "./reviews/Ratings";

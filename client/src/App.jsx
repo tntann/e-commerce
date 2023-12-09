@@ -11,6 +11,7 @@ import {
   FAQs,
   FinalRegister,
   ResetPassword,
+  DetailCart,
 } from "./pages/public";
 import {
   AdminLayout,
@@ -26,11 +27,12 @@ import { getCategories } from "./app/asyncActions";
 import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Modal } from "./components";
+import { Cart, Modal } from "./components";
+import { showCart } from "./app/appSlice";
 
 function App() {
   const dispatch = useDispatch();
-  const { isShowModal, modalChildren } = useSelector(
+  const { isShowModal, modalChildren, isShowCart } = useSelector(
     (state) => state.appReducer
   );
   useEffect(() => {
@@ -38,6 +40,14 @@ function App() {
   }, []);
   return (
     <div className="">
+      {isShowCart && (
+        <div
+          onClick={() => dispatch(showCart())}
+          className="absolute inset-0 bg-overlay z-50 flex justify-end"
+        >
+          <Cart />
+        </div>
+      )}
       {isShowModal && <Modal>{modalChildren}</Modal>}
       <Routes>
         <Route path={path.PUBLIC} element={<Public />}>
@@ -51,6 +61,7 @@ function App() {
           <Route path={path.OUR_SERVICES} element={<Services />} />
           <Route path={path.FINAL_REGISTER} element={<FinalRegister />} />
           <Route path={path.RESET_PASSWORD} element={<ResetPassword />} />
+          <Route path={path.DETAIL_CART} element={<DetailCart />} />
 
           <Route path={path.NEWS} element={<News />} />
           <Route path={path.FAQS} element={<FAQs />} />

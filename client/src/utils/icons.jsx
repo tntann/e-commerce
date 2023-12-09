@@ -31,7 +31,7 @@ import {
   FiShoppingBag,
 } from "react-icons/fi";
 import { BiLogoGmail, BiArrowBack } from "react-icons/bi";
-import { BsShieldShaded } from "react-icons/bs";
+import { BsShieldShaded, BsCartPlus } from "react-icons/bs";
 import { ImTruck } from "react-icons/im";
 
 const icons = {
@@ -67,6 +67,7 @@ const icons = {
   RiBillLine,
   LuUsers,
   FiShoppingBag,
+  BsCartPlus,
 };
 
 export default icons;

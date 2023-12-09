@@ -3,8 +3,10 @@ import logo from "../../assets/hephonelogo.png";
 import icons from "../../utils/icons";
 import { Link } from "react-router-dom";
 import path from "../../utils/path";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { logout } from "../../app/user/userSlice";
+import { showCart } from "../../app/appSlice";
+import withBaseComponent from "../../hocs/withBaseComponent";
 
 const {
   PiPhoneCallBold,
@@ -12,10 +14,10 @@ const {
   AiOutlineShoppingCart,
   FaRegUserCircle,
 } = icons;
-const Header = () => {
+
+const Header = ({ dispatch }) => {
   const { current } = useSelector((state) => state.user);
   const [isShowOption, setIsShowOption] = useState(false);
-  const dispatch = useDispatch();
   useEffect(() => {
     const handleClickoutOptions = (e) => {
       const profile = document.getElementById("profile");
@@ -56,9 +58,12 @@ const Header = () => {
         </div>
         {current && (
           <Fragment>
-            <div className="flex items-center justify-center gap-2 px-6 cursor-pointer border-r">
+            <div
+              onClick={() => dispatch(showCart())}
+              className="cursor-pointer flex items-center justify-center gap-2 px-6 border-r"
+            >
               <AiOutlineShoppingCart color="#ee3131" size={24} />
-              <span>0 item(s)</span>
+              <span>{`${current?.cart?.length || 0} item(s)`}</span>
             </div>
 
             <div
@@ -103,4 +108,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default withBaseComponent(Header);
