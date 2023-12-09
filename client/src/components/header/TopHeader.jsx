@@ -10,9 +10,9 @@ import Swal from "sweetalert2";
 const { RiLogoutCircleRLine } = icons;
 
 const TopHeader = () => {
+  const { isLoggedIn, current, mess } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { isLoggedIn, current, mess } = useSelector((state) => state.user);
 
   useEffect(() => {
     const setTimeoutId = setTimeout(() => {

@@ -25,6 +25,9 @@ export const userSlice = createSlice({
     clearMessage: (state) => {
       state.mess = "";
     },
+    // updateCart: (state, action) => {
+
+    //  }
   },
   // Code logic xử lý async action
   extraReducers: (builder) => {

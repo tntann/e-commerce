@@ -8,7 +8,7 @@ import {
   apiFinalRegister,
 } from "../../apis/user";
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import path from "../../utils/path";
 import { login } from "../../app/user/userSlice";
 // import { showModal } from "../../app/appSlice";
@@ -33,6 +33,7 @@ const Login = () => {
   const [invalidFields, setInvalidFields] = useState(false);
   const [isRegister, setIsRegister] = useState(false);
   const [isForgotPass, setIsForgotPass] = useState(false);
+  const [searchParams] = useSearchParams();
   const resetPayLoad = () => {
     setPayLoad({
       firstname: "",
@@ -88,7 +89,9 @@ const Login = () => {
               userData: result.userData,
             })
           );
-          navigate(`/${path.HOME}`);
+          searchParams.get("redirect")
+            ? navigate(searchParams.get("redirect"))
+            : navigate(`/${path.HOME}`);
         } else Swal.fire("Oops!", result.mess, "error");
       }
     }

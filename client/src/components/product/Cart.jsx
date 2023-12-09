@@ -13,8 +13,8 @@ import { ImBin } from "react-icons/im";
 
 const Cart = ({ dispatch, navigate }) => {
   const { current } = useSelector((state) => state.user);
-  const removeCart = async (pid) => {
-    const response = await apiRemoveCart(pid);
+  const removeCart = async (pid, color) => {
+    const response = await apiRemoveCart(pid, color);
     if (response.success) {
       toast.success(response.mess);
       dispatch(getCurrent());
@@ -40,23 +40,23 @@ const Cart = ({ dispatch, navigate }) => {
         )}
         {current?.cart &&
           current?.cart?.map((el) => (
-            <div key={el._id} className="flex justify-between items-center">
+            <div key={el?._id} className="flex justify-between items-center">
               <div className="flex gap-4 mb-4">
                 <img
-                  src={el.product?.thumb}
+                  src={el?.thumbnail}
                   alt="thumb"
                   className="w-16 h-16 object-cover"
                 />
                 <div className="flex flex-col gap-1">
-                  <span className="text-sm text-main">{el.product?.title}</span>
-                  <span className="text-[10px]">{el.color}</span>
+                  <span className="text-sm text-main">{el.title}</span>
+                  <span className="text-[10px]">{el?.color}</span>
                   <span className="text-sm">
-                    {`${formatMoney(formatPrice(el.product?.price))} VND`}
+                    {`${formatMoney(formatPrice(el?.price))} VND`}
                   </span>
                 </div>
               </div>
               <span
-                onClick={() => removeCart(el.product?._id)}
+                onClick={() => removeCart(el.product?._id, el.color)}
                 className="h-8 w-8 rounded-full flex items-center justify-center hover:bg-gray-700 cursor-pointer hover:text-main"
               >
                 <ImBin size={16} />

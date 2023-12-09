@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { apiGetProduct, apiGetProducts } from "../../apis";
+import { useParams, createSearchParams } from "react-router-dom";
+import { apiGetProduct, apiGetProducts, apiUpdateCart } from "../../apis";
 import {
   BreadCrumb,
   Button,
@@ -18,6 +18,12 @@ import {
 import { productExtrainfo } from "../../utils/contains";
 import DOMPurify from "dompurify";
 import clsx from "clsx";
+import path from "../../utils/path";
+import { toast } from "react-toastify";
+import { getCurrent } from "../../app/user/asyncActions";
+import withBaseComponent from "../../hocs/withBaseComponent";
+import Swal from "sweetalert2";
+import { useSelector } from "react-redux";
 
 const settings = {
   dots: false,
@@ -27,8 +33,10 @@ const settings = {
   slidesToScroll: 1,
 };
 
-const ProductDetail = ({ isQuickView, data }) => {
+const ProductDetail = ({ isQuickView, data, location, dispatch, navigate }) => {
   const params = useParams();
+  const { current } = useSelector((state) => state.user);
+
   const [product, setProduct] = useState([]);
   const [currentImage, setCurrentImage] = useState(null);
   const [quantity, setQuantity] = useState(1);
@@ -71,6 +79,14 @@ const ProductDetail = ({ isQuickView, data }) => {
         images: product?.varriants?.find((el) => el.sku === varriant)?.images,
         price: product?.varriants?.find((el) => el.sku === varriant)?.price,
         thumb: product?.varriants?.find((el) => el.sku === varriant)?.thumb,
+      });
+    } else {
+      setCurrentProduct({
+        title: product?.title,
+        color: product?.color,
+        images: product?.images || [],
+        price: product?.price,
+        thumb: product?.thumb,
       });
     }
   }, [varriant]);
@@ -120,6 +136,38 @@ const ProductDetail = ({ isQuickView, data }) => {
     e.stopPropagation();
     setCurrentImage(el);
   };
+
+  const handleAddToCart = async () => {
+    if (!current)
+      return Swal.fire({
+        title: "Almost...",
+        text: "Please login first!",
+        icon: "info",
+        cancelButtonText: "Not now!",
+        showCancelButton: true,
+        confirmButtonText: "Go login page",
+      }).then(async (rs) => {
+        if (rs.isConfirmed)
+          navigate({
+            pathname: `/${path.LOGIN}`,
+            search: createSearchParams({
+              redirect: location.pathname,
+            }).toString(),
+          });
+      });
+    const response = await apiUpdateCart({
+      pid,
+      color: currentProduct.color || product?.color,
+      quantity,
+      price: currentProduct.price || product.price,
+      thumbnail: currentProduct.thumb || product.thumb,
+      title: currentProduct.title || product.title,
+    });
+    if (response.success) {
+      toast.success(response.mess);
+      dispatch(getCurrent());
+    } else toast.error(response.mess);
+  };
   return (
     <div className={clsx("w-full")}>
       {/* breadcrumbs */}
@@ -163,7 +211,7 @@ const ProductDetail = ({ isQuickView, data }) => {
           </div>
           <div className="w-[458px]">
             <Slider {...settings}>
-              {currentProduct.images.length === 0 &&
+              {currentProduct?.images?.length === 0 &&
                 product?.images?.map((el, index) => (
                   <div key={index} className="border-none outline-none flex-1">
                     <img
@@ -175,7 +223,7 @@ const ProductDetail = ({ isQuickView, data }) => {
                   </div>
                 ))}
 
-              {currentProduct.images.length > 0 &&
+              {currentProduct?.images?.length > 0 &&
                 currentProduct?.images?.map((el, index) => (
                   <div key={index} className="border-none outline-none flex-1">
                     <img
@@ -251,9 +299,9 @@ const ProductDetail = ({ isQuickView, data }) => {
                   )} VND`}</span>
                 </span>
               </div>
-              {product?.varriants?.map((el, index) => (
+              {product?.varriants?.map((el) => (
                 <div
-                  key={index}
+                  key={el?.sku}
                   onClick={() => setVarriant(el?.sku)}
                   className={clsx(
                     "flex items-center gap-2 p-2 border cursor-pointer",
@@ -285,7 +333,9 @@ const ProductDetail = ({ isQuickView, data }) => {
                 handleChangeQuantity={handleChangeQuantity}
               />
             </div>
-            <Button fw> ADD TO CART</Button>
+            <Button handleOnClick={handleAddToCart} fw>
+              ADD TO CART
+            </Button>
           </div>
         </div>
         {/*End Depcriptions */}
@@ -335,4 +385,4 @@ const ProductDetail = ({ isQuickView, data }) => {
   );
 };
 
-export default ProductDetail;
+export default withBaseComponent(ProductDetail);

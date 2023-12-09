@@ -23,7 +23,7 @@ router.put(
 router.put("/address/", [verifyAccessToken], ctrls.updateUserAddress);
 router.put("/cart/", [verifyAccessToken], ctrls.updateCart);
 router.delete(
-  "/remove-cart/:pid",
+  "/remove-cart/:pid/:color",
   [verifyAccessToken],
   ctrls.removeProductInCart
 );

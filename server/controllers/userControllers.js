@@ -395,16 +395,23 @@ const updateUserAddress = asyncHandler(async (req, res) => {
 // update Cart
 const updateCart = asyncHandler(async (req, res) => {
   const { _id } = req.user;
-  const { pid, quantity = 1, color } = req.body;
+  const { pid, quantity = 1, color, price, thumbnail, title } = req.body;
   if (!pid || !color) throw new Error("Missing inputs");
   const user = await User.findById(_id).select("cart");
   const alreadyProduct = user?.cart?.find(
     (el) => el.product.toString() === pid
   );
-  if (alreadyProduct) {
+  if (alreadyProduct && alreadyProduct.color === color) {
     const response = await User.updateOne(
       { cart: { $elemMatch: alreadyProduct } },
-      { $set: { "cart.$.quantity": quantity, "cart.$.color": color } },
+      {
+        $set: {
+          "cart.$.quantity": quantity,
+          "cart.$.price": price,
+          "cart.$.thumbnail": thumbnail,
+          "cart.$.title": title,
+        },
+      },
       { new: true }
     );
     return res.status(200).json({
@@ -414,7 +421,11 @@ const updateCart = asyncHandler(async (req, res) => {
   } else {
     const response = await User.findByIdAndUpdate(
       _id,
-      { $push: { cart: { product: pid, quantity, color } } },
+      {
+        $push: {
+          cart: { product: pid, quantity, color, price, thumbnail, title },
+        },
+      },
       { new: true }
     );
     return res.status(200).json({
@@ -426,10 +437,10 @@ const updateCart = asyncHandler(async (req, res) => {
 
 const removeProductInCart = asyncHandler(async (req, res) => {
   const { _id } = req.user;
-  const { pid } = req.params;
+  const { pid, color } = req.params;
   const user = await User.findById(_id).select("cart");
   const alreadyProduct = user?.cart?.find(
-    (el) => el.product.toString() === pid
+    (el) => el.product.toString() === pid && el.color === color
   );
   if (!alreadyProduct)
     return res.status(200).json({
@@ -438,7 +449,7 @@ const removeProductInCart = asyncHandler(async (req, res) => {
     });
   const response = await User.findByIdAndUpdate(
     _id,
-    { $pull: { cart: { product: pid } } },
+    { $pull: { cart: { product: pid, color } } },
     { new: true }
   );
   return res.status(200).json({
