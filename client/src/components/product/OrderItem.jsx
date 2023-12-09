@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { formatMoney, formatPrice } from "../../utils/helper";
 import SelectQuantity from "../common/SelectQuantity";
+import { updateCart } from "../../app/user/userSlice";
+import withBaseComponent from "../../hocs/withBaseComponent";
 
-const OrderItem = ({ el }) => {
-  const [quantity, setQuantity] = useState(0);
+const OrderItem = ({ el, defaultQuantity = 1, dispatch }) => {
+  const [quantity, setQuantity] = useState(() => defaultQuantity);
   const handleQuantity = (number) => {
     if (+number > 1) setQuantity(number);
   };
@@ -13,11 +15,15 @@ const OrderItem = ({ el }) => {
     if (flag === "minus") setQuantity((prev) => +prev - 1);
     if (flag === "plus") setQuantity((prev) => +prev + 1);
   };
+
+  useEffect(() => {
+    dispatch(updateCart({ pid: el.product?._id, quantity, color: el.color }));
+  }, [quantity]);
   // set quantity
   return (
     <div className="w-main mx-auto border-b font-bold py-3 grid grid-cols-10">
       <span className="col-span-6 w-full text-center">
-        <div className="flex gap-2">
+        <div className="flex gap-2 px-4 py-3">
           <img
             src={el.thumbnail}
             alt="thumb"
@@ -40,11 +46,11 @@ const OrderItem = ({ el }) => {
       </span>
       <span className="col-span-3 w-full h-full flex items-center justify-center text-center">
         <span className="text-lg">
-          {`${formatMoney(formatPrice(el.price))} VND`}
+          {formatMoney(formatPrice(el.price * quantity)) + " VND"}
         </span>
       </span>
     </div>
   );
 };
 
-export default OrderItem;
+export default withBaseComponent(OrderItem);

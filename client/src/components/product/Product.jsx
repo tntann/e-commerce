@@ -42,8 +42,12 @@ const Product = ({ productData, isNew, normal, navigate, dispatch }) => {
           if (rs.isConfirmed) navigate(`/${path.LOGIN}`);
         });
       const response = await apiUpdateCart({
-        pid: productData._id,
-        color: productData.color,
+        pid: productData?._id,
+        color: productData?.color,
+        quantity: 1,
+        price: productData?.price,
+        thumbnail: productData?.thumb,
+        title: productData?.title,
       });
       if (response.success) {
         toast.success(response.mess);
