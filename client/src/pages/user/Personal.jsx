@@ -8,17 +8,20 @@ import { useForm } from "react-hook-form";
 import { apiUpdateCurrent } from "../../apis";
 import { toast } from "react-toastify";
 import { getCurrent } from "../../app/user/asyncActions";
+import { useSearchParams } from "react-router-dom";
+import withBaseComponent from "../../hocs/withBaseComponent";
 
-const Personal = () => {
+const Personal = ({ navigate }) => {
   const {
     register,
     formState: { errors, isDirty },
     handleSubmit,
     reset,
-    watch,
+    // watch,
   } = useForm();
   const { current } = useSelector((state) => state.user);
   const dispatch = useDispatch();
+  const [searchParams] = useSearchParams();
   useEffect(() => {
     reset({
       firstname: current?.firstname,
@@ -50,6 +53,7 @@ const Personal = () => {
     if (response.success) {
       dispatch(getCurrent());
       toast.success(response.mess);
+      if (searchParams.get("redirect")) navigate(searchParams.get("redirect"));
     } else toast.error(response.mess);
   };
   return (
@@ -148,4 +152,4 @@ const Personal = () => {
   );
 };
 
-export default Personal;
+export default withBaseComponent(Personal);

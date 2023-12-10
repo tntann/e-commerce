@@ -1,14 +1,36 @@
 import React from "react";
 import withBaseComponent from "../../hocs/withBaseComponent";
 import { useSelector } from "react-redux";
-import { BreadCrumb } from "../../components";
+import { BreadCrumb, Button } from "../../components";
 import { formatMoney, formatPrice } from "../../utils/helper";
 import OrderItem from "../../components/product/OrderItem";
 import path from "../../utils/path";
-import { Link } from "react-router-dom";
+import { createSearchParams } from "react-router-dom";
+import Swal from "sweetalert2";
 
-const DetailCart = ({ location }) => {
-  const { currentCart } = useSelector((state) => state.user);
+const DetailCart = ({ location, navigate }) => {
+  const { currentCart, current } = useSelector((state) => state.user);
+  const handleSubmit = () => {
+    if (!current?.address)
+      return Swal.fire({
+        icon: "info",
+        title: "Almost!",
+        text: "Please update your address before checkout.",
+        showCancelButton: true,
+        showConfirmButton: true,
+        confirmButtonText: "Go update",
+        cancelButtonText: "Cancel",
+      }).then((result) => {
+        if (result.isConfirmed)
+          navigate({
+            pathname: `/${path.USER}/${path.PERSONAL}`,
+            search: createSearchParams({
+              redirect: location.pathname,
+            }).toString(),
+          });
+      });
+    else window.open(`/${path.CHECKOUT}`, "_blank");
+  };
   return (
     <div className="w-full">
       <div className="h-[81px] flex justify-center items-center bg-gray-100">
@@ -42,7 +64,7 @@ const DetailCart = ({ location }) => {
       </div>
       <div className="w-main mx-auto flex flex-col mb-12 justify-center items-end gap-3">
         <span className="flex items-center gap-8 text-sm">
-          <span>Subtotal:</span>
+          <span>Total payment:</span>
           <span className="text-main text-lg font-bold">{`${formatMoney(
             formatPrice(
               currentCart?.reduce(
@@ -55,13 +77,14 @@ const DetailCart = ({ location }) => {
         <span className="text-xs italic">
           Shipping, taxes, and discounts calculated at checkout
         </span>
-        <Link
+        {/* <Link
           target="_blank"
           className="bg-main text-white px-4 py-2 rounded-md"
           to={`/${path.CHECKOUT}`}
         >
           CHECK OUT
-        </Link>
+        </Link> */}
+        <Button handleOnClick={handleSubmit}>CHECK OUT</Button>
       </div>
     </div>
   );
