@@ -75,7 +75,7 @@ const Checkout = ({ dispatch }) => {
                     +currentCart?.reduce(
                       (sum, el) => +el?.price * el.quantity + sum,
                       0
-                    ) / 23500
+                    ) / 24230
                   ),
                   address: current?.address,
                 }}
@@ -84,7 +84,7 @@ const Checkout = ({ dispatch }) => {
                   +currentCart?.reduce(
                     (sum, el) => +el?.price * el.quantity + sum,
                     0
-                  ) / 23500
+                  ) / 24230
                 )}
               />
             </div>

@@ -250,7 +250,7 @@ export const userSidebar = [
   {
     id: 1,
     type: "SINGLE",
-    text: "Personal",
+    text: "Information",
     path: `/${path.USER}/${path.PERSONAL}`,
     icon: <MdOutlineDashboard size={20} />,
   },
@@ -264,15 +264,26 @@ export const userSidebar = [
   {
     id: 3,
     type: "SINGLE",
-    text: "Buy histories",
+    text: "Purchase history",
     path: `/${path.USER}/${path.HISTORY}`,
     icon: <RiBillLine size={20} />,
   },
   {
     id: 4,
     type: "SINGLE",
-    text: "Wislist",
+    text: "Favorite products",
     path: `/${path.USER}/${path.WISHLIST}`,
     icon: <FiHeart size={20} />,
+  },
+];
+
+export const statusOrders = [
+  {
+    label: "Canceled",
+    value: "Canceled",
+  },
+  {
+    label: "Succeed",
+    value: "Succeed",
   },
 ];

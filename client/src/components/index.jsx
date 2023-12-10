@@ -38,6 +38,7 @@ export { default as PaginationItem } from "./pagination/PaginationItem";
 export { default as Loading } from "./common/Loading";
 export { default as InputForm } from "./input/InputForm";
 export { default as Select } from "./input/Select";
+export { default as CustomSelect } from "./select_option/CustomSelect";
 export { default as MarkdownEditor } from "./input/MarkdownEditor";
 export { default as UserSidebar } from "./sidebar/UserSidebar";
 export { default as Paypal } from "./common/Paypal";
