@@ -26,7 +26,9 @@ const Personal = () => {
       mobile: current?.mobile,
       email: current?.email,
       avatar: current?.avatar,
+      address: current?.address,
     });
+    window.scrollTo(0, 0);
   }, [current]);
 
   // const handleFile = async () => {
@@ -37,7 +39,7 @@ const Personal = () => {
   // useEffect(() => {
   //     if (watch('avatar') && isDirty) handleFile()
   // }, [watch('avatar')])
-  console.log(watch("avatar"));
+  // console.log(watch("avatar"));
   const handleUpdateInfor = async (data) => {
     const formData = new FormData();
     if (data.avatar.length > 0) formData.append("avatar", data.avatar[0]);
@@ -59,6 +61,17 @@ const Personal = () => {
         onSubmit={handleSubmit(handleUpdateInfor)}
         className="w-3/5 mx-auto py-8 flex flex-col gap-4"
       >
+        <div className="flex flex-col gap-2">
+          <span className="font-medium">Profile image:</span>
+          <label htmlFor="file">
+            <img
+              src={current?.avatar || avatar}
+              alt="avatar"
+              className="w-20 h-20 ml-8 object-cover rounded-full cursor-pointer"
+            />
+          </label>
+          <input type="file" id="file" {...register("avatar")} hidden />
+        </div>
         <InputForm
           label="First Name"
           register={register}
@@ -104,6 +117,15 @@ const Personal = () => {
             },
           }}
         />
+        <InputForm
+          label="Address"
+          register={register}
+          errors={errors}
+          id="address"
+          validate={{
+            required: "Please fill out this field.",
+          }}
+        />
         <div className="flex items-center gap-2">
           <span className="font-medium">Account status:</span>
           <span>{current?.isBlocked ? "Blocked" : "Actived"}</span>
@@ -112,20 +134,9 @@ const Personal = () => {
           <span className="font-medium">Role:</span>
           <span>{+current?.role === 1 ? "Admin" : "User"}</span>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 mb-8">
           <span className="font-medium">Created At:</span>
           <span>{moment(current?.createdAt).fromNow()}</span>
-        </div>
-        <div className="flex flex-col gap-2">
-          <span className="font-medium">Profile image:</span>
-          <label htmlFor="file">
-            <img
-              src={current?.avatar || avatar}
-              alt="avatar"
-              className="w-20 h-20 ml-8 object-cover rounded-full cursor-pointer"
-            />
-          </label>
-          <input type="file" id="file" {...register("avatar")} hidden />
         </div>
         {isDirty && (
           <div className="w-full flex justify-end">
