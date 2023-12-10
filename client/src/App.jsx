@@ -21,7 +21,14 @@ import {
   CreateProducts,
   Dashboard,
 } from "./pages/admin";
-import { UserLayout, Personal, Wishlist, History, MyCart } from "./pages/user";
+import {
+  UserLayout,
+  Personal,
+  Wishlist,
+  History,
+  // MyCart,
+  Checkout,
+} from "./pages/user";
 import path from "./utils/path";
 import { getCategories } from "./app/asyncActions";
 import { useDispatch, useSelector } from "react-redux";
@@ -50,6 +57,7 @@ function App() {
       )}
       {isShowModal && <Modal>{modalChildren}</Modal>}
       <Routes>
+        <Route path={path.CHECKOUT} element={<Checkout />} />
         <Route path={path.PUBLIC} element={<Public />}>
           <Route path={path.HOME} element={<Home />} />
           <Route path={path.LOGIN} element={<Login />} />
@@ -80,7 +88,7 @@ function App() {
         {/* User */}
         <Route path={path.USER} element={<UserLayout />}>
           <Route path={path.PERSONAL} element={<Personal />} />
-          <Route path={path.MY_CART} element={<MyCart id="cart" />} />
+          <Route path={path.MY_CART} element={<DetailCart />} />
           <Route path={path.WISHLIST} element={<Wishlist />} />
           <Route path={path.HISTORY} element={<History />} />
         </Route>

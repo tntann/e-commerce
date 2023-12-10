@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useParams, createSearchParams } from "react-router-dom";
 import { apiGetProduct, apiGetProducts, apiUpdateCart } from "../../apis";
 import {
@@ -34,6 +34,7 @@ const settings = {
 };
 
 const ProductDetail = ({ isQuickView, data, location, dispatch, navigate }) => {
+  const titleRef = useRef();
   const params = useParams();
   const { current } = useSelector((state) => state.user);
 
@@ -89,7 +90,7 @@ const ProductDetail = ({ isQuickView, data, location, dispatch, navigate }) => {
         thumb: product?.thumb,
       });
     }
-  }, [varriant]);
+  }, [varriant, product]);
 
   const fetchProducts = async () => {
     const response = await apiGetProducts({ category });
@@ -102,6 +103,7 @@ const ProductDetail = ({ isQuickView, data, location, dispatch, navigate }) => {
       fetchProducts();
     }
     window.scrollTo(0, 0);
+    titleRef.current.scrollIntoView({ block: "center" });
   }, [pid]);
 
   useEffect(() => {
@@ -173,7 +175,7 @@ const ProductDetail = ({ isQuickView, data, location, dispatch, navigate }) => {
       {/* breadcrumbs */}
       {!isQuickView && (
         <div className="h-[81px] flex justify-center items-center bg-[#f7f7f7]">
-          <div className="w-main mt-[10px] mb-[10px]">
+          <div ref={titleRef} className="w-main mt-[10px] mb-[10px]">
             <h3 className="mb-[10px] font-semibold">
               {currentProduct?.title || product?.title}
             </h3>
@@ -187,6 +189,7 @@ const ProductDetail = ({ isQuickView, data, location, dispatch, navigate }) => {
       {/*end breadcrumbs */}
 
       <div
+        ref={titleRef}
         onClick={(e) => e.stopPropagation()}
         className={clsx(
           "bg-white m-auto mt-5 flex",
@@ -212,7 +215,7 @@ const ProductDetail = ({ isQuickView, data, location, dispatch, navigate }) => {
           <div className="w-[458px]">
             <Slider {...settings}>
               {currentProduct?.images?.length === 0 &&
-                product?.images?.map((el, index) => (
+                currentProduct?.images?.map((el, index) => (
                   <div key={index} className="border-none outline-none flex-1">
                     <img
                       onClick={(e) => handleClickImage(e, el)}

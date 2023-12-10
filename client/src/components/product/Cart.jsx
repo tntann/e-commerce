@@ -86,6 +86,7 @@ const Cart = ({ dispatch, navigate }) => {
           handleOnClick={() => {
             dispatch(showCart());
             navigate(`/${path.DETAIL_CART}`);
+            // navigate(`/${path.USER}/${path.DETAIL_CART}`)
           }}
           style="rounded-none w-full bg-main py-3 hover:bg-red-700"
         >

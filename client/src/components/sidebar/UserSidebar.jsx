@@ -5,6 +5,7 @@ import { AiOutlineCaretDown, AiOutlineCaretRight } from "react-icons/ai";
 import { NavLink } from "react-router-dom";
 import { userSidebar } from "../../utils/contains";
 import { useSelector } from "react-redux";
+import { TiArrowBackOutline } from "react-icons/ti";
 
 const activedStyle = "px-4 py-2 flex items-center gap-2  bg-main text-gray-100";
 const notActivedStyle = "px-4 py-2 flex items-center gap-2  hover:bg-red-100";
@@ -83,6 +84,10 @@ const UserSidebar = () => {
             )}
           </Fragment>
         ))}
+        <NavLink to={"/"} className={clsx(notActivedStyle)}>
+          <TiArrowBackOutline size={19} />
+          Go home
+        </NavLink>
       </div>
     </div>
   );

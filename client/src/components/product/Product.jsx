@@ -20,10 +20,18 @@ import { toast } from "react-toastify";
 import { getCurrent } from "../../app/user/asyncActions";
 import path from "../../utils/path";
 import { BsFillCartCheckFill } from "react-icons/bs";
+import { createSearchParams } from "react-router-dom";
 
 const { FiHeart, AiOutlineShoppingCart, AiOutlineEye } = icons;
 
-const Product = ({ productData, isNew, normal, navigate, dispatch }) => {
+const Product = ({
+  productData,
+  isNew,
+  normal,
+  navigate,
+  dispatch,
+  location,
+}) => {
   const [isShowOption, setIsShowOption] = useState(false);
   const { current } = useSelector((state) => state.user);
 
@@ -38,8 +46,14 @@ const Product = ({ productData, isNew, normal, navigate, dispatch }) => {
           cancelButtonText: "Not now!",
           showCancelButton: true,
           confirmButtonText: "Go login page",
-        }).then((rs) => {
-          if (rs.isConfirmed) navigate(`/${path.LOGIN}`);
+        }).then(async (rs) => {
+          if (rs.isConfirmed)
+            navigate({
+              pathname: `/${path.LOGIN}`,
+              search: createSearchParams({
+                redirect: location.pathname,
+              }).toString(),
+            });
         });
       const response = await apiUpdateCart({
         pid: productData?._id,
