@@ -41,3 +41,4 @@ export { default as Select } from "./input/Select";
 export { default as MarkdownEditor } from "./input/MarkdownEditor";
 export { default as UserSidebar } from "./sidebar/UserSidebar";
 export { default as Paypal } from "./common/Paypal";
+export { default as Congrat } from "./common/Congrat";
