@@ -24,10 +24,16 @@ const userConfig = {
   whitelist: ["isLoggedIn", "token", "current", "currentCart"],
 };
 
+const productConfig = {
+  ...commonConfig,
+  whitelist: ["dealDaily"],
+  key: "shop/deal",
+};
+
 export const store = configureStore({
   reducer: {
     appReducer: appSlice,
-    products: productSlice,
+    products: persistReducer(productConfig, productSlice),
     user: persistReducer(userConfig, userSlice),
   },
   middleware: (getDefaultMiddleware) =>

@@ -75,24 +75,40 @@ const History = ({ navigate, location }) => {
             <th className="text-center py-2">Products</th>
             <th className="text-center py-2">Total</th>
             <th className="text-center py-2">Status</th>
-            <th className="text-center py-2">Created At</th>
-            <th className="text-center py-2">Actions</th>
+            <th className="text-center py-2">Order Date</th>
+            {/* <th className="text-center py-2">Actions</th> */}
           </tr>
         </thead>
         <tbody>
           {orders?.map((el, idx) => (
             <tr className="border-b" key={el?._id}>
-              <td className="text-center py-2">
+              <td className="text-center p-2">
                 {(+params.get("page") > 1 ? +params.get("page") - 1 : 0) *
                   import.meta.env.VITE_APP_LIMIT +
                   idx +
                   1}
               </td>
-              <td className="text-center py-2">
-                <span className="flex flex-col">
+              <td className="text-center max-w-[400px] py-2">
+                <span className="grid grid-cols-3 gap-4">
                   {el.products?.map((item) => (
-                    <span key={item._id}>
-                      {`• ${item.title} - ${item.color}`}
+                    <span
+                      className="flex col-span-1 items-center gap-2"
+                      key={item._id}
+                    >
+                      <img
+                        src={item.thumbnail}
+                        alt="thumb"
+                        className="w-10 h-10 rounded-md object-cover"
+                      />
+                      <span className="flex flex-col">
+                        <span className="text-main text-xs text-start">
+                          {item.title}
+                        </span>
+                        <span className="flex items-center text-xs gap-2">
+                          <span>Quantity:</span>
+                          <span className="text-main">{item.quantity}</span>
+                        </span>
+                      </span>
                     </span>
                   ))}
                 </span>
@@ -100,7 +116,7 @@ const History = ({ navigate, location }) => {
               <td className="text-center py-2">{el.total + " 💲"}</td>
               <td className="text-center py-2">{el.status}</td>
               <td className="text-center py-2">
-                {moment(el.createdAt)?.format("DD/MM/YYYY")}
+                {moment(el.createdAt)?.format("lll")}
               </td>
               <td className="text-center py-2">
                 {/* <span

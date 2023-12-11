@@ -27,6 +27,7 @@ router.delete(
   [verifyAccessToken],
   ctrls.removeProductInCart
 );
+router.put("/wishlist/:pid", [verifyAccessToken], ctrls.updateWishlist);
 router.put("/:userid", [verifyAccessToken, isAdmin], ctrls.updateUserByAdmin);
 
 module.exports = router;

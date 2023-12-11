@@ -6,10 +6,14 @@ export const productSlice = createSlice({
   initialState: {
     newProducts: null,
     errorMessage: "",
+    dealDaily: null,
   },
   reducers: {
     logout: (state) => {
       state.isLoading = false;
+    },
+    getDealDaily: (state, action) => {
+      state.dealDaily = action.payload;
     },
   },
   // Code logic xử lý async action
@@ -37,6 +41,6 @@ export const productSlice = createSlice({
   },
 });
 
-export const { logout } = productSlice.actions;
+export const { logout, getDealDaily } = productSlice.actions;
 
 export default productSlice.reducer;

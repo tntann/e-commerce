@@ -1,9 +1,21 @@
 import React from "react";
 import { formatMoney, renderStartFromNumber } from "../../utils/helper";
+import withBaseComponent from "../../hocs/withBaseComponent";
 
-const ProductCard = ({ image, title, totalRatings, price }) => {
+const ProductCard = ({
+  pid,
+  image,
+  title,
+  totalRatings,
+  price,
+  navigate,
+  category,
+}) => {
   return (
-    <div className="w-1/3 flex-auto px-[10px] mb-[20px]">
+    <div
+      className="w-1/3 flex-auto px-[10px] mb-[20px] cursor-pointer"
+      onClick={() => navigate(`/${category?.toLowerCase()}/${pid}/${title}`)}
+    >
       <div className="flex border w-full rounded-lg shadow-sm cursor-pointer">
         <img
           src={image}
@@ -26,4 +38,4 @@ const ProductCard = ({ image, title, totalRatings, price }) => {
   );
 };
 
-export default ProductCard;
+export default withBaseComponent(ProductCard);

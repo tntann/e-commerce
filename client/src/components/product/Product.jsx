@@ -15,12 +15,13 @@ import { showModal } from "../../app/appSlice";
 import { ProductDetail } from "../../pages/public";
 import Swal from "sweetalert2";
 import { useSelector } from "react-redux";
-import { apiUpdateCart } from "../../apis";
+import { apiUpdateCart, apiUpdateWishlist } from "../../apis";
 import { toast } from "react-toastify";
 import { getCurrent } from "../../app/user/asyncActions";
 import path from "../../utils/path";
 import { BsFillCartCheckFill } from "react-icons/bs";
 import { createSearchParams } from "react-router-dom";
+import clsx from "clsx";
 
 const { FiHeart, AiOutlineShoppingCart, AiOutlineEye } = icons;
 
@@ -31,6 +32,8 @@ const Product = ({
   navigate,
   dispatch,
   location,
+  pid,
+  className,
 }) => {
   const [isShowOption, setIsShowOption] = useState(false);
   const { current } = useSelector((state) => state.user);
@@ -68,7 +71,13 @@ const Product = ({
         dispatch(getCurrent());
       } else toast.error(response.mess);
     }
-    if (flag === "WISHLIST") console.log("WISHLIST");
+    if (flag === "WISHLIST") {
+      const response = await apiUpdateWishlist(pid);
+      if (response.success) {
+        dispatch(getCurrent());
+        toast.success(response.mess);
+      } else toast.error(response.mess);
+    }
     if (flag === "QUICK_VIEW") {
       dispatch(
         showModal({
@@ -85,7 +94,7 @@ const Product = ({
   };
 
   return (
-    <div className="w-full text-base px-[10px] ">
+    <div className={clsx("w-full text-base px-[10px]", className)}>
       <div
         className="w-full border p-[15px] flex flex-col items-center shadow-sm rounded-lg"
         onClick={() =>
@@ -131,7 +140,17 @@ const Product = ({
                 title="Add to Wishlist"
                 onClick={(e) => handleClickOptions(e, "WISHLIST")}
               >
-                <SelectOption icon={<FiHeart />} />
+                <SelectOption
+                  icon={
+                    <FiHeart
+                      color={
+                        current?.wishlist?.some((i) => i._id === pid)
+                          ? "red"
+                          : "gray"
+                      }
+                    />
+                  }
+                />
               </span>
             </div>
           )}

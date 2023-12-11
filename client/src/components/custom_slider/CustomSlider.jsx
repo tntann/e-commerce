@@ -21,6 +21,7 @@ const CustomSlider = ({ products, activedTab }) => {
           {products?.map((el) => (
             <Product
               key={el._id}
+              pid={el._id}
               productData={el}
               isNew={activedTab === 1 ? false : true}
             ></Product>

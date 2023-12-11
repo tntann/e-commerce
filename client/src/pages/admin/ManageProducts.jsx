@@ -127,7 +127,7 @@ const ManageProducts = () => {
       <table className="table-auto mx-8 border">
         <thead className="font-bold bg-[#4e73df] text-[14px] text-white">
           <tr className="border border-white">
-            <th className="text-center py-2">ProductCode</th>
+            <th className="text-center p-2">#</th>
             <th className="text-center py-2">Thumb</th>
             <th className="text-center py-2">Title</th>
             <th className="text-center py-2">Brand</th>
@@ -136,8 +136,8 @@ const ManageProducts = () => {
             <th className="text-center py-2">Quantity</th>
             <th className="text-center py-2">Sold</th>
             <th className="text-center py-2">Color</th>
-            <th className="text-center py-2">Ratings</th>
-            <th className="text-center py-2">Varriants</th>
+            <th className="text-center py-2">Rating</th>
+            <th className="text-center py-2">Varriant</th>
             <th className="text-center py-2">UpdatedAt</th>
             <th className="text-center py-2">Actions</th>
           </tr>
@@ -177,19 +177,19 @@ const ManageProducts = () => {
                   onClick={() => setEditProduct(el)}
                   className="text-[#f6c23e] hover:text-[#f4b619] inline-block hover:underline cursor-pointer px-1"
                 >
-                  <BiEdit size={20} />
+                  <BiEdit size={22} />
                 </span>
                 <span
                   onClick={() => handleDeleteProduct(el._id)}
                   className="text-[#e74a3b] hover:text-[#e02d1b] inline-block hover:underline cursor-pointer px-1"
                 >
-                  <RiDeleteBin6Line size={20} />
+                  <RiDeleteBin6Line size={22} />
                 </span>
                 <span
                   onClick={() => setCustomizeVarriant(el)}
                   className="text-blue-400 hover:text-blue-600 inline-block hover:underline cursor-pointer px-1"
                 >
-                  <BiCustomize size={20} />
+                  <BiCustomize size={22} />
                 </span>
               </td>
             </tr>

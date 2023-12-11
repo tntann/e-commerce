@@ -108,6 +108,7 @@ const ProductDetail = ({ isQuickView, data, location, dispatch, navigate }) => {
 
   useEffect(() => {
     if (pid) fetchProductData();
+    window.scrollTo(0, 0);
   }, [update]);
 
   const rerender = useCallback(() => {
@@ -194,7 +195,7 @@ const ProductDetail = ({ isQuickView, data, location, dispatch, navigate }) => {
         className={clsx(
           "bg-white m-auto mt-5 flex",
           isQuickView
-            ? "w-fit gap-24 p-8 max-h-[80vh] overflow-y-auto rounded-lg"
+            ? "w-[1040px] gap-24 p-8 max-h-[80vh] overflow-y-auto rounded-lg"
             : "w-main"
         )}
       >

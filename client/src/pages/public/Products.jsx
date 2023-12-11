@@ -57,7 +57,7 @@ const Products = () => {
     const q = { ...priceQuery, ...queries };
     // console.log(q);
     fetchProductsByCategory(q);
-    window.scrollTo(0, 0);
+    // window.scrollTo(0, 0);
   }, [params]);
 
   const changeActiveFilter = useCallback(

@@ -1,10 +1,12 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import icons from "../../utils/icons";
+import withBaseComponent from "../../hocs/withBaseComponent";
+import { createSearchParams } from "react-router-dom";
 
 const { IoIosArrowForward } = icons;
 
-const FeatureCategories = () => {
+const FeatureCategories = ({ navigate }) => {
   const { categories } = useSelector((state) => state.appReducer);
   // console.log(categories);
 
@@ -33,6 +35,14 @@ const FeatureCategories = () => {
                       <span
                         key={item}
                         className="flex gap-1 items-center text-gray-500 hover:text-main"
+                        onClick={() =>
+                          navigate({
+                            pathname: `/${el.title.toLowerCase()}`,
+                            search: createSearchParams({
+                              brand: item,
+                            }).toString(),
+                          })
+                        }
                       >
                         <IoIosArrowForward size={14} />
                         <li>{item}</li>
@@ -57,4 +67,4 @@ const FeatureCategories = () => {
   );
 };
 
-export default FeatureCategories;
+export default withBaseComponent(FeatureCategories);

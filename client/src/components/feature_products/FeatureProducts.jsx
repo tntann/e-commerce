@@ -20,13 +20,7 @@ const FeatureProducts = () => {
       </h3>
       <div className="flex flex-wrap mt-5 mx-[-10px]">
         {products?.map((el) => (
-          <ProductCard
-            key={el._id}
-            image={el.thumb}
-            title={el.title}
-            totalRatings={el.totalRatings}
-            price={el.price}
-          />
+          <ProductCard key={el._id} pid={el._id} image={el.thumb} {...el} />
         ))}
       </div>
 
