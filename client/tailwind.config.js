@@ -4,6 +4,7 @@ export default {
   theme: {
     fontFamily: {
       main: ["Poppins", "sans-serif"],
+      jp: ["Noto Sans JP", "sans-serif;"],
     },
     extend: {
       width: {

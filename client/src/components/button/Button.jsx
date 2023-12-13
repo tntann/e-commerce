@@ -1,4 +1,5 @@
 import React from "react";
+import { CgSpinner } from "react-icons/cg";
 
 const Button = ({
   name,
@@ -7,6 +8,7 @@ const Button = ({
   style,
   fw,
   type = "button",
+  disabled,
 }) => {
   return (
     <button
@@ -22,6 +24,11 @@ const Button = ({
         handleOnClick && handleOnClick();
       }}
     >
+      {disabled && (
+        <span className="animate-spin">
+          <CgSpinner size={18} />
+        </span>
+      )}
       {children}
       <span>{name}</span>
     </button>

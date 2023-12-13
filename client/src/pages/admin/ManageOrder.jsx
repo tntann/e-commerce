@@ -27,7 +27,7 @@ const ManageOrder = () => {
   const [params] = useSearchParams();
   const {
     register,
-    formState: { errors },
+    // formState: { errors },
     watch,
     setValue,
   } = useForm();
