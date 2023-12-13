@@ -102,13 +102,11 @@ const ProductDetail = ({ isQuickView, data, location, dispatch, navigate }) => {
       fetchProductData();
       fetchProducts();
     }
-    window.scrollTo(0, 0);
-    titleRef.current.scrollIntoView({ block: "center" });
+    titleRef?.current?.scrollIntoView({ block: "center" });
   }, [pid]);
 
   useEffect(() => {
     if (pid) fetchProductData();
-    window.scrollTo(0, 0);
   }, [update]);
 
   const rerender = useCallback(() => {

@@ -3,7 +3,7 @@ import React, { useState } from "react";
 const FAQs = () => {
   return (
     <section className="relative z-20 overflow-hidden bg-white pb-12 pt-20  lg:pb-[90px] lg:pt-[36px] w-full">
-      <div className="container mx-auto">
+      <div className="container mx-auto w-main">
         <div className="-mx-4 flex flex-wrap">
           <div className="w-full px-4">
             <div className="mx-auto mb-[60px] max-w-[520px] text-center lg:mb-20">
