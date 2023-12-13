@@ -183,7 +183,8 @@ export const voteOptions = [
   },
 ];
 
-const { MdOutlineDashboard, LuUsers, FiShoppingBag, RiBillLine } = icons;
+const { MdOutlineDashboard, LuUsers, FiShoppingBag, RiBillLine, BiNews } =
+  icons;
 export const adminSidebar = [
   {
     id: 1,
@@ -221,6 +222,22 @@ export const adminSidebar = [
     text: "Manage orders",
     path: `/${path.ADMIN}/${path.MANAGE_ORDER}`,
     icon: <RiBillLine size={20} />,
+  },
+  {
+    id: 5,
+    type: "PARENT",
+    text: "Manage blogs",
+    icon: <BiNews size={20} />,
+    submenu: [
+      {
+        text: "Create blogs",
+        path: `/${path.ADMIN}/${path.CREATE_BLOG}`,
+      },
+      {
+        text: "Manage blogs",
+        path: `/${path.ADMIN}/${path.MANAGE_BLOGS}`,
+      },
+    ],
   },
 ];
 
@@ -281,6 +298,10 @@ export const statusOrders = [
   {
     label: "Canceled",
     value: "Canceled",
+  },
+  {
+    label: "Processing",
+    value: "Processing",
   },
   {
     label: "Succeed",

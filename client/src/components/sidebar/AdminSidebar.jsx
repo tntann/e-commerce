@@ -1,15 +1,18 @@
 import React, { Fragment, useState } from "react";
 import logo from "../../assets/hephonelogo.png";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useNavigate } from "react-router-dom";
 import { adminSidebar } from "../../utils/contains";
 import clsx from "clsx";
 import { AiOutlineDown, AiOutlineRight } from "react-icons/ai";
+import { RiShareForwardLine } from "react-icons/ri";
+import withBaseComponent from "../../hocs/withBaseComponent";
 
 const activedStyle =
   "px-4 py-2 flex items-center gap-2 bg-[#4e73df] text-gray-100";
 const notActivedStyle = "px-4 py-2 flex items-center gap-2 hover:bg-blue-100";
 
 const AdminSidebar = () => {
+  const navigate = useNavigate();
   const [actived, setActived] = useState([]);
   const handleShowTabs = (tabID) => {
     if (actived.some((el) => el === tabID))
@@ -81,9 +84,15 @@ const AdminSidebar = () => {
             )}
           </Fragment>
         ))}
+        <div onClick={() => navigate(`/`)} className={notActivedStyle}>
+          <span>
+            <RiShareForwardLine size={19} />
+          </span>
+          <span>Go Homepage</span>
+        </div>
       </div>
     </div>
   );
 };
 
-export default AdminSidebar;
+export default withBaseComponent(AdminSidebar);

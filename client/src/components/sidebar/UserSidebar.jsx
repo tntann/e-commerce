@@ -86,7 +86,7 @@ const UserSidebar = () => {
         ))}
         <NavLink to={"/"} className={clsx(notActivedStyle)}>
           <TiArrowBackOutline size={19} />
-          Go home
+          Go Homepage
         </NavLink>
       </div>
     </div>

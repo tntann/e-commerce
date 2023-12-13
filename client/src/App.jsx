@@ -20,6 +20,8 @@ import {
   ManageUser,
   CreateProducts,
   Dashboard,
+  CreateBlog,
+  ManageBlog,
 } from "./pages/admin";
 import {
   UserLayout,
@@ -83,6 +85,8 @@ function App() {
           <Route path={path.MANAGE_PRODUCTS} element={<ManageProducts />} />
           <Route path={path.MANAGE_USER} element={<ManageUser />} />
           <Route path={path.CREATE_PRODUCTS} element={<CreateProducts />} />
+          <Route path={path.CREATE_BLOG} element={<CreateBlog />} />
+          <Route path={path.MANAGE_BLOGS} element={<ManageBlog />} />
         </Route>
 
         {/* User */}
