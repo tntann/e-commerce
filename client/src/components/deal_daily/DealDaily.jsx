@@ -4,6 +4,7 @@ import { apiGetProducts } from "../../apis/product";
 import noProduct from "../../assets/no-products-found.png";
 import {
   formatMoney,
+  formatPrice,
   renderStartFromNumber,
   secondsToHms,
 } from "../../utils/helper";
@@ -94,7 +95,7 @@ const DealDaily = ({ dispatch }) => {
           {dealDaily?.data?.title}
         </span>
         <span className="text-main">{`${formatMoney(
-          dealDaily?.data?.price
+          formatPrice(dealDaily?.data?.price)
         )} đ`}</span>
         <span className="flex h-4">
           {/* {renderStartFromNumber(productData?.totalRatings)} */}

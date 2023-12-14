@@ -54,7 +54,7 @@ const Navbar = () => {
         register={register}
         errors={errors}
         placeholder="Search something..."
-        style="flex-none border-none outline-none"
+        style="flex-none border-none outline-none text-sm"
       />
     </div>
   );

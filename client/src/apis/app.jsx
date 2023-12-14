@@ -5,3 +5,10 @@ export const apiGetCategories = () =>
     url: "/prodcategory/",
     method: "get",
   });
+
+export const apiGetDashboard = (params) =>
+  axios({
+    url: "/order/dashboard",
+    method: "get",
+    params,
+  });

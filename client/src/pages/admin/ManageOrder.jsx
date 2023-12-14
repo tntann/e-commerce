@@ -127,7 +127,7 @@ const ManageOrder = () => {
       <div className="px-4 mt-6 w-full">
         <table className="table-auto w-full px-4 border">
           <thead>
-            <tr className="border bg-[#4e73df] text-white border-white">
+            <tr className="border bg-[#4e73df] text-white border-gray-500">
               <th className="text-center py-2">#</th>
               <th className="text-center py-2">Ordered By</th>
               <th className="text-center py-2">Products</th>

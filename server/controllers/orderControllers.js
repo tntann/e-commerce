@@ -155,10 +155,158 @@ const deleteOrderByAdmin = asyncHandler(async (req, res) => {
   });
 });
 
+function getCountPreviousDay(count = 1, date = new Date()) {
+  const previous = new Date(date.getTime());
+  previous.setDate(date.getDate() - count);
+  return previous;
+}
+const getDashboard = asyncHandler(async (req, res) => {
+  const { to, from, type } = req.query;
+  const format = type === "MTH" ? "%Y-%m" : "%Y-%m-%d";
+  const start = from || getCountPreviousDay(7, new Date(to));
+  const end = to || getCountPreviousDay(0);
+  const [users, totalSuccess, totalFailed, soldQuantities, chartData, pieData] =
+    await Promise.all([
+      User.aggregate([
+        {
+          $match: {
+            $and: [
+              { createdAt: { $gte: new Date(start) } },
+              { createdAt: { $lte: new Date(end) } },
+            ],
+          },
+        },
+        {
+          $group: {
+            _id: null,
+            count: { $sum: 1 },
+          },
+        },
+      ]),
+      Order.aggregate([
+        {
+          $match: {
+            $and: [
+              { createdAt: { $gte: new Date(start) } },
+              { createdAt: { $lte: new Date(end) } },
+              { status: "Succeed" },
+            ],
+          },
+        },
+        {
+          $group: {
+            _id: null,
+            count: { $sum: "$total" },
+          },
+        },
+      ]),
+      Order.aggregate([
+        {
+          $match: {
+            $and: [
+              { createdAt: { $gte: new Date(start) } },
+              { createdAt: { $lte: new Date(end) } },
+              { status: "Canceled" },
+            ],
+          },
+        },
+        {
+          $group: {
+            _id: null,
+            count: { $sum: "$total" },
+          },
+        },
+      ]),
+      Order.aggregate([
+        {
+          $match: {
+            $and: [
+              { createdAt: { $gte: new Date(start) } },
+              { createdAt: { $lte: new Date(end) } },
+              { status: "Succeed" },
+            ],
+          },
+        },
+        {
+          $group: {
+            _id: null,
+            count: { $sum: { $sum: "$products.quantity" } },
+          },
+        },
+      ]),
+      Order.aggregate([
+        {
+          $match: {
+            $and: [
+              { createdAt: { $gte: new Date(start) } },
+              { createdAt: { $lte: new Date(end) } },
+              { status: "Succeed" },
+            ],
+          },
+        },
+        { $unwind: "$createdAt" },
+        {
+          $group: {
+            _id: {
+              $dateToString: {
+                format,
+                date: "$createdAt",
+              },
+            },
+            sum: { $sum: "$total" },
+          },
+        },
+        {
+          $project: {
+            date: "$_id",
+            sum: 1,
+            _id: 0,
+          },
+        },
+      ]),
+      Order.aggregate([
+        {
+          $match: {
+            $and: [
+              { createdAt: { $gte: new Date(start) } },
+              { createdAt: { $lte: new Date(end) } },
+            ],
+          },
+        },
+        { $unwind: "$status" },
+        {
+          $group: {
+            _id: "$status",
+            sum: { $sum: 1 },
+          },
+        },
+        {
+          $project: {
+            status: "$_id",
+            sum: 1,
+            _id: 0,
+          },
+        },
+      ]),
+    ]);
+  return res.json({
+    success: true,
+    data: {
+      users,
+      totalSuccess,
+      totalFailed,
+      soldQuantities,
+      chartData,
+      pieData,
+    },
+  });
+});
+
 module.exports = {
   createOrder,
   updateStatus,
   getUserOrder,
   getOrders,
   deleteOrderByAdmin,
+  getDashboard,
 };
