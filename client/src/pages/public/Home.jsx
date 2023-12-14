@@ -7,13 +7,13 @@ import {
   FeatureProducts,
   NewProducts,
   FeatureCategories,
-  TechnologyNews,
+  Blogs,
 } from "../../components";
-import { useSelector } from "react-redux";
+import withBaseComponent from "../../hocs/withBaseComponent";
 
 const Home = () => {
-  const { isLoggedIn, current } = useSelector((state) => state.user);
-  console.log({ isLoggedIn, current });
+  // const { isLoggedIn, current } = useSelector((state) => state.user);
+  // console.log({ isLoggedIn, current });
   return (
     <>
       <div className="w-main flex relative mt-6">
@@ -44,11 +44,11 @@ const Home = () => {
       </div>
 
       {/* TECHNOLOGY NEWS */}
-      <div className="my-8">
-        <TechnologyNews />
+      <div className="my-8 w-main m-auto">
+        <Blogs />
       </div>
     </>
   );
 };
 
-export default Home;
+export default withBaseComponent(Home);

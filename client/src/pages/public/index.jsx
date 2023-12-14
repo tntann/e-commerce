@@ -3,6 +3,7 @@ export { default as Login } from "./Login";
 export { default as Public } from "./Public";
 export { default as Products } from "./Products";
 export { default as ProductDetail } from "./ProductDetail";
+export { default as DetailBlogs } from "./DetailBlogs";
 export { default as Services } from "./Services";
 export { default as News } from "./News";
 export { default as FAQs } from "./FAQs";

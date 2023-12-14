@@ -15,11 +15,64 @@ const createNewBlog = asyncHandler(async (req, res) => {
 
 // get blogs
 const getBlogs = asyncHandler(async (req, res) => {
-  const response = await Blog.find();
-  return res.status(200).json({
-    success: response ? true : false,
-    blogs: response ? response : "Cannot get blogs",
-  });
+  const queries = { ...req.query };
+  // Tách các trường đặc biệt ra khỏi query
+  const excludeFields = ["limit", "sort", "page", "fields"];
+  excludeFields.forEach((el) => delete queries[el]);
+
+  // Format lại các operators cho đúng cú pháp mongoose
+  let queryString = JSON.stringify(queries);
+  queryString = queryString.replace(
+    /\b(gte|gt|lt|lte)\b/g,
+    (matchedEl) => `$${matchedEl}`
+  );
+  const formatedQueries = JSON.parse(queryString);
+
+  let queryObject = {};
+  if (queries?.q) {
+    delete formatedQueries.q;
+    queryObject = {
+      $or: [{ title: { $regex: queries.q, $options: "i" } }],
+    };
+  }
+  const qr = { ...formatedQueries, ...queryObject };
+  let queryCommand = Blog.find(qr);
+
+  // Sorting
+  if (req.query.sort) {
+    const sortBy = req.query.sort.split(",").join(" "); // abc,efg => [abc, efg] => abc efg
+    queryCommand = queryCommand.sort(sortBy);
+  }
+
+  // Fields limiting
+  if (req.query.fields) {
+    const fields = req.query.fields.split(",").join(" ");
+    queryCommand = queryCommand.select(fields);
+  }
+
+  // Pagination
+  const page = +req.query.page || 1;
+  const limit = +req.query.limit || process.env.LIMIT_PRODUCTS;
+  const skip = (page - 1) * limit;
+  queryCommand.skip(skip).limit(limit);
+
+  // Execute query
+  // Số lượng sp thoã mãn điều kiện !== số lượng sp trả về 1 lần gọi API
+  try {
+    const response = await queryCommand.exec();
+
+    const counts = await Blog.find(qr).countDocuments();
+
+    return res.status(200).json({
+      success: response ? true : false,
+      counts,
+      blogs: response ? response : "Cannot get blogs",
+    });
+  } catch (error) {
+    // Handle errors here
+    console.error(error);
+    res.status(500).json({ success: false, error: "Internal Server Error" });
+  }
 });
 
 // update blog
@@ -29,7 +82,7 @@ const updateBlog = asyncHandler(async (req, res) => {
   const response = await Blog.findByIdAndUpdate(bid, req.body, { new: true });
   return res.status(200).json({
     success: response ? true : false,
-    updatedBlog: response ? response : "Cannot update blog",
+    mess: response ? "Updated." : "Cannot update blog",
   });
 });
 

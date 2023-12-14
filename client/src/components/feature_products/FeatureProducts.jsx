@@ -25,7 +25,7 @@ const FeatureProducts = () => {
       </div>
 
       {/* banner bottom home */}
-      <div className="grid grid-cols-4 grid-rows-2 gap-4 cursor-pointer">
+      <div className="grid grid-cols-4 grid-rows-2 gap-4 cursor-pointer mt-10">
         <img
           src="https://res.cloudinary.com/dxicjtlt4/image/upload/v1702022943/ecommerce/banner1-bottom-home2_b96bc752-67d4-45a5-ac32-49dc691b1958_600x_lb4qob.webp"
           alt=""

@@ -1,18 +1,44 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { navbar } from "../../utils/contains";
-import { NavLink } from "react-router-dom";
-import icons from "../../utils/icons";
+import { NavLink, createSearchParams, useNavigate } from "react-router-dom";
+// import icons from "../../utils/icons";
+import { useForm } from "react-hook-form";
+import path from "../../utils/path";
+import InputForm from "../input/InputForm";
 
-const { FiSearch } = icons;
+// const { FiSearch } = icons;
 
 const Navbar = () => {
+  const {
+    register,
+    formState: { errors, isDirty },
+    watch,
+  } = useForm();
+  const q = watch("q");
+  const navigate = useNavigate();
+  useEffect(() => {
+    const handleEnter = (e) => {
+      if (e.keyCode === 13) {
+        navigate({
+          pathname: `/${path.PRODUCTS}`,
+          search: createSearchParams({ q }).toString(),
+        });
+      }
+    };
+    if (isDirty) window.addEventListener("keyup", handleEnter);
+    else window.removeEventListener("keyup", handleEnter);
+
+    return () => {
+      window.removeEventListener("keyup", handleEnter);
+    };
+  }, [isDirty, q]);
   return (
-    <div className="w-main h-12 py-2 border-y text-sm flex items-center justify-between sticky top-0 z-40 bg-white">
-      <div className="">
+    <div className="w-main h-[48px] flex items-center justify-between border-y">
+      <div className="py-2 flex-auto text-sm flex items-center">
         {navbar.map((el) => (
           <NavLink
-            key={el.id}
             to={el.path}
+            key={el.id}
             className={({ isActive }) =>
               isActive
                 ? "pr-12 hover:text-main text-main"
@@ -23,17 +49,13 @@ const Navbar = () => {
           </NavLink>
         ))}
       </div>
-      <div className="flex justify-center items-cente">
-        <input
-          type="text"
-          name="search"
-          placeholder="Search something"
-          className="outline-none p-2 w-[250px] h-[39px]"
-        />
-        <div className="w-[38px] h-[38px] bg-main cursor-pointer rounded-md flex justify-center items-center text-white hover:bg-red-600">
-          <FiSearch size={18} />
-        </div>
-      </div>
+      <InputForm
+        id="q"
+        register={register}
+        errors={errors}
+        placeholder="Search something..."
+        style="flex-none border-none outline-none"
+      />
     </div>
   );
 };

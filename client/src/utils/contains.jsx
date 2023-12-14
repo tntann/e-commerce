@@ -18,11 +18,11 @@ export const navbar = [
     value: "OUR SERVICES",
     path: `/${path.OUR_SERVICES}`,
   },
-  {
-    id: 4,
-    value: "NEWS",
-    path: `/${path.NEWS}`,
-  },
+  // {
+  //   id: 4,
+  //   value: "BLOGS",
+  //   path: `/${path.BLOGS}`,
+  // },
   {
     id: 5,
     value: "FAQs",

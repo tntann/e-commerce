@@ -8,7 +8,6 @@ const MdEditor = ({
   errors,
   register,
   validate,
-  placeholder,
   height = 500,
   setValue,
 }) => {
@@ -17,8 +16,8 @@ const MdEditor = ({
       <span className="pb-2 font-semibold">{label + ":"}</span>
       <Editor
         apiKey="11k9bl3m31sjcwt67c193o1e9y3ddbn7m2ick44o1wiksprf"
-        initialValue={placeholder}
-        value={value}
+        initialValue={value}
+        // value={value}
         init={{
           height: height,
           menubar: true,

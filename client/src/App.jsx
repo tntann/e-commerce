@@ -6,7 +6,7 @@ import {
   Public,
   Products,
   ProductDetail,
-  News,
+  DetailBlogs,
   Services,
   FAQs,
   FinalRegister,
@@ -73,7 +73,7 @@ function App() {
           <Route path={path.RESET_PASSWORD} element={<ResetPassword />} />
           <Route path={path.DETAIL_CART} element={<DetailCart />} />
 
-          <Route path={path.NEWS} element={<News />} />
+          <Route path={path.BLOGS__ID__TITLE} element={<DetailBlogs />} />
           <Route path={path.FAQS} element={<FAQs />} />
           <Route path={path.ALL} element={<Home />} />
         </Route>
