@@ -30,10 +30,10 @@ const Dashboard = () => {
     setCustomTime({ from: "", to: "" });
   };
   const pieData = {
-    labels: ["Tông đơn đã hủy", "Tổng đơn thành công"],
+    labels: ["Total order canceled", "Total order successful"],
     datasets: [
       {
-        label: "Tổng đơn",
+        label: "Total",
         data: [
           data?.pieData?.find((el) => el?.status === "Canceled")?.sum,
           data?.pieData?.find((el) => el?.status === "Succeed")?.sum,
@@ -62,7 +62,7 @@ const Dashboard = () => {
             className="border-blue-500 text-white bg-blue-500"
           />
           <BoxInfo
-            text="Số tiền đã được thanh toán"
+            text="The amount has been paid"
             icon={<img src="/dong.svg" className="h-6 object-contain" />}
             number={
               data?.totalSuccess?.length > 0
@@ -76,7 +76,7 @@ const Dashboard = () => {
             className="border-green-500 text-white bg-green-500"
           />
           <BoxInfo
-            text="Số tiền chưa thanh toán"
+            text="Unpaid amount"
             icon={<img src="/dong.svg" className="h-6 object-contain" />}
             number={
               data?.totalFailed?.length > 0
@@ -88,7 +88,7 @@ const Dashboard = () => {
             className="border-orange-500 text-white bg-orange-500"
           />
           <BoxInfo
-            text="Số sản phẩm đã bán"
+            text="Number of products sold"
             // icon={<img src="/dong.svg" className="h-6 object-contain" />}
             number={
               data?.soldQuantities?.length > 0
@@ -102,12 +102,12 @@ const Dashboard = () => {
           <div className="col-span-7 min-h-[500px] border flex flex-col gap-4 relative rounded-md flex-auto p-4">
             <div className="flex items-center justify-between">
               <span className="font-bold flex items-center gap-8">
-                <span>{`Thông kê doanh thu theo ${
-                  isMonth ? "tháng" : "ngày"
+                <span>{`Statistics of revenue by ${
+                  isMonth ? "month" : "day"
                 }`}</span>
                 <div className="flex items-center font-thin gap-8">
                   <span className="flex items-center gap-2">
-                    <label htmlFor="from">Từ</label>
+                    <label htmlFor="from">From</label>
                     <input
                       type="date"
                       value={customTime.from}
@@ -121,7 +121,7 @@ const Dashboard = () => {
                     />
                   </span>
                   <span className="flex items-center gap-2">
-                    <label htmlFor="from">Đến</label>
+                    <label htmlFor="from">To</label>
                     <input
                       type="date"
                       value={customTime.to}
@@ -151,7 +151,7 @@ const Dashboard = () => {
                   }`}
                   onClick={() => setIsMonth(false)}
                 >
-                  Ngày
+                  Day
                 </button>
                 <button
                   type="button"
@@ -160,7 +160,7 @@ const Dashboard = () => {
                   }`}
                   onClick={() => setIsMonth(true)}
                 >
-                  Tháng
+                  Month
                 </button>
               </span>
             </div>
@@ -173,7 +173,7 @@ const Dashboard = () => {
             )}
           </div>
           <div className="col-span-3 rounded-md border p-4">
-            <span className="font-bold gap-8">Tình trạng đơn hàng</span>
+            <span className="font-bold gap-8">Order status</span>
             <div>
               <Pie data={pieData} />
             </div>

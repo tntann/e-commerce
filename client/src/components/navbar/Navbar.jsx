@@ -33,7 +33,7 @@ const Navbar = () => {
     };
   }, [isDirty, q]);
   return (
-    <div className="w-main h-[48px] flex items-center justify-between border-y">
+    <div className="w-main h-12 py-2 flex items-center justify-between border-y sticky top-0 z-40 bg-white">
       <div className="py-2 flex-auto text-sm flex items-center">
         {navbar.map((el) => (
           <NavLink

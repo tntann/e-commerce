@@ -102,7 +102,9 @@ const ManageUser = () => {
   }, [editElm, reset]);
 
   return (
-    <div className={clsx("w-full", editElm && "pl-4")}>
+    <div
+      className={clsx("w-full flex flex-col gap-4 relative", editElm && "pl-4")}
+    >
       <div className="bg-white w-full shadow-sm">
         <h1 className="h-[75px] flex justify-between items-center text-xl text-[#374151] font-semibold px-8">
           <span>Manage users</span>
@@ -126,7 +128,7 @@ const ManageUser = () => {
                 <Button type="submit">Update</Button>
               </div>
             )}
-            <table className="table-auto mb-6 text-left w-full">
+            <table className="table-auto mb-6 text-left w-main">
               <thead className="font-bold bg-[#4e73df] text-[13px] text-white">
                 <tr className="border border-blue-500">
                   <th className="px-4 py-2">#</th>

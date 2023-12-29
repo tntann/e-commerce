@@ -80,7 +80,12 @@ export default function Paypal({ amount, payload, setIsSuccess }) {
   return (
     <div style={{ maxWidth: "750px", minHeight: "200px", margin: "auto" }}>
       <PayPalScriptProvider
-        options={{ clientId: "test", components: "buttons", currency: "USD" }}
+        options={{
+          clientId:
+            "ASnp2Z-WEeyENnd-oKWtV5mrgGa5MR-rc2ba89dcDov5prbA6A6wcXBeMZ8FdxqGgJ4zEQX44Wwc5FPG",
+          components: "buttons",
+          currency: "USD",
+        }}
       >
         <ButtonWrapper
           payload={payload}

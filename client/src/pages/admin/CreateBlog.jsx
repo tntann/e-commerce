@@ -31,9 +31,9 @@ const CreateBlog = () => {
   return (
     <div className="w-full flex flex-col gap-4 relative">
       <div className="h-[69px] w-full"></div>
-      <div className="bg-white border-b w-full flex items-center shadow-sm fixed top-0 ">
+      <div className="bg-white border-b w-full flex items-center shadow-sm fixed z-10 top-0 ">
         <h1 className="h-[75px] flex justify-between items-center text-xl text-[#374151] font-semibold px-8">
-          Create Blog
+          Create News
         </h1>
       </div>
       <div className="px-4 flex flex-col gap-4">
@@ -51,7 +51,7 @@ const CreateBlog = () => {
           validate={{ required: "This field cannot empty." }}
           register={register}
           label="Tags"
-          placeholder="Mỗi tag cách nhau dấu phẩy"
+          placeholder="Enter the article tags"
         />
         <MdEditor
           id="description"
@@ -69,7 +69,7 @@ const CreateBlog = () => {
             errors={errors}
             id="image"
             validate={{ required: "This field cannot empty." }}
-            label="Avatar:"
+            label="Images"
           />
         </div>
         <div className="my-6">

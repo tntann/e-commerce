@@ -11,6 +11,7 @@ import {
   SearchItem,
   InputSelect,
   Pagination,
+  Blogs,
 } from "../../components";
 import { apiGetProducts } from "../../apis";
 import Masonry from "react-masonry-css";
@@ -57,7 +58,7 @@ const Products = () => {
     const q = { ...priceQuery, ...queries };
     // console.log(q);
     fetchProductsByCategory(q);
-    // window.scrollTo(0, 0);
+    window.scrollTo(0, 0);
   }, [params]);
 
   const changeActiveFilter = useCallback(
@@ -151,7 +152,10 @@ const Products = () => {
       </div>
       {/* End Pagination */}
 
-      <div className="w-full h-[500px]"></div>
+      {/* TECHNOLOGY NEWS */}
+      <div className="my-8 w-main m-auto">
+        <Blogs />
+      </div>
     </div>
   );
 };

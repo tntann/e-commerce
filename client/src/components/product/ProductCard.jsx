@@ -1,5 +1,9 @@
 import React from "react";
-import { formatMoney, renderStartFromNumber } from "../../utils/helper";
+import {
+  formatMoney,
+  formatPrice,
+  renderStartFromNumber,
+} from "../../utils/helper";
 import withBaseComponent from "../../hocs/withBaseComponent";
 
 const ProductCard = ({
@@ -26,7 +30,9 @@ const ProductCard = ({
           <span className=" line-clamp-1 font-normal capitalize text-sm">
             {title?.toLowerCase()}
           </span>
-          <span className="text-main">{`${formatMoney(price)} đ`}</span>
+          <span className="text-main">{`${formatMoney(
+            formatPrice(price)
+          )} đ`}</span>
           <span className="flex h-4">
             {renderStartFromNumber(totalRatings, 14)?.map((el, index) => (
               <span key={index}>{el}</span>

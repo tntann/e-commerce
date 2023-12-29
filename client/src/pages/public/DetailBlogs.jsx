@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { apiGetBlogById } from "../../apis/blog";
 import moment from "moment";
 import DOMPurify from "dompurify";
+import { Blogs } from "../../components";
 
 const DetailBlogs = () => {
   const { id } = useParams();
@@ -15,7 +16,7 @@ const DetailBlogs = () => {
     if (id) fetchBlog();
   }, [id]);
   return (
-    <div className="w-main mx-auto my-6">
+    <div className="w-main mx-auto my-6 pb-6">
       <h1 className="text-2xl font-semibold text-main">{blog?.title}</h1>
       <small>
         By: <span>{blog?.author}</span>
@@ -29,6 +30,10 @@ const DetailBlogs = () => {
         }}
         className="mt-4 text-[#151515]"
       ></div>
+      {/* TECHNOLOGY NEWS */}
+      <div className="my-8 w-main m-auto">
+        <Blogs />
+      </div>
     </div>
   );
 };

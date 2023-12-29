@@ -43,10 +43,10 @@ const UpdateBlog = ({ title, description, image: imageLink, hashtags, id }) => {
   return (
     <div
       onClick={(e) => e.stopPropagation()}
-      className="bg-white w-[90%] max-h-screen h-full overflow-y-auto p-4"
+      className="bg-white w-[70%] max-h-screen h-full overflow-y-auto p-4"
     >
       <h1 className="text-2xl w-full font-bold border-b pb-3 tracking-tight">
-        Update Blog
+        Update News
         <div className="my-2">
           <span className="text-main">{title}</span>
         </div>
@@ -58,7 +58,7 @@ const UpdateBlog = ({ title, description, image: imageLink, hashtags, id }) => {
             errors={errors}
             validate={{ required: "This field cannot empty." }}
             register={register}
-            label="Tựa đề"
+            label="Title"
             placeholder="Nhập tựa đề bài viết"
           />
           <InputForm
@@ -74,7 +74,7 @@ const UpdateBlog = ({ title, description, image: imageLink, hashtags, id }) => {
             errors={errors}
             validate={{ required: "This field cannot empty." }}
             register={register}
-            label="Nội dung bài viết"
+            label="Content"
             height={800}
             setValue={setValue}
             value={getValues("description")}
@@ -84,7 +84,7 @@ const UpdateBlog = ({ title, description, image: imageLink, hashtags, id }) => {
               register={register}
               errors={errors}
               id="image"
-              label="Ảnh đại diện:"
+              label="Images"
             />
             {imageLink && !watch("image") && (
               <img src={imageLink} alt="" className="w-48 object-contain" />

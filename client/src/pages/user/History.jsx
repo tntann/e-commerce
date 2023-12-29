@@ -7,6 +7,7 @@ import moment from "moment";
 import withBaseComponent from "../../hocs/withBaseComponent";
 import CustomSelect from "../../components/select_option/CustomSelect";
 import { statusOrders } from "../../utils/contains";
+import { formatMoney, formatPrice } from "../../utils/helper";
 
 const History = ({ navigate, location }) => {
   const [orders, setOrders] = useState(null);
@@ -113,7 +114,9 @@ const History = ({ navigate, location }) => {
                   ))}
                 </span>
               </td>
-              <td className="text-center py-2">{el.total + " 💲"}</td>
+              <td className="text-center py-2">
+                {formatMoney(formatPrice(el.total * 24230)) + " VND"}
+              </td>
               <td className="text-center py-2">{el.status}</td>
               <td className="text-center py-2">
                 {moment(el.createdAt)?.format("lll")}

@@ -66,7 +66,7 @@ const ManageBlog = ({ dispatch }) => {
       <div className="h-[69px] w-full"></div>
       <div className="bg-white border-b w-full flex items-center shadow-sm fixed top-0 ">
         <h1 className="h-[75px] flex justify-between items-center text-xl text-[#374151] font-semibold px-8">
-          Manage Blogs
+          Manage News
         </h1>
       </div>
       <div className="flex justify-end items-center px-4">

@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from "react";
-import { InputField, Button } from "../../components";
+import { InputField, Button, Loading } from "../../components";
 import icons from "../../utils/icons";
 import {
   apiRegister,
@@ -11,7 +11,7 @@ import Swal from "sweetalert2";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import path from "../../utils/path";
 import { login } from "../../app/user/userSlice";
-// import { showModal } from "../../app/appSlice";
+import { showModal } from "../../app/appSlice";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { validate } from "../../utils/helper";
@@ -69,9 +69,9 @@ const Login = () => {
       : validate(data, setInvalidFields);
     if (invalids === 0) {
       if (isRegister) {
-        // dispatch(showModal({ isShowModal: true, modalChildren: <Loading /> }));
+        dispatch(showModal({ isShowModal: true, modalChildren: <Loading /> }));
         const response = await apiRegister(payload);
-        // dispatch(showModal({ isShowModal: false, modalChildren: null }));
+        dispatch(showModal({ isShowModal: false, modalChildren: null }));
         if (response.success) {
           setIsVerifiedEmail(true);
           // Swal.fire("Congratulation", response.mess, "success").then(() => {

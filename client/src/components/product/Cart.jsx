@@ -67,7 +67,7 @@ const Cart = ({ dispatch, navigate }) => {
       </section>
       <div className="row-span-2 flex flex-col justify-between h-full">
         <div className="flex items-center justify-between pt-4 border-t">
-          <span className="text-[#bbbcbc] font-semibold">SUBTOTAL</span>
+          <span className="text-[#bbbcbc] font-semibold">TOTAL</span>
           <span className="text-[#bbbcbc] font-semibold">
             {formatMoney(
               formatPrice(

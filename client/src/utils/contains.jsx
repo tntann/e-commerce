@@ -68,44 +68,22 @@ export const productInfoTabs = [
   {
     id: 1,
     name: "DESCRIPTION",
-    content: `Technology: GSM / HSPA / LTE
-    Dimensions: 144.6 x 69.2 x 7.3 mm
-    Weight: 129 g
-    Display: IPS LCD 5.15 inches
-    Resolution: 1080 x 1920
-    OS: Android OS, v6.0 (Marshmallow)
-    Chipset: Snapdragon 820
-    CPU: Quad-core
-    Internal: 32GB/64GB/128GB
-    Camera: 16 MP, f/2.0 - 4 MP, f/2.0`,
+    content: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.`,
   },
   {
     id: 2,
     name: "WARRANTY",
-    content: `WARRANTY INFORMATION
-    LIMITED WARRANTIES
-    Limited Warranties are non-transferable. The following Limited Warranties are given to the original retail purchaser of the following Ashley Furniture Industries, Inc.Products:
-    
-    Frames Used In Upholstered and Leather Products
-    Limited Lifetime Warranty
-    A Limited Lifetime Warranty applies to all frames used in sofas, couches, love seats, upholstered chairs, ottomans, sectionals, and sleepers. Ashley Furniture Industries,Inc. warrants these components to you, the original retail purchaser, to be free from material manufacturing defects.`,
+    content: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.`,
   },
   {
     id: 3,
     name: "ELIVERY",
-    content: `PURCHASING & DELIVERY
-    Before you make your purchase, it’s helpful to know the measurements of the area you plan to place the furniture. You should also measure any doorways and hallways through which the furniture will pass to get to its final destination.
-    Picking up at the store
-    Shopify Shop requires that all products are properly inspected BEFORE you take it home to insure there are no surprises. Our team is happy to open all packages and will assist in the inspection process. We will then reseal packages for safe transport. We encourage all customers to bring furniture pads or blankets to protect the items during transport as well as rope or tie downs. Shopify Shop will not be responsible for damage that occurs after leaving the store or during transit. It is the purchaser’s responsibility to make sure the correct items are picked up and in good condition.`,
+    content: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.`,
   },
   {
     id: 4,
     name: "PAYMENT",
-    content: `PURCHASING & DELIVERY
-    Before you make your purchase, it’s helpful to know the measurements of the area you plan to place the furniture. You should also measure any doorways and hallways through which the furniture will pass to get to its final destination.
-    Picking up at the store
-    Shopify Shop requires that all products are properly inspected BEFORE you take it home to insure there are no surprises. Our team is happy to open all packages and will assist in the inspection process. We will then reseal packages for safe transport. We encourage all customers to bring furniture pads or blankets to protect the items during transport as well as rope or tie downs. Shopify Shop will not be responsible for damage that occurs after leaving the store or during transit. It is the purchaser’s responsibility to make sure the correct items are picked up and in good condition.
-    Delivery`,
+    content: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.`,
   },
 ];
 
@@ -226,15 +204,15 @@ export const adminSidebar = [
   {
     id: 5,
     type: "PARENT",
-    text: "Manage blogs",
+    text: "Manage news",
     icon: <BiNews size={20} />,
     submenu: [
       {
-        text: "Create blogs",
+        text: "Create news",
         path: `/${path.ADMIN}/${path.CREATE_BLOG}`,
       },
       {
-        text: "Manage blogs",
+        text: "Manage news",
         path: `/${path.ADMIN}/${path.MANAGE_BLOGS}`,
       },
     ],
