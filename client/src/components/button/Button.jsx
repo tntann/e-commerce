@@ -16,7 +16,7 @@ const Button = ({
       className={
         style
           ? style
-          : `p-3 my-2 rounded-md text-white bg-main font-semibold hover:bg-red-600 focus:outline-none focus:bg-red-600 ${
+          : `p-3 my-2 rounded-md text-white bg-main flex items-center justify-center font-semibold hover:bg-red-600 focus:outline-none focus:bg-red-600 ${
               fw ? "w-full" : "w-fit"
             }`
       }

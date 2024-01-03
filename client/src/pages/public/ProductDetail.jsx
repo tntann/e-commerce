@@ -263,7 +263,7 @@ const ProductDetail = ({ isQuickView, data, location, dispatch, navigate }) => {
             {renderStartFromNumber(product?.totalRatings)?.map((el, index) => (
               <span key={index}>{el}</span>
             ))}
-            <span className="text-sm text-main italic">{`Sold:${product?.sold}`}</span>
+            {/* <span className="text-sm text-main italic">{`Sold:${product?.sold}`}</span> */}
           </div>
           <ul className="list-square text-sm text-[#505050] pl-[18px]">
             {product?.description?.length > 1 &&

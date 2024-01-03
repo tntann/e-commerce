@@ -24,28 +24,28 @@ const Banner = () => {
         <img
           src={banner2}
           alt="banner"
-          className="h-[395px] w-full object-cover rounded-lg"
+          className="md:h-[395px] w-full  md:object-cover object-contain rounded-lg"
         />
       </div>
       <div className="w-full cursor-pointer">
         <img
           src={banner}
           alt="banner"
-          className="h-[395px] w-full object-cover rounded-lg"
+          className="md:h-[395px] w-full  md:object-cover object-contain rounded-lg"
         />
       </div>
       <div className="w-full cursor-pointer">
         <img
           src={banner1}
           alt="banner"
-          className="h-[395px] w-full object-cover rounded-lg"
+          className="md:h-[395px] w-full  md:object-cover object-contain rounded-lg"
         />
       </div>
       <div className="w-full cursor-pointer">
         <img
           src={banner4}
           alt="banner"
-          className="h-[395px] w-full object-cover rounded-lg"
+          className="md:h-[395px] w-full  md:object-cover object-contain rounded-lg"
         />
       </div>
     </Slider>

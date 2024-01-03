@@ -34,10 +34,12 @@ const TopHeader = () => {
   return (
     <div className="h-[38px] w-full bg-main flex items-center justify-center">
       <div className="w-main flex items-center justify-between font-normal text-xs text-white">
-        <span>ORDER ONLINE OR CALL US (+84) 963 300 334</span>
+        <span className="hidden md:inline-block">
+          ORDER ONLINE OR CALL US (+84) 963 300 334
+        </span>
         {isLoggedIn && current ? (
-          <div className="flex gap-2 text-sm items-center">
-            <span>{`Welcome, ${current?.lastname} ${current?.firstname}`}</span>
+          <div className="flex gap-2 w-full md:w-fit text-sm justify-between md:justify-start items-center">
+            <span className="pl-2">{`Welcome, ${current?.lastname} ${current?.firstname}`}</span>
             <span
               onClick={() => dispatch(logout())}
               className="cursor-pointer hover:rounded-full hover:bg-slate-100 hover:text-main p-1"

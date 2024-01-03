@@ -94,7 +94,7 @@ const Product = ({
   };
 
   return (
-    <div className={clsx("w-full text-base px-[10px]", className)}>
+    <div className={clsx("w-full col-span-1 text-base px-[10px]", className)}>
       <div
         className="w-full border p-[15px] flex flex-col items-center shadow-sm rounded-lg"
         onClick={() =>
@@ -154,7 +154,7 @@ const Product = ({
               </span>
             </div>
           )}
-          <div className="border-none outline-none">
+          <div className="border-none outline-none flex items-center justify-center">
             <img
               src={productData?.thumb || noProduct}
               alt="product"

@@ -15,18 +15,55 @@ const FeatureCategories = ({ navigate }) => {
       <h3 className="text-[20px] font-semibold py-[15px] border-b-2 border-main">
         FEATURED CATEGORIES
       </h3>
-      <div className="flex flex-wrap gap-5 mt-5">
+      <div className="w-screen lg:hidden pr-8 mt-5">
         {categories
           ?.filter((el) => el.brand.length > 7)
           ?.map((el) => (
-            <div key={el?._id} className="w-[393.33px]">
+            <div key={el._id} className="col-span-1">
+              <div className="border w-full flex p-4 gap-4 min-h-[190px]">
+                <img
+                  src={el?.image}
+                  alt=""
+                  className="w-1/2 flex-1 h-[129px] object-cover"
+                />
+                <div className="w-1/2 flex-1 text-gray-700">
+                  <h4 className="font-semibold uppercase">{el.title}</h4>
+                  <ul className="text-sm">
+                    {el?.brand?.map((item) => (
+                      <span
+                        key={item}
+                        className="flex cursor-pointer hover:underline gap-1 items-center text-gray-500"
+                        onClick={() =>
+                          navigate({
+                            pathname: `/${el.title.toLowerCase()}`,
+                            search: createSearchParams({
+                              brand: item,
+                            }).toString(),
+                          })
+                        }
+                      >
+                        <IoIosArrowForward size={14} />
+                        <li>{item}</li>
+                      </span>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          ))}
+      </div>
+      <div className="lg:grid hidden lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4 mt-4">
+        {categories
+          ?.filter((el) => el.brand.length > 7)
+          ?.map((el) => (
+            <div key={el?._id} className="col-span-1 lg:w-[393.33px]">
               <div className="border flex p-4 gap-4 min-h-[200px] rounded-lg shadow-md">
                 <img
                   src={el?.image}
                   alt="category-image"
-                  className="w-[144px] h-[129px] object-cover cursor-pointer"
+                  className="w-1/2 lg:w-[144px] h-[129px] object-cover cursor-pointer"
                 />
-                <div className="flex-1 text-gray-700">
+                <div className="w-1/2 flex-1 text-gray-700">
                   <h4 className=" font-semibold uppercase cursor-pointer">
                     {el.title}
                   </h4>
@@ -56,7 +93,7 @@ const FeatureCategories = ({ navigate }) => {
       </div>
 
       {/* banner bottom home */}
-      <div className="flex cursor-pointer mt-5">
+      <div className="lg:flex hidden cursor-pointer mt-5">
         <img
           src="https://res.cloudinary.com/dxicjtlt4/image/upload/v1698505663/ecommerce/banner-a05-m34-git.gif"
           alt="banner"

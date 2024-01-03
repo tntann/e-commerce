@@ -7,7 +7,7 @@ const Sidebar = () => {
   const { categories } = useSelector((state) => state.appReducer);
   // console.log(categories);
   return (
-    <div className="flex flex-col border rounded-lg shadow-md">
+    <div className="hidden md:flex flex-col border rounded-lg shadow-md">
       {categories?.map((el) => (
         <NavLink
           key={createSlug(el.title)}

@@ -88,7 +88,7 @@ const Products = () => {
     <div className="w-full">
       {/* breadcrumbs */}
       <div className="h-[81px] flex justify-center items-center bg-[#f7f7f7]">
-        <div className="w-main mt-[10px] mb-[10px]">
+        <div className="lg:w-main w-screen px-4 lg:px-0 mt-[10px] mb-[10px]">
           <h3 className="mb-[10px] font-semibold uppercase">{category}</h3>
           <BreadCrumb category={category} />
         </div>
@@ -96,7 +96,7 @@ const Products = () => {
       {/*end breadcrumbs */}
 
       {/* Filter */}
-      <div className="w-main border p-4 flex justify-between mt-9 m-auto">
+      <div className="w-main border p-4 flex lg:pr-4 pr-8 flex-col md:flex-row gap-4 md: justify-between mt-9 m-auto">
         <div className="w-4/5 flex-auto flex flex-col gap-3">
           <span className=" font-semibold text-sm text-[#505050]">
             Filter By
@@ -128,7 +128,7 @@ const Products = () => {
       </div>
       {/*  */}
 
-      <div className="mt-9 w-main m-auto">
+      <div className="mt-9 lg:w-main sm:w-[500px] px-4 lg:px-0 m-auto">
         <Masonry
           breakpointCols={breakpointColumnsObj}
           className="my-masonry-grid flex mx-[-10px]"

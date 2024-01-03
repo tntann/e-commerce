@@ -68,7 +68,7 @@ const CustomChart = ({ data, isMonth, customTime }) => {
             labels: chartData?.map((el) => el.date),
             datasets: [
               {
-                data: chartData?.map((el) => Math.round(+el.sum * 23500)),
+                data: chartData?.map((el) => Math.round(+el.sum * 24230)),
                 borderColor: "#e35050",
                 tension: 0.2,
                 borderWidth: 2,

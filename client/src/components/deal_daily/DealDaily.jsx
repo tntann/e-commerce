@@ -74,7 +74,7 @@ const DealDaily = ({ dispatch }) => {
   }, [second, minute, hour, expTime]);
 
   return (
-    <div className="w-full flex-auto border rounded-lg shadow-md">
+    <div className="w-full flex-auto border hidden lg:block rounded-lg shadow-md">
       <div className="flex items-center justify-between p-4 w-full">
         <span className="flex-1 flex justify-center">
           <AiFillStar size={20} color="#dd1111" />

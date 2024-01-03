@@ -14,7 +14,7 @@ import { useSearchParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
-import clsx from "clsx";
+// import clsx from "clsx";
 
 const ManageUser = () => {
   const {
@@ -102,15 +102,14 @@ const ManageUser = () => {
   }, [editElm, reset]);
 
   return (
-    <div
-      className={clsx("w-full flex flex-col gap-4 relative", editElm && "pl-4")}
-    >
-      <div className="bg-white w-full shadow-sm">
+    <div className="w-full flex flex-col gap-4 bg-gray-50 relative">
+      <div className="h-[69px] w-full"></div>
+      <div className="bg-white border-b w-full flex items-center shadow-sm fixed top-0 ">
         <h1 className="h-[75px] flex justify-between items-center text-xl text-[#374151] font-semibold px-8">
-          <span>Manage users</span>
+          Manage Users
         </h1>
       </div>
-      <div className="w-full p-8">
+      <div className="w-main p-[26px]">
         <div className="flex justify-start py-4">
           <InputField
             nameKey={"q"}
@@ -278,7 +277,7 @@ const ManageUser = () => {
             </table>
           </form>
         </div>
-        <div className="w-full flex justify-end">
+        <div className="w-main flex justify-between">
           <Pagination totalCount={users?.counts} />
         </div>
       </div>

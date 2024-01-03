@@ -9,8 +9,8 @@ const Footer = () => {
   return (
     <div className="w-full">
       {/* footer top */}
-      <div className="w-ful h-[103px] bg-main flex items-center justify-center">
-        <div className="w-main flex items-center justify-between">
+      <div className="w-full lg:h-[103px] h-[135px] bg-main flex items-center justify-center">
+        <div className="w-main flex flex-col items-center sm:flex-row sm:items-center sm:justify-between">
           <div className="flex flex-col flex-1">
             <span className="text-[20px] font-normal text-white leading-6 uppercase">
               Sign up for newsletter
@@ -34,10 +34,10 @@ const Footer = () => {
       </div>
 
       {/* footer middle */}
-      <div className="w-full h-[407px] bg-[#e9edf2] flex items-center justify-center text-[13px]">
-        <div className="w-main flex">
+      <div className="w-full lg:h-[407px] bg-[#e9edf2] flex items-center justify-center text-[13px]">
+        <div className="w-main flex flex-col sm:flex-row lg:flex-row">
           <div className="flex-2 flex flex-col gap-2">
-            <h3 className="mb-[20px] text-[15px] font-semibold border-l-2 border-main pl-[15px]">
+            <h3 className="mb-[20px] mt-7 lg:mt-0 text-[15px] font-semibold border-l-2 border-main pl-[15px]">
               ABOUT US
             </h3>
             <span className="flex items-center gap-1">
@@ -61,7 +61,7 @@ const Footer = () => {
             </span>
           </div>
           <div className="flex-1 flex flex-col gap-2">
-            <h3 className="mb-[20px] text-[15px] font-semibold border-l-2 border-main pl-[15px]">
+            <h3 className="mb-[20px] mt-7 lg:mt-0 text-[15px] font-semibold border-l-2 border-main pl-[15px]">
               INFORMATION
             </h3>
             <Link to={"/"} className="hover:text-main">
@@ -84,7 +84,7 @@ const Footer = () => {
             </Link>
           </div>
           <div className="flex-1 flex flex-col gap-2">
-            <h3 className="mb-[20px] text-[15px] font-semibold border-l-2 border-main pl-[15px]">
+            <h3 className="mb-[20px] mt-7 lg:mt-0 text-[15px] font-semibold border-l-2 border-main pl-[15px]">
               SUPPORT - SERVICE
             </h3>
             <Link to={"/"} className="hover:text-main">
@@ -107,10 +107,10 @@ const Footer = () => {
             </Link>
           </div>
           <div className="flex-1">
-            <h3 className="mb-[20px] text-[15px] font-semibold border-l-2 border-main pl-[15px]">
+            <h3 className="mb-[20px] mt-7 lg:mt-0 text-[15px] font-semibold border-l-2 border-main pl-[15px]">
               PAYMENT METHODS
             </h3>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-2 mb-7 lg:mb-0">
               <img
                 src="https://res.cloudinary.com/dxicjtlt4/image/upload/v1703168460/ecommerce/logo-visa_lslky0.png"
                 alt="logo-visa"

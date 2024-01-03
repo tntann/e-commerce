@@ -49,7 +49,7 @@ const BestSeller = () => {
         {tabs.map((el) => (
           <span
             key={el.id}
-            className={`font-semibold cursor-pointer leading-[23px] uppercase pr-6 border-r text-gray-400 ${
+            className={`font-semibold text-center md:text-start cursor-pointer leading-[23px] uppercase pr-6 border-r text-gray-400 ${
               activedTab === el.id ? "text-gray-900" : ""
             }`}
             onClick={() => setActivedTab(el.id)}
@@ -59,11 +59,18 @@ const BestSeller = () => {
         ))}
       </div>
 
-      <div className="mt-4 mx-[-10px]">
+      <div className="mt-4  hidden md:block mx-[-10px]">
         <CustomSlider products={products} activedTab={activedTab} />
       </div>
+      <div className="mt-4 md:hidden block mx-[-10px]">
+        <CustomSlider
+          products={products}
+          slidesToShow={1}
+          activedTab={activedTab}
+        />
+      </div>
       {/* banner */}
-      <div className="w-[287.5px] flex gap-4 mt-4 cursor-pointer">
+      <div className="lg:w-[287.5px] w-full flex flex-col md:flex-row gap-4 mt-4 cursor-pointer">
         <img
           src={bannermac}
           alt="banner"

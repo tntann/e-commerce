@@ -17,7 +17,7 @@ const Blogs = () => {
       <h3 className="text-[20px] font-semibold py-[15px] border-b-2 border-main">
         TECHNOLOGY NEWS
       </h3>
-      <div className="grid grid-cols-4 gap-4">
+      <div className="lg:grid w-screen lg:w-full pr-8 lg:pr-0 lg:grid-cols-4 gap-4">
         {blogs?.map((el) => (
           <div key={el.id} className="rounded-md border my-6">
             <Link to={`/${path.BLOGS}/${el?.id}/${el?.title}`}>
