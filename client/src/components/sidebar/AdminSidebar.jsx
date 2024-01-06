@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from "react";
-import logo from "../../assets/hephonelogo.png";
+import logo from "../../assets/hephonelogo1.png";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import { adminSidebar } from "../../utils/contains";
 import clsx from "clsx";
@@ -9,7 +9,7 @@ import withBaseComponent from "../../hocs/withBaseComponent";
 
 const activedStyle =
   "px-4 py-2 flex items-center gap-2 bg-[#4e73df] text-gray-100";
-const notActivedStyle = "px-4 py-2 flex items-center gap-2 hover:bg-blue-100";
+const notActivedStyle = "px-4 py-2 flex items-center gap-2 hover:bg-[#34406b]";
 
 const AdminSidebar = () => {
   const navigate = useNavigate();
@@ -21,13 +21,17 @@ const AdminSidebar = () => {
   };
 
   return (
-    <div className="bg-white h-full py-4 shadow-sm">
+    <div className="bg-[#2a3041] h-full py-4 shadow-sm text-white w-[256px] min-h-screen">
       <Link
         to={"/"}
         className="flex flex-col justify-center items-center p-4 gap-2"
       >
-        <img src={logo} alt="logo" className="w-[200px] object-contain" />
-        <small className=" text-[#374151]">HEPHONE - ADMIN</small>
+        <img
+          src={logo}
+          alt="logo"
+          className="w-[200px] object-contain items-center"
+        />
+        <small className=" text-white">HEPHONE - ADMIN</small>
       </Link>
 
       <div>
@@ -49,7 +53,7 @@ const AdminSidebar = () => {
                 onClick={() => handleShowTabs(+el.id)}
                 className="flex flex-col"
               >
-                <div className="flex items-center justify-between px-4 py-2 hover:bg-blue-100 cursor-pointer">
+                <div className="flex items-center justify-between px-4 py-2 hover:bg-[#34406b] cursor-pointer">
                   <div className="flex items-center gap-2">
                     <span>{el.icon}</span>
                     <span>{el.text}</span>

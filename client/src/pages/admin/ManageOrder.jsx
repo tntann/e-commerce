@@ -38,7 +38,7 @@ const ManageOrder = () => {
   const fetchOrders = async (params) => {
     const response = await apiGetOrders({
       ...params,
-      limit: import.meta.env.VITE_APP_LIMIT,
+      limit: 10,
     });
     if (response.success) {
       setCounts(response.counts);
@@ -180,7 +180,7 @@ const ManageOrder = () => {
                   {editOrder?._id === el._id ? (
                     <select {...register("status")} className="form-select">
                       <option value="Canceled">Canceled</option>
-                      <option value="Processing">Processing</option>
+                      <option value="Pending">Pending</option>
                       <option value="Succeed">Succeed</option>
                     </select>
                   ) : (

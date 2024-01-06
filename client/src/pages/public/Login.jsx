@@ -81,12 +81,14 @@ const Login = () => {
         } else Swal.fire("Oops!", response.mess, "error");
       } else {
         const result = await apiLogin(data);
+        console.log({ result });
         if (result.success) {
           dispatch(
             login({
               isLoggedIn: true,
               token: result.accessToken,
               userData: result.userData,
+              idUser: result.userData._id,
             })
           );
           searchParams.get("redirect")

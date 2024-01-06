@@ -39,7 +39,7 @@ const Header = () => {
         <img
           src={logo}
           alt="logo"
-          className="h-[20px] md:w-[234px] md:h-fit object-contain"
+          className="h-[28px] md:w-[234px] md:h-fit object-contain"
         />
       </Link>
       <div className="flex text-[13px] ">

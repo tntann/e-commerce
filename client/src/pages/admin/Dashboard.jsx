@@ -30,12 +30,12 @@ const Dashboard = () => {
     setCustomTime({ from: "", to: "" });
   };
   const pieData = {
-    labels: ["Total order canceled", "Total order successful"],
+    labels: ["Total order pending", "Total order successful"],
     datasets: [
       {
         label: "Total",
         data: [
-          data?.pieData?.find((el) => el?.status === "Canceled")?.sum,
+          data?.pieData?.find((el) => el?.status === "Pending")?.sum,
           data?.pieData?.find((el) => el?.status === "Succeed")?.sum,
           // data?.pieData?.find((el) => el?.status === "Processing")?.sum,
         ],
@@ -46,10 +46,10 @@ const Dashboard = () => {
     ],
   };
   return (
-    <div className="w-full flex flex-col gap-4 bg-gray-50 relative">
+    <div className="w-[1256px] flex flex-col gap-4 bg-gray-50 relative">
       <div className="h-[69px] w-full"></div>
       <div className="p-6 border-b w-full bg-white flex items-center fixed top-0">
-        <h1 className="text-xl text-[#374151] font-bold tracking-tight">
+        <h1 className="text-xl text-[#374151] font-bold tracking-tight px-4">
           DASHBOARD
         </h1>
       </div>

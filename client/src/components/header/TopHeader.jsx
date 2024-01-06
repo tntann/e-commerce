@@ -50,7 +50,7 @@ const TopHeader = () => {
         ) : (
           <Link
             to={`/${path.LOGIN}`}
-            className="hover:text-[#151515] cursor-pointer"
+            className="hover:text-[#151515] cursor-pointer pl-2"
           >
             Sign In or Create Account
           </Link>
