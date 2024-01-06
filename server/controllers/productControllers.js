@@ -3,6 +3,8 @@ const Product = require("../models/productModels");
 const asyncHandler = require("express-async-handler");
 const slugify = require("slugify");
 const makeSKU = require("uniqid");
+const { verifyToken } = require("../middlewares/jwt");
+const axios = require("axios");
 
 // tao san pham
 const createProduct = asyncHandler(async (req, res) => {
@@ -248,6 +250,39 @@ const addVarriant = asyncHandler(async (req, res) => {
   });
 });
 
+const recommend = asyncHandler(async (req, res) => {
+  const idUser = req.body.idUser;
+
+  console.log({ idUser });
+  const API_URL = "http://127.0.0.1:5001/api/recommendation";
+  const pythonApiResponse = await axios.post(API_URL, {
+    idUser: idUser,
+  });
+  const responseData = pythonApiResponse.data;
+  console.log({ responseData });
+  const productsRecommended = [];
+
+  await Promise.all(
+    responseData.map(async (id) => {
+      const result = await new Promise((resolve) => {
+        const product = Product.findById(id).populate({
+          path: "ratings",
+          populate: {
+            path: "postedBy",
+            select: "firstname lastname avatar",
+          },
+        });
+        resolve(product);
+      });
+      productsRecommended.push(result);
+    })
+  );
+  console.log({ productsRecommended });
+  return res.status(200).json({
+    productData: productsRecommended,
+  });
+});
+
 module.exports = {
   createProduct,
   getProduct,
@@ -257,4 +292,5 @@ module.exports = {
   ratings,
   uploadImagesProduct,
   addVarriant,
+  recommend,
 };

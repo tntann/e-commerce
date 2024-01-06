@@ -1,20 +1,45 @@
 import React, { useState, useEffect } from "react";
 import { ProductCard } from "../";
-import { apiGetProducts } from "../../apis";
+import { apiGetProducts, apiGetProductsRecomendation } from "../../apis";
+import { useSelector } from "react-redux";
 
 const FeatureProducts = () => {
   const [products, setProducts] = useState([]);
+  const [productRecommendation, setProductRecommendation] = useState([]);
+  const user = useSelector((state) => state.user);
 
   const fetchProducts = async () => {
     const response = await apiGetProducts({ limit: 9, sort: "-totalRatings" });
     if (response.success) setProducts(response.products);
   };
 
+  const fetchData = async () => {
+    const idUserrq = user.idUser;
+    // const tokenID = user.token;
+    // console.log({ idUserrq });
+    // console.log("fetch line 21");
+    const response = await apiGetProductsRecomendation(idUserrq);
+    const data = await response.json();
+    setProductRecommendation(data.productData);
+  };
+
   useEffect(() => {
+    fetchData();
     fetchProducts();
   }, []);
+
   return (
     <div className="w-main">
+      {/* recomendation */}
+      <h3 className="text-[20px] font-semibold py-[15px] border-b-2 border-main">
+        SUGGESTED FOR YOU
+      </h3>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 my-4">
+        {productRecommendation?.map((el) => (
+          <ProductCard key={el._id} pid={el._id} image={el.thumb} {...el} />
+        ))}
+      </div>
+      {/* recomendation */}
       <h3 className="text-[20px] font-semibold py-[15px] border-b-2 border-main">
         YOU&#39;LL PROBABLY LIKE
       </h3>

@@ -7,6 +7,24 @@ export const apiGetProducts = (params) =>
     params,
   });
 
+export const apiGetProductsRecomendation = (idUser) =>
+  fetch("http://127.0.0.1:5000/api/product/recommend", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      // Add any additional headers, such as authorization headers (e.g., JWT)
+      // Example: "Authorization": `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      idUser: idUser,
+    }),
+  });
+// axios({
+//   url: "/product/recommend",
+//   method: "post",
+//   idUser,
+// });
+
 export const apiGetProduct = (pid) =>
   axios({
     url: "/product/" + pid,

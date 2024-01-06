@@ -3,6 +3,7 @@ const ctrls = require("../controllers/productControllers");
 const { verifyAccessToken, isAdmin } = require("../middlewares/verifyToken");
 const uploader = require("../config/cloudinary.config");
 
+router.post("/recommend", ctrls.recommend);
 router.post(
   "/",
   [verifyAccessToken, isAdmin],

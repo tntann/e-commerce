@@ -10,11 +10,13 @@ export const userSlice = createSlice({
     isLoading: false,
     mess: "",
     currentCart: [],
+    idUser: null,
   },
   reducers: {
     login: (state, action) => {
       state.isLoggedIn = action.payload.isLoggedIn;
       state.token = action.payload.token;
+      state.idUser = action.payload.idUser;
     },
     logout: (state) => {
       state.isLoggedIn = false;
@@ -22,6 +24,7 @@ export const userSlice = createSlice({
       state.token = null;
       state.isLoading = false;
       state.mess = "";
+      state.idUser = null;
     },
     clearMessage: (state) => {
       state.mess = "";
