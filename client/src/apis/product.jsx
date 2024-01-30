@@ -19,11 +19,6 @@ export const apiGetProductsRecomendation = (idUser) =>
       idUser: idUser,
     }),
   });
-// axios({
-//   url: "/product/recommend",
-//   method: "post",
-//   idUser,
-// });
 
 export const apiGetProduct = (pid) =>
   axios({

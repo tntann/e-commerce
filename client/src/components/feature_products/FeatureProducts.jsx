@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { ProductCard } from "../";
+import { Product, ProductCard } from "../";
 import { apiGetProducts, apiGetProductsRecomendation } from "../../apis";
 import { useSelector } from "react-redux";
+import Slider from "react-slick";
 
 const FeatureProducts = () => {
   const [products, setProducts] = useState([]);
@@ -28,16 +29,29 @@ const FeatureProducts = () => {
     fetchProducts();
   }, []);
 
+  const settings = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    pauseOnHover: true,
+  };
+
   return (
     <div className="w-main">
       {/* recomendation */}
       <h3 className="text-[20px] font-semibold py-[15px] border-b-2 border-main">
         SUGGESTED FOR YOU
       </h3>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 my-4">
-        {productRecommendation?.map((el) => (
-          <ProductCard key={el._id} pid={el._id} image={el.thumb} {...el} />
-        ))}
+      <div className="mt-5 mb-5 mx-[-10px]">
+        <Slider {...settings}>
+          {productRecommendation?.map((el) => (
+            <Product key={el._id} pid={el._id} productData={el}></Product>
+          ))}
+        </Slider>
       </div>
       {/* recomendation */}
       <h3 className="text-[20px] font-semibold py-[15px] border-b-2 border-main">

@@ -26,6 +26,7 @@ const ManageUser = () => {
     emai: "",
     firstname: "",
     lastname: "",
+    address: "",
     role: "",
     mobile: "",
     isBlocked: "",
@@ -94,6 +95,7 @@ const ManageUser = () => {
         email: editElm?.email,
         firstname: editElm?.firstname,
         lastname: editElm?.lastname,
+        address: editElm?.address,
         role: editElm?.role,
         mobile: editElm?.mobile,
         isBlocked: editElm?.isBlocked,
@@ -134,10 +136,12 @@ const ManageUser = () => {
                   <th className="px-4 py-2">Email Address</th>
                   <th className="px-4 py-2">First Name</th>
                   <th className="px-4 py-2">Last Name</th>
+                  <th className="px-4 py-2">Address</th>
                   <th className="px-4 py-2">Role</th>
                   <th className="px-4 py-2">Phone</th>
                   <th className="px-4 py-2">Status</th>
                   <th className="px-4 py-2">Created At</th>
+
                   <th className="px-4 py-2">Actions</th>
                 </tr>
               </thead>
@@ -191,6 +195,20 @@ const ManageUser = () => {
                         />
                       ) : (
                         <span>{el.lastname}</span>
+                      )}
+                    </td>
+                    <td className="py-2 px-4">
+                      {editElm?._id === el._id ? (
+                        <InputForm
+                          register={register}
+                          fullWidth
+                          errors={errors}
+                          defaultValue={editElm?.address}
+                          id={"address"}
+                          validate={{ required: "Require fill." }}
+                        />
+                      ) : (
+                        <span>{el.address}</span>
                       )}
                     </td>
                     <td className="py-2 px-4">

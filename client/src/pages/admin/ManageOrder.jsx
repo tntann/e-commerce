@@ -38,7 +38,7 @@ const ManageOrder = () => {
   const fetchOrders = async (params) => {
     const response = await apiGetOrders({
       ...params,
-      limit: 10,
+      limit: import.meta.env.VITE_APP_LIMIT,
     });
     if (response.success) {
       setCounts(response.counts);
